@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+body {
+	background-image: url(../img/login.svg);
+	background-size: cover;
+}
+
+#login {
+	width: 444px;
+	height: 450px;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	background-color: white;
+	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)
+}
+
+#usertext {
+	font-size: 10pt;
+	color: #8B959C;
+	position: relative;
+	left: 94px;
+}
+
+#passwordtext {
+	font-size: 10pt;
+	color: #8B959C;
+	position: relative;
+	left: 94px;
+}
+
+#p {
+	text-align: center;
+	font-size: 18pt;
+	font-weight: 500;
+	color: #34495E;
+}
+
+input {
+	position: relative;
+	left: 94px;
+	top:8px;
+	height: 28px;
+	width: 260px;
+	font-size: 12pt;
+	letter-spacing:0.4px;
+	color: #34495E;
+	text-indent: 7px;
+	border: solid 1px #DDE4E6;
+	background-color: #FBFCFC;
+}
+
+input:hover {
+	border: solid 1px #8B959C;
+	background-color: #E8EAEB;
+}
+
+input:focus {
+	border: solid 1px #78C9CF;
+	background-color: #E4F4F6;
+}
+
+#button {
+	position: relative;
+	left: 149px;
+	top:30px;
+	height: 35px;
+	width: 150px;
+	background-color: #0075A8;
+	border: none;
+	font-size: 12pt;
+	color: white;
+}
+
+#button:hover {
+	background-color: #005175;
+}
+label{
+	color:white;
+	position:absolute;
+	top: 60%;
+	left: 36%;
+	font-size:11pt;
+}
+#href{
+	 color:#0075A8;
+	 position:relative;
+	 font-size:	11pt;
+	 left:53px;
+	 top:85px;
+	 text-decoration: none;	/* 	 去除下划线 */
+}
