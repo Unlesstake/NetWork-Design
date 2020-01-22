@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>账户注册</title>
+    <link rel="stylesheet" href="../static/css/register.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+<div id="register">
+    <span id="registertext">注册</span><br /><br /><hr>
+
+    <label id="usernametext">用户名:</label><br /><br />
+    <input type="text" id="username" placeholder="Username" required="required" autocomplete="off" maxlength="10"><br />
+
+    <label id="agetext">年龄:</label><br /><br />
+    <input type="number" id="age" placeholder="Age" required="required" autocomplete="off" maxlength="10" οninput="if(value>30)value=30"><br />
+
+    <label id="sextext">性别:</label><br />
+    <div id = "sex" style="position: relative">
+        <input type="radio" name="sex" value="男" checked style="width: 17px;position: relative;top: 15px">
+        <span  style="position:relative;left: 55px;top: 7px;">男</span>
+        <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 17px;left: 160px">
+        <span style="position:relative;left: 165px;top: 9px;">女</span>
+    </div>
+
+    <label id="phonetext">手机号码:</label><br /><br />
+    <input type="text" id="phone" placeholder="Phone" required="required" autocomplete="off" maxlength="10"><br />
+
+    <label id="emailtext">邮箱:</label><br /><br />
+    <input type="text" id="email" placeholder="Email" required="required" autocomplete="off" maxlength="16"><br />
+
+    <label>登录密码:</label><br /><br />
+    <input type="password" id="password1" placeholder="Passoword" required="required" autocomplete="off" maxlength="16"><br />
+
+    <label>确认密码:</label><br /><br />
+    <input type="password" id="password2" placeholder="ConfirmPassword" required="required" autocomplete="off" maxlength="16"><br />
+
+    <span id="false">两次输入密码不一致！</span>
+
+    <button id="button1" onclick="submit()">提交</button>
+    <button id="button2" onclick="javascript:history.back(-1);">返回</button>
+</div>
+</body>
+<script>
+    function submit() {
+        var username = $("#username").val();
+        var age = $("#age").val();
+        var sex = $('input:radio:checked').val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
+        var password1 = $("#password1").val();
+        var password2 = $("#password2").val();
+        if(password1 != password2){
+            $('#false').css("color","red");
+        }
+        else {
+            $.ajax({
+                url:'/register',
+                type:'post',
+                data:JSON.stringify({username:username,age:age,sex:sex,phone:phone,email:email,password:password1}),
+                headers: {'Content-Type': 'application/json;charset=utf-8'},
+                dataType:'json',
+                success:function(res){
+                    if(res.code == 400){
+                        alert(res.desc);
+                    }
+                    if(res.code == 200){
+                        alert(res.desc);
+                        window.location.href="/page/jump?page=login.html";
+                    }
+                }
+            })
+        }
+    }
+
+    $("input").focus(function(){
+        $("#false").css("color", "white");
+    })
+</script>
+</html>

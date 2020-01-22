@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+body {
+    background-image: url(../img/register.jpg);
+    background-size: cover;
+}
+
+#register {
+    width: 350px;
+    height: 650px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)
+}
+#registertext{
+    position: relative;
+    left: 50px;
+    top:16px;
+    font-size: 18pt
+}
+label{
+    position: relative;
+    left: 50px;
+    top:16px;
+    font-size: 11pt
+}
+input{
+    position: relative;
+    left: 50px;
+    top: 5px;
+    height: 24px;
+    width: 250px;
+    font-size: 11pt;
+    letter-spacing:0.4px;
+    color: #34495E;
+    text-indent: 7px;
+    border: solid 1px #DDE4E6;
+    background-color: #FBFCFC;
+    border-radius: 20px;
+}
+input:focus{
+    outline:none;
+    border-radius: 20px;
+    border: solid 1px dodgerblue;
+}
+
+#false{
+    position: relative;
+    left:95px;
+    top:7px;
+    font-size: 11pt;
+    color:white;
+}
+
+
+#button1{
+    position: relative;
+    left: -75px;
+    top:40px;
+    height: 30px;
+    width: 80px;
+    background-color: #0075A8;
+    border: none;
+    font-size: 12pt;
+    color: white;
+    border-radius: 20px;
+}
+#button1:hover{
+    background-color: #005175;
+}
+#button1:focus{
+    outline:none;
+    border-radius: 20px;
+    border: solid 1px #4A7BF7;
+}
+
+#button2{
+    position: relative;
+    left: -45px;
+    top:40px;
+    height: 30px;
+    width: 80px;
+    border: none;
+    font-size: 12pt;
+    color: #0075A8;
+    border-radius: 20px;
+}
+#button2:hover{
+    background-color: #C6C6C6;
+}
+#button2:focus{
+    outline:none;
+    border-radius: 20px;
+}

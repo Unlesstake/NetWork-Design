@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cn.dao.AdminDao;
-import com.cn.entity.Admin;
+import com.cn.dao.UserDao;
+import com.cn.entity.UserInfo;
 
 import net.sf.json.JSONObject;
 
 @Controller
 public class LoginController {
 	@Resource
-	AdminDao myadmin;
+	UserDao userdao;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -39,10 +39,10 @@ public class LoginController {
 
 	@PostMapping(value = "/login")
 	@ResponseBody
-	public String login(@RequestBody Admin admin, HttpServletRequest request, Model model, HttpServletResponse response) {
+	public String login(@RequestBody UserInfo user, HttpServletResponse response) {
 
 //		注意前台input属性的name一定要与实体类相对应
-		Admin exist = myadmin.login(admin);
+		UserInfo exist = userdao.login(user);
 		if (exist == null) {
 			JSONObject object = new JSONObject();
 			object.put("code", 400);
@@ -89,15 +89,14 @@ public class LoginController {
 						key : 加密后的id
 						value : 用户信息
 				 */
-				Admin admin = (Admin) session.getAttribute(cookie.getValue());
+				UserInfo user = (UserInfo) session.getAttribute(cookie.getValue());
 
 				//将数据返回到模板页面中
-				model.addAttribute(admin);
+				model.addAttribute(user);
 
 				return "public/true";
 			}
 		}
-
 		return "public/false";
 	}
 }

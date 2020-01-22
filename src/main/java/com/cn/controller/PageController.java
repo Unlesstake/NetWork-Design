@@ -9,7 +9,8 @@ public class PageController {
 
 	@RequestMapping("/jump")
 	public String jump(String page) {
-		return "/public/"+page;
+		return page;
+
 	}
 
 }
