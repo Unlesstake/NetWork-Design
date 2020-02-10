@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/index.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <title>个人中心</title>
+</head>
+<body>
+    <div id="div1">
+        <img src="../../static/img/seven.jpg" />
+        <label id="username" th:text="${user.username}">songyang</label>
+        <label id="personInfo">个人信息</label>
+        <hr size="7 px" style="position:relative;top:220px;background-color: floralwhite;border: none">
+        <form>
+        <label>年龄：<input id="age" class="AgeClass" th:value="${user.age}" disabled="disabled" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"
+                         placeholder="请输入年龄" style="font-weight: 500"><br></label><br>
+        <label>性别：<select id="sex" th:value="${user.sex}" disabled="disabled"
+                          required="required" style="width: 153px;height: 28px;text-align: center;text-align-last: center;background-color: #EBEBE4;font-weight: 500" >
+            <option value="男" th:selected="${user.sex=='男'}">&nbsp&nbsp&nbsp&nbsp男</option>
+            <option value="女" th:selected="${user.sex=='女'}">&nbsp&nbsp&nbsp&nbsp女</option>
+        </select></label><br><br>
+        <label>电话：<input id="phone" class="PHONE" th:value="${user.phone}" disabled="disabled" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"
+                         placeholder="请输入电话" style="font-weight: 500"><br></label><br>
+        <label>邮箱：<input id="email" class="EMAIL" th:value="${user.email}" disabled="disabled" maxlength="16"
+                         placeholder="请输入邮箱" style="font-weight: 500"><br></label><br>
+        <label>密码：<input id="password" class="PASSWORD" th:value="${user.password}" disabled="disabled" maxlength="16"
+                         placeholder="请输入密码" style="font-weight: 500"></label>
+        </form>
+        <button id="edit">编辑</button> <button id="submit" onclick="update()">提交</button>
+<!--        <button id="back" onclick="javascript:history.back(-1)">返回</button>-->
+        <button id="back" onclick="back()">返回</button>
+    </div>
+</body>
+<script>
+    $("#edit").click(function(){
+        $("#submit").slideToggle();
+        $("#back").slideToggle();
+        $(this).hide();
+        $("input").removeAttr("disabled");
+        $("#sex").removeAttr("disabled");
+        $("#sex").css("background-color","white");
+    });
+
+    $("input").attr('InitValue',function () {       /*获取除了sex以外对初始值*/
+        return this.value;
+    })
+    $("#sex").attr('InitSex',function () {          /*获取sex初始值*/
+        return this.value;
+    })
+    function back() {                               /*还原初始值*/
+        $("input").val(function () {
+            return this.getAttribute('InitValue');
+        })
+
+        $("#sex").val(function () {
+            return this.getAttribute('InitSex')
+        })
+
+        $("#back").hide();
+        $("#submit").hide();
+        $("#edit").slideToggle();
+        $("input").attr("disabled",true);
+        $("#sex").attr("disabled",true);
+        $("#sex").css("background-color","#EBEBE4");
+    }
+
+
+
+    function update() {
+        var username = $("#username").html();
+        var age = $("#age").val();
+        var sex = $("#sex").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var data = {username:username,age:age,sex:sex,phone:phone,email:email,password:password};
+        if(age == ""){
+            $("#age").attr("class","input change");
+        }
+        else if(phone == ""){
+            $("#phone").attr("class","input change");
+        }
+        else if(email == ""){
+            $("#email").attr("class","input change");
+        }
+        else if(password == ""){
+            $("#password").attr("class","input change");
+        }
+        else {
+            $.ajax({
+                url: '/update',
+                type: 'post',
+                // header:{'Content-Type': 'application/json;charset=utf-8'},
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success: function (res) {
+                    if (res.code == 200) {
+                        alert(res.desc)
+                        window.location.href = "/page/jump?page=login.html";
+                    }
+                    if (res.code == 400) {
+                        alert(res.desc)
+                    }
+                }
+            })
+        }
+    }
+</script>
+</html>

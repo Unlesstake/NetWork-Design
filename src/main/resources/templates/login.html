@@ -4,7 +4,8 @@
 	<meta charset="UTF-8">
 	<title>互联网零售可视化系统</title>
 	<link rel="stylesheet" href="../static/css/login.css">
-	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<!--	<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+	<script th:src="@{/static/js/jquery.min.js}"></script>
 </head>
 <body>
 <div id="login">
@@ -24,7 +25,8 @@
 </div>
 
 <script>
-	$.fn.serializeObject=function(){  
+	// 将表单内容封装成json对象
+	$.fn.serializeObject=function(){
 	    var hasOwnProperty=Object.prototype.hasOwnProperty;  
 	    return this.serializeArray().reduce(function(data,pair){  
 	        if(!hasOwnProperty.call(data,pair.name)){  
@@ -35,6 +37,7 @@
 	}; 
 	$('#form').on('submit', function(e) {
 		e.preventDefault();
+		$("input").blur();			/*使input失去焦点，方便当用户使用Enter登录时，错误信息的展示*/
 		var data = $('#form').serializeObject();
 		$.ajax({
 			url: '/login',
@@ -44,20 +47,15 @@
  			dataType: 'json',
 			success: function(res) {
 				if(res.code==400){
-					$("label").css("color","red");
-				}
-				if(res.code == 200) {
-					if (res.userinfo.job == "管理员") {
-						window.location.href = "/getUserInfo";
-					} else {
-						window.location.href="/page/jump?page=public/false.html";
-					}
+					$("label").css("color","red");		/* 当登录失败时，显示错误提示信息 */
+				}else {
+					window.location.href = "/getUserInfo";
 				}
 			}
 		});
 	})
-	
-// 	当鼠标聚焦输入框时，更改错误提示颜色
+
+// 	当鼠标聚焦输入框时，隐藏错误信提示息
 	$("input").focus(function(){
 		$("label").css("color", "white");
 	})

@@ -8,13 +8,14 @@
 </head>
 <body>
 <div id="register">
+    <form method="post" id="form">
     <span id="registertext">注册</span><br /><br /><hr>
 
     <label id="usernametext">用户名:</label><br /><br />
-    <input type="text" id="username" placeholder="Username" required="required" autocomplete="off" maxlength="10"><br />
+    <input type="text" id="username" name="username" placeholder="Username" required="required" autocomplete="off" maxlength="10"><br />
 
     <label id="agetext">年龄:</label><br /><br />
-    <input type="number" id="age" placeholder="Age" required="required" autocomplete="off" maxlength="10" οninput="if(value>30)value=30"><br />
+    <input type="text" id="age" name="age" placeholder="Age" required="required" autocomplete="off" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"><br />
 
     <label id="sextext">性别:</label><br />
     <div id = "sex" style="position: relative">
@@ -25,32 +26,40 @@
     </div>
 
     <label id="phonetext">手机号码:</label><br /><br />
-    <input type="text" id="phone" placeholder="Phone" required="required" autocomplete="off" maxlength="10"><br />
+    <input type="text" id="phone" name="phone" placeholder="Phone" required="required" autocomplete="off" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br />
 
     <label id="emailtext">邮箱:</label><br /><br />
-    <input type="text" id="email" placeholder="Email" required="required" autocomplete="off" maxlength="16"><br />
+    <input type="text" id="email" name="email" placeholder="Email" required="required" autocomplete="off" maxlength="16"><br />
 
     <label>登录密码:</label><br /><br />
-    <input type="password" id="password1" placeholder="Passoword" required="required" autocomplete="off" maxlength="16"><br />
+    <input type="password" id="password1" name="password" placeholder="Passoword" required="required" autocomplete="off" maxlength="16"><br />
 
     <label>确认密码:</label><br /><br />
     <input type="password" id="password2" placeholder="ConfirmPassword" required="required" autocomplete="off" maxlength="16"><br />
 
     <span id="false">两次输入密码不一致！</span>
 
-    <button id="button1" onclick="submit()">提交</button>
+    <button id="button1" type="submit">提交</button>
     <button id="button2" onclick="javascript:history.back(-1);">返回</button>
+    </form>
+
 </div>
 </body>
 <script>
-    function submit() {
-        var username = $("#username").val();
-        var age = $("#age").val();
-        var sex = $('input:radio:checked').val();
-        var phone = $("#phone").val();
-        var email = $("#email").val();
+    $.fn.serializeObject=function(){
+        var hasOwnProperty=Object.prototype.hasOwnProperty;
+        return this.serializeArray().reduce(function(data,pair){
+            if(!hasOwnProperty.call(data,pair.name)){
+                data[pair.name]=pair.value;
+            }
+            return data;
+        },{});
+    };
+    $('#form').on('submit', function(e) {
+        e.preventDefault();
         var password1 = $("#password1").val();
         var password2 = $("#password2").val();
+        var data = $('#form').serializeObject();
         if(password1 != password2){
             $('#false').css("color","red");
         }
@@ -58,7 +67,8 @@
             $.ajax({
                 url:'/register',
                 type:'post',
-                data:JSON.stringify({username:username,age:age,sex:sex,phone:phone,email:email,password:password1}),
+                // data:JSON.stringify({username:username,age:age,sex:sex,phone:phone,email:email,password:password1}),
+                data: JSON.stringify(data),
                 headers: {'Content-Type': 'application/json;charset=utf-8'},
                 dataType:'json',
                 success:function(res){
@@ -72,7 +82,7 @@
                 }
             })
         }
-    }
+    })
 
     $("input").focus(function(){
         $("#false").css("color", "white");

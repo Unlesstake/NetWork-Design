@@ -1,0 +1,112 @@
+#div1{
+    /*background-color: #4A7BF7;*/
+    position: relative;
+    width: 14%;
+    height: 786px;
+    /*background-image: linear-gradient(#9198e5,#e66465);*/
+    background-image: linear-gradient(#6AC6E0,#685EE9);
+}
+img {
+    /*width="60px" height="60px" style="border-radius:60%"*/
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -8%)
+}
+
+label{
+    position: relative;
+    top: 370px;
+    left: 10px;
+    font-weight: bold;
+    color: white;
+}
+
+input{
+    width: 150px;
+    height: 21px;
+    /*border: none;*/
+    /*outline: none;*/
+    text-align: center;
+}
+
+#username{
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 21%;
+    transform: translate(-50%, -21%);
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+#personInfo{
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 41%;
+    transform: translate(-50%, -41%);
+    font-weight: bold;
+    font-size: 14pt;
+}
+
+#edit{
+    position: absolute;
+    top: 650px;
+    left: 145px;
+    transform: translate(-84%, -60%);
+    width: 55px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    color: #4A7BF7;
+    height: 22px;
+}
+#edit:hover{
+    background-color: #EBEBE4;
+}
+
+#submit{
+    position: absolute;
+    top: 650px;
+    left: 80px;
+    transform: translate(-84%, -35%);
+    width: 55px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    color: #4A7BF7;
+    height: 22px;
+    display: none;
+}
+#submit:hover{
+    background-color: #EBEBE4;
+}
+
+#back{
+    position: absolute;
+    top: 650px;
+    left: 210px;
+    transform: translate(-84%, -35%);
+    width: 55px;
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    color: #4A7BF7;
+    height: 22px;
+    display: none;
+}
+#back:hover{
+    background-color: #EBEBE4;
+}
+
+/*.AgeClass.change::-webkit-input-placeholder{*/
+/*    color: red;*/
+/*}*/
+
+input.change::-webkit-input-placeholder{
+    color: red;
+}

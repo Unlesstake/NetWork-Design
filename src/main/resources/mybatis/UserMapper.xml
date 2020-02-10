@@ -19,7 +19,7 @@
     </select>
     
     <update id="updateUser" parameterType="com.cn.entity.UserInfo">
-      update  userinfo SET name=#{name },age =#{age},sex=#{sex} WHERE id = #{id}
+      update  userinfo SET age =#{age},sex=#{sex},phone=#{phone},email=#{email},password=#{password} WHERE username = #{username}
     </update>
 
     <delete id="delUser" parameterType="java.lang.Integer">

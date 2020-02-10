@@ -22,21 +22,22 @@ public class RegisterController {
 
     @PostMapping("/register")
     @ResponseBody
-    public String register(@RequestBody UserInfo user){
+    public String register(@RequestBody UserInfo user) {
         UserInfo exist = userdao.isexist(user.getUsername());
-        if(exist==null){
+        if (exist == null) {
             int flag = userdao.adduser(user);
-            if(flag>0){
+            if (flag > 0) {
                 JSONObject object = new JSONObject();
-                object.put("code",200);
-                object.put("desc","注册成功！");
+                object.put("code", 200);
+                object.put("desc", "注册成功！");
                 return object.toString();
             }
         }
         JSONObject object = new JSONObject();
-        object.put("code",400);
-        object.put("desc","注册失败，该用户名已存在！");
+        object.put("code", 400);
+        object.put("desc", "注册失败，该用户名已存在！");
         return object.toString();
+
     }
 }
 

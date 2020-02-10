@@ -58,7 +58,7 @@ public class LoginController {
 		response.addCookie(cookie);
 
 		HttpSession session = request.getSession();
-		session.setAttribute(token + "", exist);
+		session.setAttribute(String.valueOf(token), exist);
 
 		object.put("code", 200);
 		object.put("userinfo", exist);
@@ -90,11 +90,8 @@ public class LoginController {
 						value : 用户信息
 				 */
 				UserInfo user = (UserInfo) session.getAttribute(cookie.getValue());
-
-				//将数据返回到模板页面中
-				model.addAttribute(user);
-
-				return "public/true";
+				model.addAttribute("user",user);
+				return "user/index";
 			}
 		}
 		return "public/false";
