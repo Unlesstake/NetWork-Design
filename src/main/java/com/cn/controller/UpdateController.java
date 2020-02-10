@@ -20,16 +20,23 @@ public class UpdateController {
     @PostMapping("/update")
     @ResponseBody
     public String update(@RequestBody UserInfo NewUser){
+        UserInfo olduser = userdao.findByUsername(NewUser.getUsername());
+        boolean change = false;
+        if(!olduser.getPassword().equals(NewUser.getPassword())){
+            change = true;
+        }
         int flag = userdao.updateUser(NewUser);
         if(flag>0){
             JSONObject object = new JSONObject();
             object.put("code",200);
             object.put("desc","修改成功！");
+            object.put("change",change);
             return object.toString();
         }
         JSONObject object = new JSONObject();
         object.put("code",400);
         object.put("desc","修改失败！");
+        object.put("change",change);
         return object.toString();
     }
 }

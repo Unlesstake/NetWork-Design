@@ -69,7 +69,7 @@ public class LoginController {
 	/**
 	 * 从cookie中获取当前登录的用户信息，并返回
 	 */
-	@RequestMapping("/getUserInfo")
+	@RequestMapping("/UserInfo")
 	public String getUserInfo(Model model) {
 
 		// 从浏览器中获取cookie

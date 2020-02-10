@@ -15,7 +15,11 @@
     </insert>
 
     <select id="findByid" parameterType="java.lang.Integer" resultType="com.cn.entity.UserInfo">
-      SELECT  * FROM userinfo where id = #{id}
+      SELECT  * FROM userinfo where id=#{id}
+    </select>
+
+    <select id="findByUsername" parameterType="java.lang.String" resultType="com.cn.entity.UserInfo">
+      SELECT  * FROM userinfo where username=#{username}
     </select>
     
     <update id="updateUser" parameterType="com.cn.entity.UserInfo">

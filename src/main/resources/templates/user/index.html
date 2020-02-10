@@ -12,23 +12,25 @@
         <label id="username" th:text="${user.username}">songyang</label>
         <label id="personInfo">个人信息</label>
         <hr size="7 px" style="position:relative;top:220px;background-color: floralwhite;border: none">
-        <form>
-        <label>年龄：<input id="age" class="AgeClass" th:value="${user.age}" disabled="disabled" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"
-                         placeholder="请输入年龄" style="font-weight: 500"><br></label><br>
+        <label>年龄：<input id="age" th:value="${user.age}" disabled="disabled" maxlength="3" autocomplete="off"
+                         oninput="value=value.replace(/^(0+)|[^\d]+/g,'')" placeholder="请输入年龄" style="font-weight: 500"><br></label><br>
+
         <label>性别：<select id="sex" th:value="${user.sex}" disabled="disabled"
                           required="required" style="width: 153px;height: 28px;text-align: center;text-align-last: center;background-color: #EBEBE4;font-weight: 500" >
             <option value="男" th:selected="${user.sex=='男'}">&nbsp&nbsp&nbsp&nbsp男</option>
             <option value="女" th:selected="${user.sex=='女'}">&nbsp&nbsp&nbsp&nbsp女</option>
         </select></label><br><br>
-        <label>电话：<input id="phone" class="PHONE" th:value="${user.phone}" disabled="disabled" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"
-                         placeholder="请输入电话" style="font-weight: 500"><br></label><br>
-        <label>邮箱：<input id="email" class="EMAIL" th:value="${user.email}" disabled="disabled" maxlength="16"
+
+        <label>电话：<input id="phone" th:value="${user.phone}" disabled="disabled" maxlength="11" autocomplete="off"
+                         oninput="value=value.replace(/[^\d]/g,'')" placeholder="请输入电话" style="font-weight: 500"><br></label><br>
+
+        <label>邮箱：<input id="email" th:value="${user.email}" disabled="disabled" maxlength="16" autocomplete="off"
                          placeholder="请输入邮箱" style="font-weight: 500"><br></label><br>
-        <label>密码：<input id="password" class="PASSWORD" th:value="${user.password}" disabled="disabled" maxlength="16"
+
+        <label>密码：<input id="password" th:value="${user.password}" disabled="disabled" maxlength="16" autocomplete="off"
                          placeholder="请输入密码" style="font-weight: 500"></label>
-        </form>
+
         <button id="edit">编辑</button> <button id="submit" onclick="update()">提交</button>
-<!--        <button id="back" onclick="javascript:history.back(-1)">返回</button>-->
         <button id="back" onclick="back()">返回</button>
     </div>
 </body>
@@ -92,16 +94,22 @@
                 url: '/update',
                 type: 'post',
                 contentType: 'application/json',
-                //注释
                 dataType: 'json',
                 data: JSON.stringify(data),
                 success: function (res) {
                     if (res.code == 200) {
-                        alert(res.desc)
-                        window.location.href = "/page/jump?page=login.html";
-                    }
-                    if (res.code == 400) {
-                        alert(res.desc)
+                        alert(res.desc);
+                        if(res.change) {
+                            window.location.href = "/page/jump?page=login.html";
+                        }
+                        $("#back").hide();
+                        $("#submit").hide();
+                        $("#edit").slideToggle();
+                        $("input").attr("disabled",true);
+                        $("#sex").attr("disabled",true);
+                        $("#sex").css("background-color","#EBEBE4");
+                    }else{
+                        alert(res.desc);
                     }
                 }
             })

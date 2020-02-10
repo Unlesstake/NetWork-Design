@@ -18,6 +18,14 @@
 		<div id="passwordtext">密码<br /></div>
 		<input id="password" name="password" type="password" required="required" autocomplete="off" maxlength="16" style="letter-spacing:3px"></input>
 		<br /><br />
+
+		<input type="checkbox" value="用户" style="position: absolute;top: 63%;left: 24%;width: 14px">
+		<span style="position: relative;top: 5px;left: 29%;font-size: 13px;color: #8B959C;">用户</span>
+
+		<input type="checkbox" value="管理员" style="position: absolute;top: 63%;left: 64%;width: 14px">
+		<span style="position: relative;top: 4px;left: 62%;font-size: 13px;color: #8B959C;">管理员</span>
+
+
 		<label>用户名或密码错误！</label>
 		<button id="button" type="submit">登录</button>
 		<a id="href" href="/GoRegister">注册</a>
@@ -49,7 +57,7 @@
 				if(res.code==400){
 					$("label").css("color","red");		/* 当登录失败时，显示错误提示信息 */
 				}else {
-					window.location.href = "/getUserInfo";
+					window.location.href = "/UserInfo";
 				}
 			}
 		});

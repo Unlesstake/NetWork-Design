@@ -63,8 +63,8 @@ input:focus {
 
 #button {
 	position: relative;
-	left: 149px;
-	top:30px;
+	left: 176px;
+	top:55px;
 	height: 35px;
 	width: 150px;
 	background-color: #0075A8;
@@ -80,14 +80,14 @@ label{
 	color:white;
 	position:absolute;
 	top: 60%;
-	left: 36%;
-	font-size:11pt;
+	left: 38%;
+	font-size:13px;
 }
 #href{
 	 color:#0075A8;
 	 position:relative;
 	 font-size:	11pt;
-	 left:53px;
-	 top:85px;
+	 left:-20px;
+	 top:105px;
 	 text-decoration: none;	/* 	 去除下划线 */
 }
