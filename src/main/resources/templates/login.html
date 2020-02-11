@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="login">
-	<form method="post" id="form">
+	<form method="post" id="form" onsubmit="return checkDisable();">
 		<p id="p">您好!<br />
 		欢迎使用互联网零售可视化系统</p><br />
 		<div id="usertext">用户名<br /></div>
@@ -19,11 +19,11 @@
 		<input id="password" name="password" type="password" required="required" autocomplete="off" maxlength="16" style="letter-spacing:3px"></input>
 		<br /><br />
 
-		<input type="checkbox" value="用户" style="position: absolute;top: 63%;left: 24%;width: 14px">
-		<span style="position: relative;top: 5px;left: 29%;font-size: 13px;color: #8B959C;">用户</span>
+		<input name="role" type="checkbox" value="用户" checked disabled style="position: absolute;top: 64%;left: 24%;width: 14px">
+		<span style="position: relative;top: 9px;left: 29%;font-size: 13px;color: #8B959C;">用户</span>
 
-		<input type="checkbox" value="管理员" style="position: absolute;top: 63%;left: 64%;width: 14px">
-		<span style="position: relative;top: 4px;left: 62%;font-size: 13px;color: #8B959C;">管理员</span>
+		<input name="role" type="checkbox" value="管理员" style="position: absolute;top: 64%;left: 64%;width: 14px">
+		<span style="position: relative;top: 8px;left: 62%;font-size: 13px;color: #8B959C;">管理员</span>
 
 
 		<label>用户名或密码错误！</label>
@@ -56,8 +56,16 @@
 			success: function(res) {
 				if(res.code==400){
 					$("label").css("color","red");		/* 当登录失败时，显示错误提示信息 */
+					$("input[name='role']:checked").each(function () {		/*登录失败时，记得将选中项设置为不可点击取消*/
+						$(this).attr("disabled",true);
+					})
 				}else {
-					window.location.href = "/UserInfo";
+					if(res.role == "用户"){
+						window.location.href = "/UserInfo";
+					}else {
+						window.location.href = "/GoRegister";
+					}
+
 				}
 			}
 		});
@@ -66,7 +74,22 @@
 // 	当鼠标聚焦输入框时，隐藏错误信提示息
 	$("input").focus(function(){
 		$("label").css("color", "white");
-	})
+	});
+
+	//实现复选框最多可以选择一个
+	$(function () {
+		$(":checkbox").click(function () {
+			$(this).attr("disabled",true);
+			$(this).attr("checked",true);
+			$(this).siblings().attr("disabled",false);
+			$(this).siblings().attr("checked",false);
+		});
+	});
+
+	//提交表单之前，将checkbox设置为可编辑，否则将无法传值到后台
+	function checkDisable() {
+		$(":checkbox").removeAttr("disabled");
+	}
 		
 </script>
 </body>

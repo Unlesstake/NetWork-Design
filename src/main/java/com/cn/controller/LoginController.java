@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.cn.dao.AdminDao;
+import com.cn.entity.Admin;
+import com.cn.entity.CommonUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +32,9 @@ public class LoginController {
 	@Resource
 	UserDao userdao;
 
+	@Resource
+	AdminDao admindao;
+
 	@Autowired
 	private HttpServletRequest request;
 
@@ -39,31 +45,58 @@ public class LoginController {
 
 	@PostMapping(value = "/login")
 	@ResponseBody
-	public String login(@RequestBody UserInfo user, HttpServletResponse response) {
-
+	public String login(@RequestBody CommonUser user, HttpServletResponse response) {
 //		注意前台input属性的name一定要与实体类相对应
-		UserInfo exist = userdao.login(user);
-		if (exist == null) {
-			JSONObject object = new JSONObject();
-			object.put("code", 400);
-			object.put("desc", "用户名或密码错误！");
+		if(user.getRole().equals("用户")){		/*当前端选择用户时，则在用户数据库中进行查询*/
+			UserInfo exist = userdao.login(user);
+			if (exist == null) {
+				JSONObject object = new JSONObject();
+				object.put("code", 400);
+				object.put("desc", "用户名或密码错误！");
 
+				return object.toString();
+			}
+			JSONObject object = new JSONObject();
+
+			// token是需要加密的，防止cookie被拦截，信息泄露
+			int token = exist.getId() + 10086;
+			Cookie cookie = new Cookie("token",String.valueOf(token));
+			response.addCookie(cookie);
+
+			HttpSession session = request.getSession();
+			session.setAttribute(String.valueOf(token), exist);
+
+			object.put("code", 200);
+			object.put("role","用户");
+			object.put("userinfo", exist);
+			object.put("desc", "请求成功！");
+			return object.toString();
+		}else {									/*否则，在管理员中进行查询*/
+			Admin exist = admindao.login(user);
+			if (exist == null) {
+				JSONObject object = new JSONObject();
+				object.put("code", 400);
+				object.put("desc", "用户名或密码错误！");
+
+				return object.toString();
+			}
+			JSONObject object = new JSONObject();
+
+			// token是需要加密的，防止cookie被拦截，信息泄露
+			int token = exist.getId() + 10086;
+			Cookie cookie = new Cookie("token",String.valueOf(token));
+			response.addCookie(cookie);
+
+			HttpSession session = request.getSession();
+			session.setAttribute(String.valueOf(token), exist);
+
+			object.put("code", 200);
+			object.put("role","管理员");
+			object.put("admininfo", exist);
+			object.put("desc", "请求成功！");
 			return object.toString();
 		}
-		JSONObject object = new JSONObject();
 
-		// token是需要加密的，防止cookie被拦截，信息泄露
-		int token = exist.getId() + 10086;
-		Cookie cookie = new Cookie("token",String.valueOf(token));
-		response.addCookie(cookie);
-
-		HttpSession session = request.getSession();
-		session.setAttribute(String.valueOf(token), exist);
-
-		object.put("code", 200);
-		object.put("userinfo", exist);
-		object.put("desc", "请求成功！");
-		return object.toString();
 	}
 
 	/**

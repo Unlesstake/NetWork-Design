@@ -63,8 +63,8 @@ input:focus {
 
 #button {
 	position: relative;
-	left: 176px;
-	top:55px;
+	left: 70px;
+	top:58px;
 	height: 35px;
 	width: 150px;
 	background-color: #0075A8;
@@ -79,7 +79,7 @@ input:focus {
 label{
 	color:white;
 	position:absolute;
-	top: 60%;
+	top: 61%;
 	left: 38%;
 	font-size:13px;
 }
@@ -87,7 +87,7 @@ label{
 	 color:#0075A8;
 	 position:relative;
 	 font-size:	11pt;
-	 left:-20px;
-	 top:105px;
+	 left:-26px;
+	 top:108px;
 	 text-decoration: none;	/* 	 去除下划线 */
 }

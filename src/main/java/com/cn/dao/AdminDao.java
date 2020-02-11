@@ -1,9 +1,10 @@
 package com.cn.dao;
 
 import com.cn.entity.Admin;
+import com.cn.entity.CommonUser;
 
 public interface AdminDao {
-	public Admin login(Admin admin);
+	public Admin login(CommonUser common);
 	
 	public int addAdmin(Admin admin);
 

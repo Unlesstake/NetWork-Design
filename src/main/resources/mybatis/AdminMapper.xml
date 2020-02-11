@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.dao.AdminDao">
-    <select id="login" parameterType="com.cn.entity.Admin" resultType="com.cn.entity.Admin">
-        select id,  name,job FROM admin WHERE name = #{name} AND password = #{password}
+    <select id="login" parameterType="com.cn.entity.CommonUser" resultType="com.cn.entity.Admin">
+        select * FROM admin WHERE username = #{username} AND password = #{password}
     </select>
 
     <insert id="addAdmin" parameterType="com.cn.entity.Admin">

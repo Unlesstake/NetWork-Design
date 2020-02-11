@@ -4,17 +4,15 @@ public class Admin {
 	private Integer id;
 	private String name;
 	private Integer password;
-	private String job;
 	
 	public Admin() {
 		
 	}
 	
-	public Admin(Integer id, String name, Integer password, String job) {
+	public Admin(Integer id, String name, Integer password) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
-		this.job = job;
 	}
 
 	public Integer getId() {
@@ -39,14 +37,6 @@ public class Admin {
 
 	public void setPassword(Integer password) {
 		this.password = password;
-	}
-
-	public String getJob() {
-		return job;
-	}
-
-	public void setJob(String job) {
-		this.job = job;
 	}
 
 }

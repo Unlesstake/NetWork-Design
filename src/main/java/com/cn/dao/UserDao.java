@@ -3,10 +3,11 @@ package com.cn.dao;
 import java.util.List;
 
 import com.cn.entity.Admin;
+import com.cn.entity.CommonUser;
 import com.cn.entity.UserInfo;
 
 public interface UserDao {
-	UserInfo login(UserInfo user);
+	UserInfo login(CommonUser common);
 	List<UserInfo> findall();		//查找数据
 	int adduser(UserInfo user);		//添加用户
 	UserInfo findByid(Integer id);	//通过id查找用户
