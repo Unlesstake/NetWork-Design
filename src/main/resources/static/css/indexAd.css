@@ -6,7 +6,7 @@ body{
 #div1{
     /*background-color: #4A7BF7;*/
     position: absolute;
-    width: 12%;
+    width: 13%;
     height: 100%;
     background-image: linear-gradient(to right,#EB3349,#F45C43);
     /*background-image: linear-gradient(#6AC6E0,#685EE9);*/
@@ -14,11 +14,21 @@ body{
 
 #div2{
     position: absolute;
-    width: 88%;
+    width: 87%;
     height: 100%;
-    left:12%;
+    left:13%;
     top:0px;
     background-color: #F9F6F2;
+}
+
+#div3{
+    position: absolute;
+    margin: 2%;
+    width: 96%;
+    height: 92%;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
 }
 
 img {
@@ -44,7 +54,7 @@ img {
 
 #managerPer{
     position: absolute;
-    width: 204px;
+    width: 221px;
     height: 50px;
     top: 270px;
     background-color: #F57569;
@@ -52,7 +62,7 @@ img {
 #managerPerA{
     position: relative;
     top: 15px;
-    left: 64px;
+    left: 75px;
     font-weight: bold;
     color: white;
     font-size: 13pt;
@@ -62,7 +72,7 @@ img {
 #managerUserA{
     position: relative;
     top: 365px;
-    left: 64px;
+    left: 75px;
     font-weight: bold;
     color: white;
     font-size: 13pt;
@@ -72,9 +82,75 @@ img {
 #managerStoreA{
     position: relative;
     top: 375px;
-    left: 64px;
+    left: 75px;
     font-weight: bold;
     color: white;
     font-size: 13pt;
     text-decoration: none;
+}
+
+#personImg{
+    position: absolute;
+    left: 10%;
+    top: 10%;
+    width: 80px;
+    height: 80px;
+}
+
+label{
+    position: relative;
+    font-size: 15pt;
+    font-weight: bold;
+    color: #555555;
+    top:200px;
+    left:110px
+}
+
+hr{
+    position: relative;
+    top: 155px;
+    width: 1300px;
+    border:0px;
+    border-bottom:1px solid #E0E0E0;
+}
+
+input{
+    border-radius: 20px;
+    border: solid 1px #DDE4E6;
+    background-color: #FBFCFC;
+    text-indent: 7px;
+    height: 32px;
+    width: 400px;
+    font-size: 13pt;
+    letter-spacing:1px;
+    text-align: center;
+}
+input:focus{
+    outline:none;
+    border-radius: 20px;
+    border: solid 1px dodgerblue;
+}
+
+#text-password{
+    position: absolute;
+    font-size: 13pt;
+    color: #888888;
+    top: 265px;
+    left: 700px;
+}
+
+#text-phone{
+    position: absolute;
+    font-size: 13pt;
+    color: #888888;
+    top: 400px;
+    left: 700px;
+}
+
+#text-email{
+    position: absolute;
+    font-size: 13pt;
+    color: #888888;
+    top: 540px;
+    left: 700px;
 }
