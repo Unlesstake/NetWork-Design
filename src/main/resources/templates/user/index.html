@@ -9,7 +9,7 @@
 <body>
     <div id="div1">
         <img src="../../static/img/seven.jpg" />
-        <label id="username" th:text="${user.username}">songyang</label>
+        <label id="username" th:text="${user.username}"></label>
         <label id="personInfo">个人信息</label>
         <hr size="7 px" style="position:relative;top:220px;background-color: floralwhite;border: none">
         <label>年龄：<input id="age" th:value="${user.age}" disabled="disabled" maxlength="3" autocomplete="off"
@@ -27,7 +27,7 @@
         <label>邮箱：<input id="email" th:value="${user.email}" disabled="disabled" maxlength="16" autocomplete="off"
                          placeholder="请输入邮箱" style="font-weight: 500"><br></label><br>
 
-        <label>密码：<input id="password" th:value="${user.password}" disabled="disabled" maxlength="16" autocomplete="off"
+        <label>密码：<input id="password" type="password" th:value="${user.password}" disabled="disabled" maxlength="16" autocomplete="off"
                          placeholder="请输入密码" style="font-weight: 500"></label>
 
         <button id="edit">编辑</button> <button id="submit" onclick="update()">提交</button>

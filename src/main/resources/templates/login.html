@@ -22,7 +22,7 @@
 		<input name="role" type="checkbox" value="用户" checked disabled style="position: absolute;top: 64%;left: 24%;width: 14px">
 		<span style="position: relative;top: 9px;left: 29%;font-size: 13px;color: #8B959C;">用户</span>
 
-		<input name="role" type="checkbox" value="管理员" style="position: absolute;top: 64%;left: 64%;width: 14px">
+		<input id="AdCheck" name="role" type="checkbox" value="管理员" checked="" style="position: absolute;top: 64%;left: 64%;width: 14px">
 		<span style="position: relative;top: 8px;left: 62%;font-size: 13px;color: #8B959C;">管理员</span>
 
 
@@ -33,14 +33,14 @@
 </div>
 
 <script>
-	// 将表单内容封装成json对象
+	// 将表单内容封装成json对象0
 	$.fn.serializeObject=function(){
 	    var hasOwnProperty=Object.prototype.hasOwnProperty;  
 	    return this.serializeArray().reduce(function(data,pair){  
 	        if(!hasOwnProperty.call(data,pair.name)){  
 	            data[pair.name]=pair.value;  
 	        }  
-	        return data;  
+	        return data; 
 	    },{});  
 	}; 
 	$('#form').on('submit', function(e) {
@@ -76,6 +76,7 @@
 		$("label").css("color", "white");
 	});
 
+	$("#AdCheck").removeAttr("checked");
 	//实现复选框最多可以选择一个
 	$(function () {
 		$(":checkbox").click(function () {
@@ -89,6 +90,14 @@
 	//提交表单之前，将checkbox设置为可编辑，否则将无法传值到后台
 	function checkDisable() {
 		$(":checkbox").removeAttr("disabled");
+	}
+
+	//返回至登录页面时，强制刷新页面，否则会出现管理员登录，返回上一页面后，仍然选中管理员角色
+	if(window.name!="bencalie"){
+		location.reload();
+		window.name = "bencalie";
+	}else {
+		window.name="";
 	}
 		
 </script>

@@ -3,13 +3,13 @@ package com.cn.entity;
 public class Admin {
 	private Integer id;
 	private String name;
-	private Integer password;
+	private String password;
 	
 	public Admin() {
 		
 	}
 	
-	public Admin(Integer id, String name, Integer password) {
+	public Admin(Integer id, String name, String password) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -31,11 +31,11 @@ public class Admin {
 		this.name = name;
 	}
 
-	public Integer getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(Integer password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
