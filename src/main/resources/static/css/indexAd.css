@@ -119,7 +119,7 @@ input{
     border: solid 1px #DDE4E6;
     background-color: #FBFCFC;
     text-indent: 7px;
-    height: 32px;
+    height: 34px;
     width: 400px;
     font-size: 13pt;
     letter-spacing:1px;
@@ -153,4 +153,52 @@ input:focus{
     color: #888888;
     top: 540px;
     left: 700px;
+}
+
+#edit{
+    position: absolute;
+    top:680px;
+    left: 640px;
+    height: 42px;
+    width:90px;
+    font-size: 13pt;
+    border: none;
+    outline: none;
+    color: #555555;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+#submit{
+    position: absolute;
+    top:680px;
+    left: 520px;
+    height: 42px;
+    width:90px;
+    font-size: 13pt;
+    border: none;
+    outline: none;
+    color: #555555;
+    font-weight: bold;
+    border-radius: 20px;
+    display: none;
+}
+
+#back{
+    position: absolute;
+    top:680px;
+    left: 760px;
+    height: 42px;
+    width:90px;
+    font-size: 13pt;
+    border: none;
+    outline: none;
+    color: #555555;
+    font-weight: bold;
+    border-radius: 20px;
+    display: none;
+}
+
+input.change::-webkit-input-placeholder{
+    color: red;
 }

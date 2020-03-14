@@ -5,6 +5,14 @@
         select * FROM admin WHERE username = #{username} AND password = #{password}
     </select>
 
+    <select id="findByUsername" parameterType="java.lang.String" resultType="com.cn.entity.Admin">
+        select * FROM admin WHERE username = #{username}
+    </select>
+
+    <update id="updateUser" parameterType="com.cn.entity.Admin">
+        update admin set password=#{password},phone=#{phone},email=#{email} where username=#{username}
+    </update>
+
     <insert id="addAdmin" parameterType="com.cn.entity.Admin">
         INSERT INTO admin (name,password,job) VALUES (#{name},#{password},#{job});
     </insert>

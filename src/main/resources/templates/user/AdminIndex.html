@@ -9,7 +9,7 @@
 <body>
     <div id="div1">
         <img src="../../static/img/adminPic.jfif" />
-        <label id="username">songyang</label>
+        <label id="username" th:text="${user.username}"></label>
         <div id="managerPer">
             <a id="managerPerA" href="/admin/personInfo">个人信息</a><br><br><br>
         </div>
@@ -24,18 +24,88 @@
     <div id="div2">
         <div id="div3">
             <img id="personImg" src="../../static/img/adminPic.jfif" />
-            <label style="position: absolute;left: 13%;top: 15%;font-size: 16pt;font-weight: bold">songyang</label><br><br>
+            <label th:text="${user.username}"
+                   style="position: absolute;left: 13%;top: 15%;font-size: 16pt;font-weight: bold"></label><br><br>
             <hr>
-            <label>登录密码：<input maxlength="16"><br></label><br><br><br><br>
+            <label>登录密码：<input id="password"  placeholder="请输入登录密码" maxlength="16" th:value="${user.password}" disabled><br></label><br><br><br><br>
             <span id="text-password">为了保证您账户的安全，建议您定期更换密码保护账户</span>
             <hr>
-            <label>联系电话：<input maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br></label><br><br><br><br>
+            <label>联系电话：<input id="phone" maxlength="11" th:value="${user.phone}"  placeholder="请输入联系电话" disabled
+                               oninput="value=value.replace(/[^\d]/g,'')"><br></label><br><br><br><br>
             <span id="text-phone">联系电话用于账户找回、安全验证等，敬请期待</span>
             <hr>
-            <label>联系邮箱：<input maxlength="16"><br></label><br><br><br><br>
+            <label>联系邮箱：<input id="email" maxlength="16" th:value="${user.email}"  placeholder="请输入邮箱" disabled><br></label><br><br><br><br>
             <span id="text-email">邮箱可用于账户验证，登录等辅助手段，敬请期待</span>
             <hr>
         </div>
+        <button id="edit">编辑</button>
+        <button id="submit" onclick="update()">保存</button>
+        <button id="back" onclick="back()">取消</button>
     </div>
 </body>
+<script>
+    $("#edit").click(function () {
+        $(this).hide();
+        $("#submit").show();
+        $("#back").show();
+        $("input").removeAttr("disabled");
+    });
+
+    $("input").attr("InitValue",function () {
+        return this.value;
+    });
+
+    function back() {
+        $("input").val(function () {
+            return this.getAttribute('InitValue');
+        });
+        $("#back").hide();
+        $("#submit").hide();
+        $("#edit").show();
+        $("input").attr("disabled",true);
+    };
+
+    function update() {
+        const username = $("#username").html();
+        const password = $("#password").val();
+        const phone = $("#phone").val();
+        const email = $("#email").val();
+        const data = {username:username,password:password,phone:phone,email:email};
+        if(password==""){
+            $("#password").attr("class","input change");
+        }
+        else if(phone==""){
+            $("#phone").attr("class","input change");
+        }
+        else if(email==""){
+            $("#email").attr("class","input change");
+        }
+        else {
+            $.ajax({
+                url:'/AdminUpdate',
+                type:'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data:JSON.stringify(data),
+                success:function (res) {
+                    if(res.code == 200){
+                        alert(res.desc);
+                        if(res.change){
+                            window.location.href = "/page/jump?page=login.html";
+                        }
+                        $("#back").hide();
+                        $("#edit").show();
+                        $("#submit").hide();
+                        $("input").attr("disabled",true);
+                    }
+                    else {
+                        alert(res.desc);
+                    }
+
+                }
+
+            })
+        }
+    }
+</script>
 </html>

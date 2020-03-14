@@ -129,4 +129,32 @@ public class LoginController {
 		}
 		return "public/false";
 	}
+
+	@RequestMapping("/AdminInfo")
+	public String getAdminInfo(Model model){
+		// 从浏览器中获取cookie
+		Cookie[] cookies = request.getCookies();
+
+		HttpSession session = request.getSession();
+
+		for (Cookie cookie : cookies) {
+			//本程序约定了：名称为 token 的 cookie 为用户登录信息的 cookie
+			if ("token".equals(cookie.getName())) {
+				/*
+					cookie中，存入数据的格式：
+						key： "token"
+						value : 加密后的id
+
+					session中，存入数据的格式：
+						key : 加密后的id
+						value : 用户信息
+				 */
+				Admin user = (Admin) session.getAttribute(cookie.getValue());
+				model.addAttribute("user",user);
+				return "user/AdminIndex";
+			}
+		}
+		return "public/false";
+	}
+
 }

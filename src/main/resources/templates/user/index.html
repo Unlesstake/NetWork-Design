@@ -53,11 +53,11 @@
     function back() {                               /*还原初始值*/
         $("input").val(function () {
             return this.getAttribute('InitValue');
-        })
+        });
 
         $("#sex").val(function () {
             return this.getAttribute('InitSex')
-        })
+        });
 
         $("#back").hide();
         $("#submit").hide();
