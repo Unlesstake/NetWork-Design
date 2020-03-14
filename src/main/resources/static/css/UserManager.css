@@ -1,0 +1,124 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+#div1{
+    /*background-color: #4A7BF7;*/
+    position: absolute;
+    width: 13%;
+    height: 100%;
+    background-image: linear-gradient(to right,#EB3349,#F45C43);
+    /*background-image: linear-gradient(#6AC6E0,#685EE9);*/
+}
+
+#div2{
+    position: absolute;
+    width: 87%;
+    height: 100%;
+    left:13%;
+    top:0px;
+    background-color: #F9F6F2;
+}
+
+#div3{
+    position: absolute;
+    margin: 2%;
+    width: 96%;
+    height: 92%;
+    background-color: white;
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+}
+
+img {
+    /*width="60px" height="60px" style="border-radius:60%"*/
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -8%)
+}
+
+#username{
+    color: white;
+    position: absolute;
+    left: 50%;
+    top: 21%;
+    transform: translate(-50%, -21%);
+    font-weight: bold;
+    font-size: 12pt;
+}
+
+#managerPerA{
+    position: relative;
+    top: 285px;
+    left: 75px;
+    font-weight: bold;
+    color: white;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+#managerUser{
+    position: absolute;
+    width: 221px;
+    height: 50px;
+    top: 350px;
+    background-color: #F57569;
+}
+
+#managerUserA{
+    position: relative;
+    top: 15px;
+    left: 75px;
+    font-weight: bold;
+    color: white;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+#managerStoreA{
+    position: relative;
+    top: 375px;
+    left: 75px;
+    font-weight: bold;
+    color: white;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+
+#Thead th{
+    height: 50px;
+    border: 0px;
+    font-size: 13pt;
+}
+#Tbody td{
+    height: 55px;
+    border: 0px;
+    font-size: 13pt;
+    color: #505659;
+}
+table,tr{
+    border: 1px solid #E8E8E8;
+}
+#Thead{
+    position: absolute;
+    width: 100%;
+    top: 120px ;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+#Tbody{
+    position: absolute;
+    width: 100%;
+    top: 0px ;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+#Tbody:hover{
+
+}

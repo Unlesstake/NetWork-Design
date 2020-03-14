@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/UserManager.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <title>用户管理</title>
+<!--    <style type="text/css">-->
+<!--        table-->
+<!--        {-->
+<!--            border-collapse:collapse;-->
+<!--        }-->
+
+<!--        table, td, th-->
+<!--        {-->
+<!--            border:1px solid black;-->
+<!--        }-->
+<!--    </style>-->
+</head>
+<body>
+<div id="div1">
+    <img src="../../static/img/adminPic.jfif" />
+    <label id="username">SongYang</label>
+    <div id="managerPer">
+        <a id="managerPerA" href="/AdminInfo">个人信息</a><br><br><br>
+    </div>
+    <div id="managerUser">
+        <a id="managerUserA" href="/UserManager">用户管理</a><br><br><br>
+    </div>
+    <div id="managerStore">
+        <a id="managerStoreA">电商管理</a><br><br><br>
+    </div>
+</div>
+<div id="div2">
+    <div id="div3">
+        <div>
+        <table id="Thead">
+            <thead>
+            <tr bgcolor="#FAFAFA" style="color: #252525">
+                <th>登录名</th>
+                <th>年龄</th>
+                <th>性别</th>
+                <th>联系电话</th>
+                <th>邮箱</th>
+                <th>密码</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+        </table>
+        </div>
+        <div style="position:absolute;overflow: auto;width: 100%;height: 60%;top: 173px">
+        <table id="Tbody">
+            <tbody>
+            <tr th:each="user:${UserList}"
+                onmouseover="this.style.backgroundColor='#E6F7FF'" onmouseout="this.style.backgroundColor='#FFFFFF'">
+                <td align="center" th:text="${user.username}">SongYang</td>
+                <td align="center" th:text="${user.age}" contenteditable="true">22</td>
+                <td align="center" th:text="${user.sex}">男</td>
+                <td align="center" th:text="${user.phone}">11012345679</td>
+                <td align="center" th:text="${user.email}">747566474@qq.com</td>
+                <td align="center" th:text="${user.password}">123456789101111</td>
+                <td align="center">
+                    <a onclick="showLayer(user.id)">修改</a>&nbsp;
+                    <a>删除</a>
+                </td>
+
+<!--                <td align="center" th:text="${user.username}"></td>-->
+<!--                <td align="center" th:text="${user.age}"></td>-->
+<!--                <td align="center" th:text="${user.sex}"></td>-->
+<!--                <td align="center" th:text="${user.phone}"></td>-->
+<!--                <td align="center" th:text="${user.email}"></td>-->
+<!--                <td align="center" th:text="${user.password}"></td>-->
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
