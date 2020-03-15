@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/UserManagerUpdate.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <title>维护用户</title>
+</head>
+<body>
+<div id="div1">
+    <img src="../../static/img/adminPic.jfif" />
+    <label id="username">SongYang</label>
+    <div id="managerPer">
+        <a id="managerPerA" href="/AdminInfo">个人信息</a><br><br><br>
+    </div>
+    <div id="managerUser">
+        <a id="managerUserA" href="/UserManager">用户管理</a><br><br><br>
+    </div>
+    <div id="managerStore">
+        <a id="managerStoreA">电商管理</a><br><br><br>
+    </div>
+</div>
+<div id="div2">
+    <div id="div3">
+        <div id="register">
+            <form method="post" id="form">
+                <span id="registertext">编辑用户</span><br /><br /><hr>
+
+                <label id="usernametext">用户名:</label><br /><br />
+                <input type="text" id="username5" name="username" placeholder="请输入用户名" th:value="${user.username}"
+                       required="required" autocomplete="off" maxlength="10" disabled><br />
+                <span style="position: absolute;top: 140px;left: 720px;color: #C8C8C8">无法更改</span>
+
+                <label id="agetext">年龄:</label><br /><br />
+                <input type="text" id="age" name="age" placeholder="请输入年龄" th:value="${user.age}"
+                       required="required" autocomplete="off" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"><br />
+
+                <label id="sextext">性别:</label><br />
+                <div id = "sex" style="position: relative">
+                    <input type="radio" name="sex" value="男" style="width: 17px;position: relative;top: 30px" th:checked="${user.sex=='男'}">
+                    <span  style="position:relative;left: 55px;top: 19px;font-size: 12pt">男</span>
+                    <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 30px;left: 160px" th:checked="${user.sex=='女'}">
+                    <span style="position:relative;left: 165px;top: 19px;font-size: 12pt">女</span>
+                </div>
+
+                <label id="phonetext">手机号码:</label><br /><br />
+                <input type="text" id="phone" name="phone" placeholder="请输入联系电话" th:value="${user.phone}"
+                       required="required" autocomplete="off" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br />
+
+                <label id="emailtext">邮箱:</label><br /><br />
+                <input type="text" id="email" name="email" placeholder="请输入邮件" th:value="${user.email}"
+                       required="required" autocomplete="off" maxlength="16"><br />
+
+                <label>登录密码:</label><br /><br />
+                <input type="password" id="password1" name="password" placeholder="请输入登录密码" th:value="${user.password}"
+                       required="required" autocomplete="off" maxlength="16"><br />
+
+
+                <button id="button1" type="submit">确定</button>
+                <button id="button2"><a href="/UserManager" style="text-decoration: none;color: #005175">返回</a>
+                </button>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+
+
+</script>
+</body>
+</html>

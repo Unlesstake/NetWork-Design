@@ -49,10 +49,10 @@
         $("#submit").show();
         $("#back").show();
         $("input").removeAttr("disabled");
-    });
 
-    $("input").attr("InitValue",function () {
-        return this.value;
+        $("input").attr("InitValue",function () {
+            return this.value;
+        });
     });
 
     function back() {

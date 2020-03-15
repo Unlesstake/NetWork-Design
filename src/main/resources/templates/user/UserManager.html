@@ -37,7 +37,7 @@
         <table id="Thead">
             <thead>
             <tr bgcolor="#FAFAFA" style="color: #252525">
-                <th>登录名</th>
+                <th>用户名</th>
                 <th>年龄</th>
                 <th>性别</th>
                 <th>联系电话</th>
@@ -53,14 +53,16 @@
             <tbody>
             <tr th:each="user:${UserList}"
                 onmouseover="this.style.backgroundColor='#E6F7FF'" onmouseout="this.style.backgroundColor='#FFFFFF'">
-                <td align="center" th:text="${user.username}">SongYang</td>
+                <td align="center" th:text="${user.username}">SongYangSongYang</td>
                 <td align="center" th:text="${user.age}" contenteditable="true">22</td>
                 <td align="center" th:text="${user.sex}">男</td>
                 <td align="center" th:text="${user.phone}">11012345679</td>
                 <td align="center" th:text="${user.email}">747566474@qq.com</td>
-                <td align="center" th:text="${user.password}">123456789101111</td>
+                <td align="center" th:text="${user.password}">12345678910111199</td>
                 <td align="center">
-                    <a onclick="showLayer(user.id)">修改</a>&nbsp;
+                    <a style="color: #86A9FF;text-decoration: none" th:href="@{'/UserManager/Update/'+${user.id}}">修改</a>
+                    &nbsp;
+                    &nbsp;
                     <a>删除</a>
                 </td>
 

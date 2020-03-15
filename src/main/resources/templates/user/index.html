@@ -42,14 +42,17 @@
         $("input").removeAttr("disabled");
         $("#sex").removeAttr("disabled");
         $("#sex").css("background-color","white");
+
+        /*一定放在此编辑事件内部，获取的应该是每次点击编辑后，但还未进行更改时的数据。
+        放在外面，会导致更改信息保存后，再来编辑时，点击返回，会显示更改前的信息*/
+        $("input").attr('InitValue',function () {       /*获取除了sex以外对初始值*/
+            return this.value;
+        })
+        $("#sex").attr('InitSex',function () {          /*获取sex初始值*/
+            return this.value;
+        })
     });
 
-    $("input").attr('InitValue',function () {       /*获取除了sex以外对初始值*/
-        return this.value;
-    })
-    $("#sex").attr('InitSex',function () {          /*获取sex初始值*/
-        return this.value;
-    })
     function back() {                               /*还原初始值*/
         $("input").val(function () {
             return this.getAttribute('InitValue');
