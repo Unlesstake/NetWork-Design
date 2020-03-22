@@ -28,7 +28,7 @@
 
                 <label id="usernametext">用户名:</label><br /><br />
                 <input type="text" id="username5" name="username" placeholder="请输入用户名" th:value="${user.username}"
-                       required="required" autocomplete="off" maxlength="10" disabled><br />
+                       required="required" autocomplete="off" maxlength="10" readonly="readonly"><br />
                 <span style="position: absolute;top: 140px;left: 720px;color: #C8C8C8">无法更改</span>
 
                 <label id="agetext">年龄:</label><br /><br />
@@ -57,8 +57,10 @@
 
 
                 <button id="button1" type="submit">确定</button>
-                <button id="button2"><a href="/UserManager" style="text-decoration: none;color: #005175">返回</a>
+                <button id="button2" type="button"><a href="/UserManager" style="text-decoration: none;color: #005175">返回</a>
                 </button>
+<!--                返回按钮不加type=button,点击该按钮，也会提交数据？？？-->
+                <button id="button3" type="button">删除用户</button>
 
             </form>
         </div>
@@ -66,8 +68,36 @@
     </div>
 </div>
 <script>
+    $.fn.serializeObject=function(){
+        var hasOwnProperty=Object.prototype.hasOwnProperty;
+        return this.serializeArray().reduce(function(data,pair){
+            if(!hasOwnProperty.call(data,pair.name)){
+                data[pair.name]=pair.value;
+            }
+            return data;
+        },{});
+    };
 
-
+    $('#form').on('submit', function (e) {
+        e.preventDefault();
+        var data = $('#form').serializeObject();
+        $.ajax({
+            url: '/UserManagerUpdate',
+            type: 'post',
+            data: JSON.stringify(data),
+            // header: {'Content-Type': 'application/json;charset=utf-8'},
+            contentType: 'application/json',
+            dataType: 'json',
+            success:function (res) {
+                if(res.code == 200) {
+                    alert(res.desc);
+                    window.location.href = "/UserManager";
+                }else {
+                    alert(res.desc);
+                }
+            }
+        });
+    });
 </script>
 </body>
 </html>
