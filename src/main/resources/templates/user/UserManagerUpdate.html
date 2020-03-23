@@ -60,7 +60,7 @@
                 <button id="button2" type="button"><a href="/UserManager" style="text-decoration: none;color: #005175">返回</a>
                 </button>
 <!--                返回按钮不加type=button,点击该按钮，也会提交数据？？？-->
-                <button id="button3" type="button">删除用户</button>
+                <button id="button3" type="button"><a onclick="DeleteUser()" style="cursor: pointer">删除用户</a></button>
 
             </form>
         </div>
@@ -98,6 +98,28 @@
             }
         });
     });
+
+    function DeleteUser() {
+        const data = $('#form').serializeObject();
+        if(confirm("确定要删除该用户吗？")){
+            $.ajax({
+                url: '/UserManagerDelete',
+                type: 'post',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(data),
+                success:function (res) {
+                    if (res.code == 200){
+                        window.location.href = "/UserManager";
+                    }else{
+                        alert(res.desc);
+                    }
+                }
+            });
+        }else{
+            return false;
+        }
+    };
 </script>
 </body>
 </html>

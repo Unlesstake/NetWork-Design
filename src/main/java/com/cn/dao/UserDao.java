@@ -13,6 +13,6 @@ public interface UserDao {
 	UserInfo findByid(Integer id);	//通过id查找用户
 	UserInfo findByUsername(String username);
 	int updateUser(UserInfo user);	//更新用户信息
-	int delUser(Integer id);		//删除用户
+	int delUser(String username);		//删除用户
 	UserInfo isexist(String username);
 }

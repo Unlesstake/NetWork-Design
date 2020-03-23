@@ -107,7 +107,7 @@ table,tr{
 }
 #Thead{
     position: absolute;
-    width: 100%;
+    width: 1407px;
     top: 120px ;
     border-collapse: collapse;
     table-layout: fixed;
@@ -118,4 +118,64 @@ table,tr{
     top: 0px ;
     border-collapse: collapse;
     table-layout: fixed;
+}
+
+#QueryUserName{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 50px;
+}
+#QueryUserNameText {
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 25px;
+    width: 200px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryUserNameText:focus{
+    outline:none;
+    border-radius: 5px;
+    border: solid 1px dodgerblue;
+}
+
+#QuerySex{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 385px;
+}
+#QuerySexText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 30px;
+    width: 100px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QuerySexText:focus{
+    outline:none;
+    border-radius: 5px;
+    border: solid 1px dodgerblue;
+}
+
+#QueryPhone{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 605px;
+}
+#QueryPhoneText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 27px;
+    width: 200px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryPhoneText:focus{
+    outline:none;
+    border-radius: 5px;
+    border: solid 1px dodgerblue;
 }

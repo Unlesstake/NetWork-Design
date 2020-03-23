@@ -26,8 +26,8 @@
       update  userinfo SET age =#{age},sex=#{sex},phone=#{phone},email=#{email},password=#{password} WHERE username = #{username}
     </update>
 
-    <delete id="delUser" parameterType="java.lang.Integer">
-     DELETE from userinfo WHERE id = #{id}
+    <delete id="delUser" parameterType="java.lang.String">
+     DELETE from userinfo WHERE username = #{username}
     </delete>
 
     <select id="isexist" parameterType="java.lang.String" resultType="com.cn.entity.UserInfo">
