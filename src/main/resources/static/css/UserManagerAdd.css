@@ -90,7 +90,7 @@ img {
     text-decoration: none;
 }
 
-#update {
+#add {
     width: 70%;
     height: 80%;
     top: 45%;
@@ -101,7 +101,7 @@ img {
     /*box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)*/
     /*页面四周阴影*/
 }
-#updatetext{
+#addtext{
     position: relative;
     left: 50px;
     top:16px;

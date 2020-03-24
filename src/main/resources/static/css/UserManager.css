@@ -140,17 +140,37 @@ table,tr{
     border: solid 1px dodgerblue;
 }
 
+#QueryAge{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 360px;
+}
+#QueryAgeText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 25px;
+    width: 55px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryAgeText:focus{
+    outline:none;
+    border-radius: 5px;
+    border: solid 1px dodgerblue;
+}
+
 #QuerySex{
     position: absolute;
     top: 60px;
     font-size: 13pt;
-    left: 385px;
+    left: 515px;
 }
 #QuerySexText{
     border-radius: 5px;
     border: solid 1px #DDE4E6;
     height: 30px;
-    width: 100px;
+    width: 80px;
     font-size: 12pt;
     text-indent: 7px;
 }
@@ -164,7 +184,7 @@ table,tr{
     position: absolute;
     top: 60px;
     font-size: 13pt;
-    left: 605px;
+    left: 705px;
 }
 #QueryPhoneText{
     border-radius: 5px;
@@ -177,5 +197,49 @@ table,tr{
 #QueryPhoneText:focus{
     outline:none;
     border-radius: 5px;
+    border: solid 1px dodgerblue;
+}
+
+#QueryButton{
+    position: absolute;
+    top: 60px;
+    width: 90px;
+    height: 32px;
+    left: 1060px;
+    border-radius: 25px;
+    border: none;
+    font-size: 11pt;
+    color: white;
+    background-color: #1890FF;
+    cursor: pointer;
+}
+#QueryButton:hover{
+    background-color: #40A9FF;
+}
+#QueryButton:focus{
+    outline:none;
+    border-radius: 25px;
+    border: solid 1px dodgerblue;
+}
+
+#AddButton{
+    position: absolute;
+    border: none;
+    left: 1270px;
+    top: 60px;
+    width: 100px;
+    height: 35px;
+    font-size: 11pt;
+    border-radius: 20px;
+    color: white;
+    background-color: #1890FF;
+    cursor: pointer;
+}
+#AddButton:hover{
+    background-color: #317EF3;
+}
+#AddButton:focus{
+    outline:none;
+    border-radius: 25px;
     border: solid 1px dodgerblue;
 }

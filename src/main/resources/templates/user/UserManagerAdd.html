@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/css/UserManagerUpdate.css">
+    <link rel="stylesheet" href="../../static/css/UserManagerAdd.css">
     <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-    <title>维护用户</title>
+    <title>添加用户</title>
 </head>
 <body>
 <div id="div1">
@@ -22,43 +22,42 @@
 </div>
 <div id="div2">
     <div id="div3">
-        <div id="update">
+        <div id="add">
             <form method="post" id="form">
-                <span id="updatetext">编辑用户</span><br /><br /><hr>
+                <span id="addtext">添加用户</span><br /><br /><hr>
 
                 <label id="usernametext">用户名:</label><br /><br />
-                <input type="text" id="username5" name="username" placeholder="请输入用户名" th:value="${user.username}"
-                       required="required" autocomplete="off" maxlength="10" readonly="readonly"><br />
-                <span style="position: absolute;top: 140px;left: 720px;color: #C8C8C8">无法更改</span>
+                <input type="text" id="username5" name="username" placeholder="请输入用户名"
+                       required="required" autocomplete="off" maxlength="10"><br />
+<!--                <span style="position: absolute;top: 140px;left: 720px;color: #C8C8C8">无法更改</span>-->
 
                 <label id="agetext">年龄:</label><br /><br />
-                <input type="text" id="age" name="age" placeholder="请输入年龄" th:value="${user.age}"
+                <input type="text" id="age" name="age" placeholder="请输入年龄"
                        required="required" autocomplete="off" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"><br />
 
                 <label id="sextext">性别:</label><br />
                 <div id = "sex" style="position: relative">
-                    <input type="radio" name="sex" value="男" style="width: 17px;position: relative;top: 30px" th:checked="${user.sex=='男'}">
+                    <input type="radio" name="sex" value="男" style="width: 17px;position: relative;top: 30px">
                     <span  style="position:relative;left: 55px;top: 19px;font-size: 12pt">男</span>
-                    <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 30px;left: 160px" th:checked="${user.sex=='女'}">
+                    <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 30px;left: 160px">
                     <span style="position:relative;left: 165px;top: 19px;font-size: 12pt">女</span>
                 </div>
 
                 <label id="phonetext">手机号码:</label><br /><br />
-                <input type="text" id="phone" name="phone" placeholder="请输入联系电话" th:value="${user.phone}"
+                <input type="text" id="phone" name="phone" placeholder="请输入联系电话"
                        required="required" autocomplete="off" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br />
 
                 <label id="emailtext">邮箱:</label><br /><br />
-                <input type="text" id="email" name="email" placeholder="请输入邮件" th:value="${user.email}"
+                <input type="text" id="email" name="email" placeholder="请输入邮件"
                        required="required" autocomplete="off" maxlength="16"><br />
 
                 <label>登录密码:</label><br /><br />
-                <input type="password" id="password1" name="password" placeholder="请输入登录密码" th:value="${user.password}"
+                <input type="password" id="password1" name="password" placeholder="请输入登录密码"
                        required="required" autocomplete="off" maxlength="16"><br />
 
 
-                <button id="button1" type="submit">确定</button>
+                <button id="button1" type="submit">提交</button>
                 <button id="button2" type="button" onclick="window.location.href='/UserManager'">返回</button>
-                <button id="button3" type="button"><a onclick="DeleteUser()" style="cursor: pointer">删除用户</a></button>
 
             </form>
         </div>
@@ -78,9 +77,9 @@
 
     $('#form').on('submit', function (e) {
         e.preventDefault();
-        var data = $('#form').serializeObject();
+        const data = $('#form').serializeObject();
         $.ajax({
-            url: '/UserManagerUpdate',
+            url: '/UserManagerAdd',
             type: 'post',
             data: JSON.stringify(data),
             // header: {'Content-Type': 'application/json;charset=utf-8'},
@@ -96,28 +95,6 @@
             }
         });
     });
-
-    function DeleteUser() {
-        const data = $('#form').serializeObject();
-        if(confirm("确定要删除该用户吗？")){
-            $.ajax({
-                url: '/UserManagerDelete',
-                type: 'post',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify(data),
-                success:function (res) {
-                    if (res.code == 200){
-                        window.location.href = "/UserManager";
-                    }else{
-                        alert(res.desc);
-                    }
-                }
-            });
-        }else{
-            return false;
-        }
-    };
 </script>
 </body>
 </html>

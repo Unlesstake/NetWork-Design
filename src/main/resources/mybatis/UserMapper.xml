@@ -33,5 +33,23 @@
     <select id="isexist" parameterType="java.lang.String" resultType="com.cn.entity.UserInfo">
       SELECT  * FROM userinfo where username = #{username}
     </select>
+    
+    <select id="Query" parameterType="com.cn.entity.UserInfo" resultType="com.cn.entity.UserInfo">
+        select * from userinfo
+        <where>
+            <if test="username != null and username != ''">
+                and username like "%"#{username}"%"
+            </if>
+            <if test="age != null and age !=''">
+                and age = #{age}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="phone != null and phone !=''">
+                and phone like #{phone}"%"
+            </if>
+        </where>
+    </select>
 
 </mapper>

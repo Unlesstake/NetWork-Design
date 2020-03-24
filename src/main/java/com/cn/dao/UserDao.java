@@ -5,6 +5,7 @@ import java.util.List;
 import com.cn.entity.Admin;
 import com.cn.entity.CommonUser;
 import com.cn.entity.UserInfo;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserDao {
 	UserInfo login(CommonUser common);
@@ -15,4 +16,5 @@ public interface UserDao {
 	int updateUser(UserInfo user);	//更新用户信息
 	int delUser(String username);		//删除用户
 	UserInfo isexist(String username);
+	List<UserInfo> Query(@Param("username") String username,@Param("age") Integer age,@Param("sex") String sex,@Param("phone") String phone);
 }
