@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/css/UserManager.css">
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
     <title>用户管理</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
 <body>
 <div id="div1">
     <img src="../../static/img/adminPic.jfif" />
-    <label id="username">SongYang</label>
+    <label id="username" th:text="${UserName}">SongYang</label>
     <div id="managerPer">
         <a id="managerPerA" href="/AdminInfo">个人信息</a><br><br><br>
     </div>

@@ -168,6 +168,9 @@ input:focus{
     font-weight: bold;
     border-radius: 20px;
 }
+#edit:hover{
+    background-color: #C6C6C6;
+}
 
 #submit{
     position: absolute;
@@ -183,6 +186,9 @@ input:focus{
     border-radius: 20px;
     display: none;
 }
+#submit:hover{
+    background-color: #C6C6C6;
+}
 
 #back{
     position: absolute;
@@ -197,6 +203,9 @@ input:focus{
     font-weight: bold;
     border-radius: 20px;
     display: none;
+}
+#back:hover{
+    background-color: #C6C6C6;
 }
 
 input.change::-webkit-input-placeholder{

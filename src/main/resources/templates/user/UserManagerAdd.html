@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../static/css/UserManagerAdd.css">
-    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
     <title>添加用户</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
 <body>
 <div id="div1">
@@ -37,7 +39,7 @@
 
                 <label id="sextext">性别:</label><br />
                 <div id = "sex" style="position: relative">
-                    <input type="radio" name="sex" value="男" style="width: 17px;position: relative;top: 30px">
+                    <input type="radio" name="sex" value="男" checked style="width: 17px;position: relative;top: 30px">
                     <span  style="position:relative;left: 55px;top: 19px;font-size: 12pt">男</span>
                     <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 30px;left: 160px">
                     <span style="position:relative;left: 165px;top: 19px;font-size: 12pt">女</span>

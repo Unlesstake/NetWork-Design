@@ -42,8 +42,8 @@ public class UpdateController {
             object.put("change",change);
 
             HttpSession session = request.getSession();
-            int token = olduser.getId() + 10086;            //与登录时的key加密方式一致
-            session.setAttribute(String.valueOf(token),NewUser);
+            int token_user = olduser.getId() + 10086;            //与登录时的key加密方式一致
+            session.setAttribute(String.valueOf(token_user),NewUser);
             return object.toString();
         }
         JSONObject object = new JSONObject();
@@ -69,8 +69,8 @@ public class UpdateController {
             object.put("change",change);
 
             HttpSession session = request.getSession();
-            int token = olduser.getId() + 10086;            //与登录时的key加密方式一致
-            session.setAttribute(String.valueOf(token),NewUser);
+            int token_admin = olduser.getId() + 10010;            //与登录时的key加密方式一致
+            session.setAttribute(String.valueOf(token_admin),NewUser);
             return object.toString();
         }
         JSONObject object = new JSONObject();

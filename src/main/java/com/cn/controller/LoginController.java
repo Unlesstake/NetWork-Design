@@ -59,12 +59,12 @@ public class LoginController {
 			JSONObject object = new JSONObject();
 
 			// token是需要加密的，防止cookie被拦截，信息泄露
-			int token = exist.getId() + 10086;
-			Cookie cookie = new Cookie("token",String.valueOf(token));
+			int token_user = exist.getId() + 10086;
+			Cookie cookie = new Cookie("token_user",String.valueOf(token_user));
 			response.addCookie(cookie);
 
 			HttpSession session = request.getSession();
-			session.setAttribute(String.valueOf(token), exist);
+			session.setAttribute(String.valueOf(token_user), exist);
 
 			object.put("code", 200);
 			object.put("role","用户");
@@ -83,12 +83,12 @@ public class LoginController {
 			JSONObject object = new JSONObject();
 
 			// token是需要加密的，防止cookie被拦截，信息泄露
-			int token = exist.getId() + 10086;
-			Cookie cookie = new Cookie("token",String.valueOf(token));
+			int token_admin = exist.getId() + 10010;
+			Cookie cookie = new Cookie("token_admin",String.valueOf(token_admin));
 			response.addCookie(cookie);
 
 			HttpSession session = request.getSession();
-			session.setAttribute(String.valueOf(token), exist);
+			session.setAttribute(String.valueOf(token_admin), exist);
 
 			object.put("code", 200);
 			object.put("role","管理员");
@@ -111,8 +111,8 @@ public class LoginController {
 		HttpSession session = request.getSession();
 
 		for (Cookie cookie : cookies) {
-			//本程序约定了：名称为 token 的 cookie 为用户登录信息的 cookie
-			if ("token".equals(cookie.getName())) {
+			//本程序约定了：名称为 token_user 的 cookie 为用户登录信息的 cookie
+			if ("token_user".equals(cookie.getName())) {
 				/*
 					cookie中，存入数据的格式：
 						key： "token"
@@ -138,8 +138,8 @@ public class LoginController {
 		HttpSession session = request.getSession();
 
 		for (Cookie cookie : cookies) {
-			//本程序约定了：名称为 token 的 cookie 为用户登录信息的 cookie
-			if ("token".equals(cookie.getName())) {
+			//本程序约定了：名称为 token_admin 的 cookie 为管理员登录信息的 cookie
+			if ("token_admin".equals(cookie.getName())) {
 				/*
 					cookie中，存入数据的格式：
 						key： "token"

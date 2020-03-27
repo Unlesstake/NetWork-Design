@@ -60,15 +60,17 @@ input{
 
 #edit{
     position: absolute;
-    top: 650px;
+    top: 680px;
     left: 145px;
     transform: translate(-84%, -60%);
-    width: 55px;
+    width: 60px;
     background-color: white;
     border: none;
+    outline: none;
     font-weight: bold;
     color: #4A7BF7;
-    height: 22px;
+    height: 27px;
+    font-size: 13px;
 }
 #edit:hover{
     background-color: #EBEBE4;
@@ -76,16 +78,18 @@ input{
 
 #submit{
     position: absolute;
-    top: 650px;
-    left: 80px;
+    top: 680px;
+    left: 90px;
     transform: translate(-84%, -35%);
-    width: 55px;
+    width: 60px;
     background-color: white;
     border: none;
+    outline: none;
     font-weight: bold;
     color: #4A7BF7;
-    height: 22px;
+    height: 26px;
     display: none;
+    font-size: 13px;
 }
 #submit:hover{
     background-color: #EBEBE4;
@@ -93,16 +97,18 @@ input{
 
 #back{
     position: absolute;
-    top: 650px;
+    top: 680px;
     left: 210px;
     transform: translate(-84%, -35%);
-    width: 55px;
+    width: 60px;
     background-color: white;
     border: none;
+    outline: none;
     font-weight: bold;
     color: #4A7BF7;
-    height: 22px;
+    height: 26px;
     display: none;
+    font-size: 13px;
 }
 #back:hover{
     background-color: #EBEBE4;
