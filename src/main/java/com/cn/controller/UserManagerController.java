@@ -49,6 +49,16 @@ public class UserManagerController {
     public String UpdateIndex(@PathVariable("id") int id,Model model){
         UserInfo user = userdao.findByid(id);
         model.addAttribute("user",user);
+
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        for (Cookie cookie : cookies) {
+            if ("token_admin".equals(cookie.getName())) {
+                Admin admin = (Admin) session.getAttribute(cookie.getValue());
+                model.addAttribute("UserName",admin.getUsername());
+                break;
+            }
+        }
         return "user/UserManagerUpdate";
     }
 
@@ -86,7 +96,16 @@ public class UserManagerController {
     }
 
     @RequestMapping("/UserManager/Add")                 /*前往新增用户页面*/
-    public String GoAdd(){
+    public String GoAdd(Model model){
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        for (Cookie cookie : cookies) {
+            if ("token_admin".equals(cookie.getName())) {
+                Admin admin = (Admin) session.getAttribute(cookie.getValue());
+                model.addAttribute("UserName",admin.getUsername());
+                break;
+            }
+        }
         return "user/UserManagerAdd";
     }
 

@@ -64,15 +64,25 @@ img {
     text-decoration: none;
 }
 
-#managerUser{
+#managerUserA{
+    position: relative;
+    top: 299.5px;
+    left: 75px;
+    font-weight: bold;
+    color: white;
+    font-size: 13pt;
+    text-decoration: none;
+}
+
+#managerStore{
     position: absolute;
     width: 221px;
     height: 52px;
-    top: 350px;
+    top: 426px;
     background-color: #F57569;
 }
 
-#managerUserA{
+#managerStoreA{
     position: relative;
     top: 15px;
     left: 75px;
@@ -82,17 +92,7 @@ img {
     text-decoration: none;
 }
 
-#managerStoreA{
-    position: relative;
-    top: 375px;
-    left: 75px;
-    font-weight: bold;
-    color: white;
-    font-size: 13pt;
-    text-decoration: none;
-}
-
-#add {
+#update {
     width: 70%;
     height: 80%;
     top: 45%;
@@ -103,7 +103,7 @@ img {
     /*box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)*/
     /*页面四周阴影*/
 }
-#addtext{
+#updatetext{
     position: relative;
     left: 50px;
     top:16px;
@@ -120,7 +120,7 @@ input{
     left: 50px;
     top: 18px;
     height: 34px;
-    width: 750px;
+    width: 400px;
     font-size: 12pt;
     letter-spacing:1px;
     color: #34495E;
@@ -135,14 +135,45 @@ input:focus{
     border: solid 1px dodgerblue;
 }
 
-#false{
+#city{
     position: relative;
-    left:95px;
-    top:7px;
-    font-size: 11pt;
-    color:white;
+    left: 50px;
+    top: 18px;
+    height: 34px;
+    width: 400px;
+    font-size: 12pt;
+    letter-spacing:1px;
+    color: #34495E;
+    text-indent: 7px;
+    border: solid 1px #DDE4E6;
+    background-color: #FBFCFC;
+    border-radius: 20px;
+}
+#city:focus{
+    outline:none;
+    border-radius: 20px;
+    border: solid 1px dodgerblue;
 }
 
+#business_scope{
+    position: relative;
+    left: 50px;
+    top: 18px;
+    height: 34px;
+    width: 400px;
+    font-size: 12pt;
+    letter-spacing:1px;
+    color: #34495E;
+    text-indent: 7px;
+    border: solid 1px #DDE4E6;
+    background-color: #FBFCFC;
+    border-radius: 20px;
+}
+#business_scope:focus{
+    outline:none;
+    border-radius: 20px;
+    border: solid 1px dodgerblue;
+}
 
 #button1{
     position: relative;
@@ -188,7 +219,7 @@ input:focus{
 
 #button3{
     position: absolute;
-    left: 710px;
+    left: 510px;
     top: 87px;
     color: red;
     font-size: 11pt;

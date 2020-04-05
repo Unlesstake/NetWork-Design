@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/css/UserManagerUpdate.css">
-<!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
-    <title>维护用户</title>
+    <link rel="stylesheet" href="../../static/css/StoreManagerUpdate.css">
+    <!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <title>维护电商信息</title>
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
@@ -26,36 +26,43 @@
     <div id="div3">
         <div id="update">
             <form method="post" id="form">
-                <span id="updatetext">编辑用户</span><br /><br /><hr>
+                <span id="updatetext">编辑电商信息</span><br /><br /><hr>
 
-                <label id="usernametext">用户名:</label><br /><br />
-                <input type="text" id="username5" name="username" placeholder="请输入用户名" th:value="${user.username}"
+                <label id="usernametext">电商名称:</label><br /><br />
+                <input type="text" id="username5" name="username" placeholder="请输入电商名称" th:value="${store.store_name}"
                        required="required" autocomplete="off" maxlength="10" readonly="readonly"><br />
-                <span style="position: absolute;top: 140px;left: 720px;color: #C8C8C8">无法更改</span>
+                <span style="position: absolute;top: 140px;left: 370px;color: #C8C8C8">无法更改</span>
 
-                <label id="agetext">年龄:</label><br /><br />
-                <input type="text" id="age" name="age" placeholder="请输入年龄" th:value="${user.age}"
-                       required="required" autocomplete="off" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"><br />
+                <label id="citytext">所在城市:</label><br /><br />
+<!--                <input type="text" id="city" name="city" placeholder="请选择电商所在城市" th:value="${user.age}"-->
+<!--                       required="required" autocomplete="off" maxlength="3" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"><br />-->
+                <select id="city">
+                    <option value="成都" th:selected="${store.city == '成都'}">成都</option>
+                    <option value="深圳" th:selected="${store.city == '深圳'}">深圳</option>
+                    <option value="北京" th:selected="${store.city == '北京'}">北京</option>
+                </select><br>
 
-                <label id="sextext">性别:</label><br />
-                <div id = "sex" style="position: relative">
-                    <input type="radio" name="sex" value="男" style="width: 17px;position: relative;top: 30px" th:checked="${user.sex=='男'}">
-                    <span  style="position:relative;left: 55px;top: 19px;font-size: 12pt">男</span>
-                    <input type="radio" name="sex" value="女" style="width: 18px;position: relative;top: 30px;left: 160px" th:checked="${user.sex=='女'}">
-                    <span style="position:relative;left: 165px;top: 19px;font-size: 12pt">女</span>
-                </div>
 
-                <label id="phonetext">手机号码:</label><br /><br />
-                <input type="text" id="phone" name="phone" placeholder="请输入联系电话" th:value="${user.phone}"
+                <label id="lontext">经度:</label><br /><br />
+                <input type="text" id="lon" name="lon" placeholder="请输入电商位置经度" th:value="${store.lon}"
                        required="required" autocomplete="off" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br />
 
-                <label id="emailtext">邮箱:</label><br /><br />
-                <input type="text" id="email" name="email" placeholder="请输入邮件" th:value="${user.email}"
+                <label id="lattext">纬度:</label><br /><br />
+                <input type="text" id="lat" name="lat" placeholder="请输入电商位置纬度" th:value="${store.lat}"
                        required="required" autocomplete="off" maxlength="16"><br />
 
-                <label>登录密码:</label><br /><br />
-                <input type="password" id="password1" name="password" placeholder="请输入登录密码" th:value="${user.password}"
+                <label id="phonetext">客服热线:</label><br /><br />
+                <input type="text" id="phone" name="phone" placeholder="请输入邮件" th:value="${store.phone}"
                        required="required" autocomplete="off" maxlength="16"><br />
+
+                <label>经营范围:</label><br /><br />
+                <select id="business_scope">
+                    <option value="服装衣帽" th:selected="${store.business_scope == '服装衣帽'}">服装衣帽</option>
+                    <option value="游戏电竞" th:selected="${store.business_scope == '游戏电竞'}">游戏电竞</option>
+                    <option value="数码器材" th:selected="${store.business_scope == '数码器材'}">数码器材</option>
+                </select><br>
+
+                <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
 
 
                 <button id="button1" type="submit">确定</button>

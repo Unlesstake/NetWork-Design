@@ -54,16 +54,9 @@ img {
     font-size: 12pt;
 }
 
-#managerPer{
-    position: absolute;
-    width: 221px;
-    height: 52px;
-    top: 270px;
-    background-color: #F57569;
-}
 #managerPerA{
     position: relative;
-    top: 15px;
+    top: 285px;
     left: 75px;
     font-weight: bold;
     color: white;
@@ -73,17 +66,25 @@ img {
 
 #managerUserA{
     position: relative;
-    top: 365px;
+    top: 299.5px;
     left: 75px;
     font-weight: bold;
     color: white;
     font-size: 13pt;
     text-decoration: none;
+}
+
+#managerStore{
+    position: absolute;
+    width: 221px;
+    height: 52px;
+    top: 426px;
+    background-color: #F57569;
 }
 
 #managerStoreA{
     position: relative;
-    top: 375px;
+    top: 15px;
     left: 75px;
     font-weight: bold;
     color: white;
@@ -91,41 +92,43 @@ img {
     text-decoration: none;
 }
 
-#personImg{
+#detail {
+    width: 70%;
+    height: 80%;
+    top: 45%;
+    left: 50%;
     position: absolute;
-    left: 10%;
-    top: 10%;
-    width: 80px;
-    height: 80px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    /*box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)*/
+    /*页面四周阴影*/
 }
-
+#updatetext{
+    position: relative;
+    left: 50px;
+    top:16px;
+    font-size: 18pt
+}
 label{
     position: relative;
-    font-size: 15pt;
-    font-weight: bold;
-    color: #555555;
-    top:200px;
-    left:110px
+    left: 50px;
+    top:30px;
+    font-size: 13pt
 }
-
-hr{
-    position: relative;
-    top: 155px;
-    width: 1300px;
-    border:0px;
-    border-bottom:1px solid #E0E0E0;
-}
-
 input{
-    border-radius: 20px;
+    position: relative;
+    left: 50px;
+    top: 28px;
+    height: 30px;
+    width: 200px;
+    font-size: 12pt;
+    letter-spacing:1px;
+    color: #34495E;
+    text-indent: 7px;
+    text-align: center;
     border: solid 1px #DDE4E6;
     background-color: #FBFCFC;
-    text-indent: 7px;
-    height: 34px;
-    width: 400px;
-    font-size: 13pt;
-    letter-spacing:1px;
-    text-align: center;
+    border-radius: 20px;
 }
 input:focus{
     outline:none;
@@ -133,83 +136,31 @@ input:focus{
     border: solid 1px dodgerblue;
 }
 
-#text-password{
-    position: absolute;
-    font-size: 13pt;
-    color: #888888;
-    top: 265px;
-    left: 700px;
+#false{
+    position: relative;
+    left:95px;
+    top:7px;
+    font-size: 11pt;
+    color:white;
 }
 
-#text-phone{
-    position: absolute;
-    font-size: 13pt;
-    color: #888888;
-    top: 400px;
-    left: 700px;
-}
-
-#text-email{
-    position: absolute;
-    font-size: 13pt;
-    color: #888888;
-    top: 540px;
-    left: 700px;
-}
-
-#edit{
-    position: absolute;
-    top:680px;
-    left: 640px;
-    height: 42px;
-    width:90px;
-    font-size: 13pt;
+#button{
+    position: relative;
+    left: 450px;
+    top:10px;
+    height: 40px;
+    width: 90px;
     border: none;
-    outline: none;
-    color: #555555;
-    font-weight: bold;
+    font-size: 12pt;
+    color: #0075A8;
     border-radius: 20px;
+    cursor: pointer;
 }
-#edit:hover{
+#button:hover{
     background-color: #C6C6C6;
 }
-
-#submit{
-    position: absolute;
-    top:680px;
-    left: 520px;
-    height: 42px;
-    width:90px;
-    font-size: 13pt;
-    border: none;
-    outline: none;
-    color: #555555;
-    font-weight: bold;
+#button:focus{
+    outline:none;
     border-radius: 20px;
-    display: none;
-}
-#submit:hover{
-    background-color: #C6C6C6;
 }
 
-#back{
-    position: absolute;
-    top:680px;
-    left: 760px;
-    height: 42px;
-    width:90px;
-    font-size: 13pt;
-    border: none;
-    outline: none;
-    color: #555555;
-    font-weight: bold;
-    border-radius: 20px;
-    display: none;
-}
-#back:hover{
-    background-color: #C6C6C6;
-}
-
-input.change::-webkit-input-placeholder{
-    color: red;
-}

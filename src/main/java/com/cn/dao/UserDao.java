@@ -2,7 +2,6 @@ package com.cn.dao;
 
 import java.util.List;
 
-import com.cn.entity.Admin;
 import com.cn.entity.CommonUser;
 import com.cn.entity.UserInfo;
 import org.apache.ibatis.annotations.Param;

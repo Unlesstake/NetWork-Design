@@ -19,7 +19,7 @@
         <a id="managerUserA" href="/UserManager">用户管理</a><br><br><br>
     </div>
     <div id="managerStore">
-        <a id="managerStoreA">电商管理</a><br><br><br>
+        <a id="managerStoreA" href="/StoreManager">电商管理</a><br><br><br>
     </div>
 </div>
 <div id="div2">
@@ -54,7 +54,7 @@
                 </thead>
             </table>
         </div>
-        <div style="position:absolute;overflow: auto;width: 100%;height: 71%;top: 173px">
+        <div style="position:absolute;overflow: auto;overflow-y: scroll;width: 100%;height: 71%;top: 173px">
             <table id="Tbody">
                 <tbody>
                 <tr th:each="user:${UserList}"
@@ -82,12 +82,12 @@
     </div>
 </div>
 <script>
-    const sum = $('#UserNumber').html();
-    if(sum<=7) {                /*是否存在滚动条时，调整表头宽度，防止错开表头数据与表体*/
-        $('#Thead').css("width", "100%");
-    }else {
-        $('#Thead').css("width", "1407px");
-    }
+    // const sum = $('#UserNumber').html();
+    // if(sum<=7) {                /*是否存在滚动条时，调整表头宽度，防止错开表头数据与表体*/
+    //     $('#Thead').css("width", "100%");
+    // }else {
+    //     $('#Thead').css("width", "1407px");
+    // }
     
     function Query() {
         const username = $('#QueryUserNameText').val();

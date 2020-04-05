@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/StoreManager.css">
+    <!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <title>电商管理</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
+</head>
+<body>
+<div id="div1">
+    <img src="../../static/img/adminPic.jfif" />
+    <label id="username" th:text="${UserName}"></label>
+    <div id="managerPer">
+        <a id="managerPerA" href="/AdminInfo">个人信息</a><br><br><br>
+    </div>
+    <div id="managerUser">
+        <a id="managerUserA" href="/UserManager">用户管理</a><br><br><br>
+    </div>
+    <div id="managerStore">
+        <a id="managerStoreA" href="/StoreManager">电商管理</a><br><br><br>
+    </div>
+</div>
+<div id="div2">
+    <div id="div3">
+<!--        <div>-->
+<!--            <label id="QueryUserName">用户名：<input id="QueryUserNameText" placeholder="全部" th:value="${username}"></label>-->
+
+<!--            <label id="QueryAge">年龄：<input id="QueryAgeText" placeholder="全部" th:value="${age}"></label>-->
+
+<!--            <label id="QuerySex">性别：<select id="QuerySexText">-->
+<!--                <option value="" th:selected="${sex == ''}">全部</option>-->
+<!--                <option value="男" th:selected="${sex == '男'}">男</option>-->
+<!--                <option value="女" th:selected="${sex == '女'}">女</option>-->
+<!--            </select></label>-->
+<!--            <label id="QueryPhone">联系电话：<input placeholder="全部" id="QueryPhoneText" th:value="${phone}"></label>-->
+<!--            <button id="QueryButton" onclick="Query()">查询</button>-->
+<!--            <button id="AddButton" onclick="window.location.href='/UserManager/Add'">添加用户</button>-->
+<!--        </div>-->
+        <div>
+<!--            <span style="display: none" th:text="${UserNumber}" id="UserNumber"></span>&lt;!&ndash; 用于接收后端的用户个数&ndash;&gt;-->
+            <table id="Thead">
+                <thead>
+                <tr bgcolor="#FAFAFA" style="color: #252525">
+                    <th>电商名称</th>
+                    <th>所在城市</th>
+                    <th>经度</th>
+                    <th>纬度</th>
+                    <th>客服电话</th>
+                    <th>经营范围</th>
+                    <th>销售情况</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="position:absolute;overflow-y: scroll;width: 100%;height: 71%;top: 173px">
+            <table id="Tbody">
+                <tbody>
+                <tr th:each="store:${StoreList}"
+                    onmouseover="this.style.backgroundColor='#E6F7FF'" onmouseout="this.style.backgroundColor='#FFFFFF'">
+                    <td align="center" th:text="${store.store_name}">SongYangSongYang</td>
+                    <td align="center" th:text="${store.city}">22</td>
+                    <td align="center" th:text="${store.lon}">男</td>
+                    <td align="center" th:text="${store.lat}">11012345679</td>
+                    <td align="center" th:text="${store.phone}">747566474@qq.com</td>
+                    <td align="center" th:text="${store.business_scope}">就恢诡谲怪</td>
+                    <td align="center">
+                        <a style="color: #1890FF;text-decoration: none" th:href="@{'/StoreManager/Details/'+${store.id}}">查看详情</a>
+                    </td>
+                    <td align="center">
+                        <a style="color: #1890FF;text-decoration: none" th:href="@{'/StoreManager/Update/'+${store.id}}">编辑</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<script>
+    function Query() {
+        const username = $('#QueryUserNameText').val();
+        const age = $('#QueryAgeText').val();
+        const sex = $('#QuerySexText').val();
+        const phone = $('#QueryPhoneText').val();
+        window.location.href = "Query?username="+username+'&age='+age+'&sex='+sex+'&phone='+phone;
+
+    }
+</script>
+</body>
+</html>
