@@ -2,9 +2,9 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../../static/css/StoreManagerUpdate.css">
+    <link rel="stylesheet" href="../../static/css/StoreManagerAdd.css">
     <!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
-    <title>维护电商信息</title>
+    <title>添加电商数据</title>
     <script th:src="@{/static/js/jquery.min.js}"></script>
     <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
@@ -26,69 +26,67 @@
     <div id="div3">
         <div id="update">
             <form method="post" id="form">
-                <span id="updatetext">编辑电商信息</span><br /><br /><hr>
+                <span id="updatetext">添加电商数据</span><br /><br /><hr>
 
                 <label id="usernametext">电商名称:</label><br /><br />
-                <input type="text" id="store_name" name="store_name" placeholder="请输入电商名称" th:value="${store.store_name}"
-                       required autocomplete="off" maxlength="10" readonly="readonly"><br />
-                <span style="position: absolute;top: 140px;left: 370px;color: #C8C8C8">无法更改</span>
+                <input type="text" id="store_name" name="store_name" placeholder="请输入电商名称"
+                       required autocomplete="off" maxlength="10"><br />
 
                 <label id="citytext">所在城市:</label><br /><br />
                 <select id="city" name="city">
-                    <option value="成都" th:selected="${store.city == '成都'}">成都</option>
-                    <option value="深圳" th:selected="${store.city == '深圳'}">深圳</option>
-                    <option value="北京" th:selected="${store.city == '北京'}">北京</option>
+                    <option value="成都" selected>成都</option>
+                    <option value="深圳">深圳</option>
+                    <option value="北京">北京</option>
                 </select><br>
 
 
                 <label id="lontext">经度:</label><br /><br />
-                <input type="text" id="lon" name="lon" placeholder="请输入电商位置经度" th:value="${store.lon}"
+                <input type="text" id="lon" name="lon" placeholder="请输入电商位置经度"
                        required autocomplete="off" maxlength="7" oninput="value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
 
                 <label id="lattext">纬度:</label><br /><br />
-                <input type="text" id="lat" name="lat" placeholder="请输入电商位置纬度" th:value="${store.lat}"
+                <input type="text" id="lat" name="lat" placeholder="请输入电商位置纬度"
                        required autocomplete="off" maxlength="7"><br />
 
                 <label id="phonetext">客服热线:</label><br /><br />
-                <input type="text" id="phone" name="phone" placeholder="请输入客服热线" th:value="${store.phone}"
+                <input type="text" id="phone" name="phone" placeholder="请输入客服热线"
                        required autocomplete="off" maxlength="11"><br />
 
                 <label>经营范围:</label><br /><br />
                 <select id="business_scope" name="business_scope">
-                    <option value="服装衣帽" th:selected="${store.business_scope == '服装衣帽'}">服装衣帽</option>
-                    <option value="游戏电竞" th:selected="${store.business_scope == '游戏电竞'}">游戏电竞</option>
-                    <option value="数码器材" th:selected="${store.business_scope == '数码器材'}">数码器材</option>
+                    <option value="服装衣帽" selected>服装衣帽</option>
+                    <option value="游戏电竞">游戏电竞</option>
+                    <option value="数码器材">数码器材</option>
                 </select><br>
 
                 <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
                 <label style="position: relative;top: -333px;left: 570px">未成年人（18岁以下）:&nbsp;</label>
                 <input type="text" id="under_age" name="under_age" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.under_age}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">青年人（18——28岁）:</label>
                 <input type="text" id="puber" name="puber" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.puber}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">壮年人（29——40岁）:</label>
                 <input type="text" id="young_man" name="young_man" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.young_man}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">中年人（41——65岁）:</label>
                 <input type="text" id="middle_aged" name="middle_aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.middle_aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" id="aged" name="aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <button id="button1" type="submit">确定</button>
                 <button id="button2" type="button" onclick="window.location.href='/StoreManager'">返回</button>
-                <button id="button3" type="button"><a onclick="DeleteStore()" style="cursor: pointer">删除电商数据</a></button>
 
             </form>
         </div>
@@ -110,7 +108,7 @@
         e.preventDefault();
         var data = $('#form').serializeObject();
         $.ajax({
-            url: '/StoreManagerUpdate',
+            url: '/StoreManagerAdd',
             type: 'post',
             data: JSON.stringify(data),
             // header: {'Content-Type': 'application/json;charset=utf-8'},
@@ -126,28 +124,6 @@
             }
         });
     });
-
-    function DeleteStore() {
-        const data = $('#form').serializeObject();
-        if(confirm("确定要删除该电商数据吗？")){
-            $.ajax({
-                url: '/StoreManagerDelete',
-                type: 'post',
-                contentType: 'application/json',
-                dataType: 'json',
-                data: JSON.stringify(data),
-                success:function (res) {
-                    if (res.code == 200){
-                        window.location.href = "/StoreManager";
-                    }else{
-                        alert(res.desc);
-                    }
-                }
-            });
-        }else{
-            return false;
-        }
-    };
 </script>
 </body>
 </html>

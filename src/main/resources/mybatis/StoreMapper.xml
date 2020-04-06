@@ -9,4 +9,23 @@
     <select id="FindById" resultType="com.cn.entity.Store" parameterType="java.lang.Integer">
         select * from store_info where id=#{id}
     </select>
+
+    <update id="UpdateStore" parameterType="com.cn.entity.Store">
+        update store_info set city=#{city},lon=#{lon},lat=#{lat},phone=#{phone},business_scope=#{business_scope},
+        under_age=#{under_age},puber=#{puber},young_man=#{young_man},middle_aged=#{middle_aged},aged=#{aged} where store_name=#{store_name}
+    </update>
+
+    <delete id="DelStore" parameterType="java.lang.String">
+        delete from store_info where store_name=#{store_name}
+    </delete>
+
+    <insert id="AddStore" parameterType="com.cn.entity.Store">
+        insert into store_info(store_name,city,lon,lat,phone,business_scope,under_age,puber,young_man,middle_aged,aged) values
+        (#{store_name,#{city},#{lon},#{lat},#{phone},#{business_scope},#{under_age},#{puber},#{young_man},#{middle_aged},#{aged})
+    </insert>
+
+    <select id="IsExist">
+
+    </select>
+
 </mapper>

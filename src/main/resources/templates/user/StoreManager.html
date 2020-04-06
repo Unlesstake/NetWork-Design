@@ -24,22 +24,21 @@
 </div>
 <div id="div2">
     <div id="div3">
-<!--        <div>-->
-<!--            <label id="QueryUserName">用户名：<input id="QueryUserNameText" placeholder="全部" th:value="${username}"></label>-->
-
-<!--            <label id="QueryAge">年龄：<input id="QueryAgeText" placeholder="全部" th:value="${age}"></label>-->
-
-<!--            <label id="QuerySex">性别：<select id="QuerySexText">-->
-<!--                <option value="" th:selected="${sex == ''}">全部</option>-->
-<!--                <option value="男" th:selected="${sex == '男'}">男</option>-->
-<!--                <option value="女" th:selected="${sex == '女'}">女</option>-->
-<!--            </select></label>-->
-<!--            <label id="QueryPhone">联系电话：<input placeholder="全部" id="QueryPhoneText" th:value="${phone}"></label>-->
-<!--            <button id="QueryButton" onclick="Query()">查询</button>-->
-<!--            <button id="AddButton" onclick="window.location.href='/UserManager/Add'">添加用户</button>-->
-<!--        </div>-->
         <div>
-<!--            <span style="display: none" th:text="${UserNumber}" id="UserNumber"></span>&lt;!&ndash; 用于接收后端的用户个数&ndash;&gt;-->
+            <label id="QueryUserName">用户名：<input id="QueryUserNameText" placeholder="全部" th:value="${username}"></label>
+
+            <label id="QueryAge">年龄：<input id="QueryAgeText" placeholder="全部" th:value="${age}"></label>
+
+            <label id="QuerySex">性别：<select id="QuerySexText">
+                <option value="" th:selected="${sex == ''}">全部</option>
+                <option value="男" th:selected="${sex == '男'}">男</option>
+                <option value="女" th:selected="${sex == '女'}">女</option>
+            </select></label>
+            <label id="QueryPhone">联系电话：<input placeholder="全部" id="QueryPhoneText" th:value="${phone}"></label>
+            <button id="QueryButton" onclick="Query()">查询</button>
+            <button id="AddButton" onclick="window.location.href='/StoreManager/Add'">添加用户</button>
+        </div>
+        <div>
             <table id="Thead">
                 <thead>
                 <tr bgcolor="#FAFAFA" style="color: #252525">

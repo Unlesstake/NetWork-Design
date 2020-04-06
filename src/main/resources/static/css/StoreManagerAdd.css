@@ -217,17 +217,4 @@ input:focus{
     border-radius: 20px;
 }
 
-#button3{
-    position: absolute;
-    left: 88%;
-    top: 87px;
-    color: red;
-    font-size: 11pt;
-    border: none;
-    background-color: white;
-}
-#button3:focus{
-    outline: none;
-}
-
 
