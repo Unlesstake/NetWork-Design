@@ -42,21 +42,45 @@
 
                 <label id="lontext">经度:</label><br /><br />
                 <input type="text" id="lon" name="lon" placeholder="请输入电商位置经度"
-                       required autocomplete="off" maxlength="7" oninput="value=value.replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
+                       required autocomplete="off" maxlength="7" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
 
                 <label id="lattext">纬度:</label><br /><br />
                 <input type="text" id="lat" name="lat" placeholder="请输入电商位置纬度"
-                       required autocomplete="off" maxlength="7"><br />
+                       required autocomplete="off" maxlength="7" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
 
                 <label id="phonetext">客服热线:</label><br /><br />
                 <input type="text" id="phone" name="phone" placeholder="请输入客服热线"
-                       required autocomplete="off" maxlength="11"><br />
+                       required autocomplete="off" maxlength="11" oninput="value=value.replace(/[^\d]/g,'')"><br />
 
                 <label>经营范围:</label><br /><br />
                 <select id="business_scope" name="business_scope">
-                    <option value="服装衣帽" selected>服装衣帽</option>
-                    <option value="游戏电竞">游戏电竞</option>
-                    <option value="数码器材">数码器材</option>
+                    <option value="国际名牌" selected>国际名牌</option>
+                    <option value="电脑办公">电脑办公</option>
+                    <option value="运动">运动</option>
+                    <option value="家电">家电</option>
+                    <option value="手机">手机</option>
+                    <option value="家居厨具">家居厨具</option>
+                    <option value="医疗保健">医疗保健</option>
+                    <option value="内衣配饰">内衣配饰</option>
+                    <option value="食品酒饮">食品酒饮</option>
+                    <option value="家装">家装</option>
+                    <option value="宠物鲜花">宠物鲜花</option>
+                    <option value="美妆护肤">美妆护肤</option>
+                    <option value="母婴">母婴</option>
+                    <option value="洗护">洗护</option>
+                    <option value="男装">男装</option>
+                    <option value="女装">女装</option>
+                    <option value="鞋靴">鞋靴</option>
+                    <option value="玩具乐器">玩具乐器</option>
+                    <option value="计生情趣">计生情趣</option>
+                    <option value="生鲜">生鲜</option>
+                    <option value="数码">数码</option>
+                    <option value="车品">车品</option>
+                    <option value="腕表珠宝">腕表珠宝</option>
+                    <option value="箱包">箱包</option>
+                    <option value="图书文娱">图书文娱</option>
+                    <option value="二手商品">二手商品</option>
+                    <option value="生活旅行">生活旅行</option>
                 </select><br>
 
                 <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>

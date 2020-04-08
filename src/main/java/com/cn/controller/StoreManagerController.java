@@ -4,11 +4,13 @@ package com.cn.controller;
 import com.cn.dao.StoreDao;
 import com.cn.entity.Admin;
 import com.cn.entity.Store;
+import com.cn.entity.UserInfo;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
@@ -122,9 +124,49 @@ public class StoreManagerController {
         return "user/StoreManagerAdd";
     }
 
-    @PostMapping("StoreManagerAdd")
+    @PostMapping("/StoreManagerAdd")
     @ResponseBody
     public String StoreManagerAdd(@RequestBody Store AddStore){
-        return "user";
+//        Store exist = storedao.IsExist(AddStore.getStore_name());
+//        if(exist == null){
+        int flag = storedao.AddStore(AddStore);
+        if(flag>0){
+            JSONObject object = new JSONObject();
+            object.put("code",200);
+            object.put("desc","添加电商数据成功！");
+            object.put("data", AddStore);
+            return object.toString();
+        }else {
+            JSONObject object = new JSONObject();
+            object.put("code",400);
+            object.put("desc","添加失败，请稍后重试！");
+            return object.toString();
+        }
+
+//        }
+//        JSONObject object = new JSONObject();
+//        object.put("code", 405);
+//        object.put("desc", "添加失败，该电商名已存在！");
+//        return object.toString();
+    }
+
+    @RequestMapping(path = "/QueryStore", method = RequestMethod.GET)        /*查询电商*/
+    public ModelAndView Query(@RequestParam("store_name") String store_name, @RequestParam("city") String city, @RequestParam("business_scope") String business_scope, @RequestParam("phone") String phone){
+        ModelAndView NewView = new ModelAndView("user/StoreManager");
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        for (Cookie cookie : cookies) {
+            if ("token_admin".equals(cookie.getName())) {
+                Admin user = (Admin) session.getAttribute(cookie.getValue());
+                NewView.addObject("UserName", user.getUsername());
+                break;
+            }
+        }
+        NewView.addObject("StoreList", storedao.Query(store_name,city,business_scope,phone));
+        NewView.addObject("store_name", store_name);
+        NewView.addObject("city",city);
+        NewView.addObject("business_scope",business_scope);
+        NewView.addObject("phone", phone);
+        return NewView;
     }
 }

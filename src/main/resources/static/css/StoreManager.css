@@ -121,13 +121,13 @@ table,tr{
     table-layout: fixed;
 }
 
-#QueryUserName{
+#QueryStoreName{
     position: absolute;
     top: 60px;
     font-size: 13pt;
     left: 50px;
 }
-#QueryUserNameText {
+#QueryStoreNameText {
     border-radius: 5px;
     border: solid 1px #DDE4E6;
     height: 25px;
@@ -135,47 +135,47 @@ table,tr{
     font-size: 12pt;
     text-indent: 7px;
 }
-#QueryUserNameText:focus{
+#QueryStoreNameText:focus{
     outline:none;
     border-radius: 5px;
     border: solid 1px dodgerblue;
 }
 
-#QueryAge{
+#QueryCity{
     position: absolute;
     top: 60px;
     font-size: 13pt;
-    left: 360px;
+    left: 370px;
 }
-#QueryAgeText{
-    border-radius: 5px;
-    border: solid 1px #DDE4E6;
-    height: 25px;
-    width: 55px;
-    font-size: 12pt;
-    text-indent: 7px;
-}
-#QueryAgeText:focus{
-    outline:none;
-    border-radius: 5px;
-    border: solid 1px dodgerblue;
-}
-
-#QuerySex{
-    position: absolute;
-    top: 60px;
-    font-size: 13pt;
-    left: 515px;
-}
-#QuerySexText{
+#QueryCityText{
     border-radius: 5px;
     border: solid 1px #DDE4E6;
     height: 30px;
-    width: 80px;
+    width: 100px;
     font-size: 12pt;
     text-indent: 7px;
 }
-#QuerySexText:focus{
+#QueryCityText:focus{
+    outline:none;
+    border-radius: 5px;
+    border: solid 1px dodgerblue;
+}
+
+#QueryScope{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 590px;
+}
+#QueryScopeText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 30px;
+    width: 100px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryScopeText:focus{
     outline:none;
     border-radius: 5px;
     border: solid 1px dodgerblue;
@@ -185,13 +185,13 @@ table,tr{
     position: absolute;
     top: 60px;
     font-size: 13pt;
-    left: 705px;
+    left: 825px;
 }
 #QueryPhoneText{
     border-radius: 5px;
     border: solid 1px #DDE4E6;
     height: 27px;
-    width: 200px;
+    width: 150px;
     font-size: 12pt;
     text-indent: 7px;
 }
@@ -205,8 +205,8 @@ table,tr{
     position: absolute;
     top: 60px;
     width: 90px;
-    height: 32px;
-    left: 1060px;
+    height: 35px;
+    left: 1130px;
     border-radius: 25px;
     border: none;
     font-size: 11pt;

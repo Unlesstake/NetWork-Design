@@ -11,8 +11,8 @@
     </select>
 
     <update id="UpdateStore" parameterType="com.cn.entity.Store">
-        update store_info set city=#{city},lon=#{lon},lat=#{lat},phone=#{phone},business_scope=#{business_scope},
-        under_age=#{under_age},puber=#{puber},young_man=#{young_man},middle_aged=#{middle_aged},aged=#{aged} where store_name=#{store_name}
+        update store_info set store_name=#{store_name},city=#{city},lon=#{lon},lat=#{lat},phone=#{phone},business_scope=#{business_scope},
+        under_age=#{under_age},puber=#{puber},young_man=#{young_man},middle_aged=#{middle_aged},aged=#{aged} where id=#{id}
     </update>
 
     <delete id="DelStore" parameterType="java.lang.String">
@@ -21,11 +21,29 @@
 
     <insert id="AddStore" parameterType="com.cn.entity.Store">
         insert into store_info(store_name,city,lon,lat,phone,business_scope,under_age,puber,young_man,middle_aged,aged) values
-        (#{store_name,#{city},#{lon},#{lat},#{phone},#{business_scope},#{under_age},#{puber},#{young_man},#{middle_aged},#{aged})
+        (#{store_name},#{city},#{lon},#{lat},#{phone},#{business_scope},#{under_age},#{puber},#{young_man},#{middle_aged},#{aged})
     </insert>
 
-    <select id="IsExist">
+    <select id="IsExist" parameterType="java.lang.String" resultType="com.cn.entity.Store">
+        select * from store_info where store_name = #{store_name}
+    </select>
 
+    <select id="Query" parameterType="com.cn.entity.Store" resultType="com.cn.entity.Store">
+        select * from store_info
+        <where>
+            <if test="store_name != null and store_name != ''">
+                and store_name like "%"#{store_name}"%"
+            </if>
+            <if test="city != null and city != ''">
+                and city = #{city}
+            </if>
+            <if test="business_scope != null and business_scope != ''">
+                and business_scope = #{business_scope}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone like #{phone}"%"
+            </if>
+        </where>
     </select>
 
 </mapper>
