@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script src="https://cdn.bootcss.com/d3/3.5.14/d3.js"></script>
     <link rel="stylesheet" href="../../static/css/index.css">
-<!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=COCfvS8ZjqUa3ZoaN7CIX4rzrP0Z1Oid"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+    <script th:src="@{/static/js/MarkerClusterer_min.js}"></script>
+    <script th:src="@{/static/js/TextIconOverlay_min.js}"></script>
+    <script th:src="@{/static/js/GeoUtils.js}"></script>
+
+    <script th:src="@{/static/js/d3.v3.js}"></script>
+    <script th:src="@{/static/js/d3tip.js}"></script>
     <title>个人中心</title>
     <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
 <body>
+    <div id="allmap" style="position:absolute;left: 14%;height: 100%;;width: 45%">
+
+    </div>
     <div id="div1">
-        <img src="../../static/img/seven.jpg" />
+        <img style="width: 70px;height: 70px;border-radius: 50%;position: absolute;top: 8%;left: 50%;transform: translate(-50%, -8%)" src="../../static/img/seven.jpg" />
         <label id="username" th:text="${user.username}"></label>
         <label id="personInfo">个人信息</label>
         <hr size="7 px" style="position:relative;top:220px;background-color: floralwhite;border: none">
@@ -123,5 +137,68 @@
             })
         }
     }
+
+    function initMap(){
+        createMap();
+
+    }
+
+    function createMap() {
+        var map = new BMap.Map("allmap", {
+            minZoom:4,maxZoom:25,//缩放设置
+            enableMapClick: false //关闭自带标签
+        }); // 创建Map实例
+        map.centerAndZoom("成都", 7); // 初始化地图,设置中心点坐标和地图级别
+        //添加地图类型控件
+        map.addControl(new BMap.MapTypeControl({
+            mapTypes: [
+                BMAP_NORMAL_MAP,
+                BMAP_HYBRID_MAP
+            ]
+        }));
+        map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
+        map.enableScrollWheelZoom(true);
+        // var mapstyle={style:"googlelite"};
+        // map.setMapStyle(mapstyle);
+
+
+        function getdistrict() {
+            getBoundary("四川省");
+            getBoundary("辽宁");
+            getBoundary("北京");
+            getBoundary("甘肃");
+        }
+
+        function getBoundary(districtname) {
+            var plys = [];
+            var bdary = new BMap.Boundary();
+            var line = bdary.get(districtname, function(rs) {
+                var district = new Object();
+                var count = rs.boundaries.length;
+                //建立多边形覆盖物
+                for(var i = 0; i < count; i++) {
+                    district.ply = new BMap.Polygon(rs.boundaries[i], {
+                        strokeWeight: 2,
+                        strokeOpacity: 0.8,
+                        StrokeStyle: "solid",
+                        strokeColor: "#1abc9c",
+                        fillColor: "#ffffff",
+                        fillOpacity: 0.2
+                    });
+                    plys.push(district.ply);
+                    map.addOverlay(district.ply); //添加覆盖物
+                }
+                district.ply.disableMassClear(); //添加不可去除标签
+                return district;
+            });
+        }
+        setTimeout(function() {
+            getdistrict();
+        }, 100);
+
+    }
+    initMap();
+
+
 </script>
 </html>

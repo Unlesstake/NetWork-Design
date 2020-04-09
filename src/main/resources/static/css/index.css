@@ -11,16 +11,16 @@ body{
     /*background-image: linear-gradient(#9198e5,#e66465);*/
     background-image: linear-gradient(#6AC6E0,#685EE9);
 }
-img {
-    /*width="60px" height="60px" style="border-radius:60%"*/
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translate(-50%, -8%)
-}
+/*img {*/
+/*    !*width="60px" height="60px" style="border-radius:60%"*!*/
+/*    width: 70px;*/
+/*    height: 70px;*/
+/*    border-radius: 50%;*/
+/*    position: absolute;*/
+/*    top: 8%;*/
+/*    left: 50%;*/
+/*    transform: translate(-50%, -8%)*/         /*tmd，这段代码放在这里会导致地图上有规律的显示遮挡，md，害我找了一下午，人都蒙蔽了*/
+/*}*/
 
 label{
     position: relative;
@@ -120,4 +120,17 @@ input{
 
 input.change::-webkit-input-placeholder{
     color: red;
+}
+
+
+body,
+html,
+#allmap {
+    overflow: hidden;
+    margin: 0;
+    font-family: "微软雅黑";
+}
+
+.anchorBL {
+    display: none;
 }
