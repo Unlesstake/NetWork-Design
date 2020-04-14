@@ -50,6 +50,7 @@
 
         <button id="edit">编辑</button> <button id="submit" onclick="update()">提交</button>
         <button id="back" onclick="back()">返回</button>
+        <input type="hidden" th:value="${StoreList}" id="StoreInfo">
     </div>
 </body>
 <script>
@@ -138,64 +139,112 @@
         }
     }
 
+
     function initMap(){
-        createMap();
+        getdistrict();
+        createStore();
 
     }
 
-    function createMap() {
-        var map = new BMap.Map("allmap", {
-            minZoom:4,maxZoom:25,//缩放设置
-            enableMapClick: false //关闭自带标签
-        }); // 创建Map实例
-        map.centerAndZoom("成都", 7); // 初始化地图,设置中心点坐标和地图级别
-        //添加地图类型控件
-        map.addControl(new BMap.MapTypeControl({
-            mapTypes: [
-                BMAP_NORMAL_MAP,
-                BMAP_HYBRID_MAP
-            ]
-        }));
-        map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
-        map.enableScrollWheelZoom(true);
-        // var mapstyle={style:"googlelite"};
-        // map.setMapStyle(mapstyle);
+    //地图绘制
+    var map = new BMap.Map("allmap", {
+        minZoom:4,maxZoom:25,//缩放设置
+        enableMapClick: false //关闭自带标签
+    }); // 创建Map实例
+    map.centerAndZoom("成都", 7); // 初始化地图,设置中心点坐标和地图级别
+    //添加地图类型控件
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP,
+            BMAP_HYBRID_MAP
+        ]
+    }));
+    map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);
+    var mapstyle={style:"googlelite"};
+    map.setMapStyle(mapstyle);
 
+    //地区边界
+    function getdistrict() {
+        getBoundary("四川省");
+        getBoundary("辽宁");
+        getBoundary("北京");
+        getBoundary("甘肃");
+    }
+    function getBoundary(districtname) {
+        var plys = [];
+        var bdary = new BMap.Boundary();
+        var line = bdary.get(districtname, function(rs) {
+            var district = new Object();
+            var count = rs.boundaries.length;
+            //建立多边形覆盖物
+            for(var i = 0; i < count; i++) {
+                district.ply = new BMap.Polygon(rs.boundaries[i], {
+                    strokeWeight: 2,
+                    strokeOpacity: 0.8,
+                    StrokeStyle: "solid",
+                    strokeColor: "#1abc9c",
+                    fillColor: "#ffffff",
+                    fillOpacity: 0.2
+                });
+                plys.push(district.ply);
+                map.addOverlay(district.ply); //添加覆盖物
+            }
+            district.ply.disableMassClear(); //添加不可去除标签
+            return district;
+        });
+    }
+    setTimeout(function() {
+        getdistrict();
+    }, 100);
 
-        function getdistrict() {
-            getBoundary("四川省");
-            getBoundary("辽宁");
-            getBoundary("北京");
-            getBoundary("甘肃");
-        }
-
-        function getBoundary(districtname) {
-            var plys = [];
-            var bdary = new BMap.Boundary();
-            var line = bdary.get(districtname, function(rs) {
-                var district = new Object();
-                var count = rs.boundaries.length;
-                //建立多边形覆盖物
-                for(var i = 0; i < count; i++) {
-                    district.ply = new BMap.Polygon(rs.boundaries[i], {
-                        strokeWeight: 2,
-                        strokeOpacity: 0.8,
-                        StrokeStyle: "solid",
-                        strokeColor: "#1abc9c",
-                        fillColor: "#ffffff",
-                        fillOpacity: 0.2
-                    });
-                    plys.push(district.ply);
-                    map.addOverlay(district.ply); //添加覆盖物
-                }
-                district.ply.disableMassClear(); //添加不可去除标签
-                return district;
+    //绘制电商
+    var makers = [];
+    var markerClusterer = new BMapLib.MarkerClusterer(map,{makers:makers,
+        styles : [{
+            url:'../../static/img/StoreList.png',
+            size: new BMap.Size(48,48),
+            backgroundColor : '#4783E7'
+        }],
+    });
+    var myIcon = new BMap.Icon("../../static/img/store.png", new BMap.Size(16,16));
+    function createStore() {
+        var store = $("#StoreInfo").val();
+        store=eval(store);
+        console.log(store.length);
+        map.clearOverlays();
+        markerClusterer.clearMarkers();
+        var makers = [];
+        var pt = null;
+        for(var i=0;i<store.length;i++){
+            var lat = store[i].lat;
+            var lng = store[i].lon;
+            console.log(lat);
+            console.log(lng);
+            var name = store[i].store_name;
+            var point = new BMap.Marker(pt,{icon:myIcon});
+            var infoWindow = new BMap.InfoWindow(name);
+            point.infoWindow = infoWindow;
+            pt = new BMap.Point(lng,lat);
+            point.addEventListener("click",function (e) {
+                this.openInfoWindow(e.target.infoWindow);
             });
+            makers.push(point);
+            if (i==0){
+                var lat = store[i].lat;
+                var lng = store[i].lon;
+                var name = store[i].store_name;
+                var point = new BMap.Marker(pt,{icon:myIcon});
+                var infoWindow = new BMap.InfoWindow(name);
+                point.infoWindow = infoWindow;
+                pt = new BMap.Point(lng,lat);
+                point.addEventListener("click",function (e) {
+                    this.openInfoWindow(e.target.infoWindow);
+                });
+                makers.push(point);
+            }
         }
-        setTimeout(function() {
-            getdistrict();
-        }, 100);
-
+        markerClusterer.addMarkers(makers);
     }
     initMap();
 

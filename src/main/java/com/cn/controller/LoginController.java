@@ -3,6 +3,7 @@ package com.cn.controller;
 
 import java.io.Console;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -11,9 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.alibaba.fastjson.JSON;
 import com.cn.dao.AdminDao;
+import com.cn.dao.StoreDao;
 import com.cn.entity.Admin;
 import com.cn.entity.CommonUser;
+import com.cn.entity.Store;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +38,9 @@ public class LoginController {
 
 	@Resource
 	AdminDao admindao;
+
+	@Resource
+	StoreDao storedao;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -104,6 +111,9 @@ public class LoginController {
 	 */
 	@RequestMapping("/UserInfo")
 	public String getUserInfo(Model model) {
+
+		List<Store> StoreList = storedao.FindAll();
+		model.addAttribute("StoreList", JSON.toJSONString(StoreList));
 
 		// 从浏览器中获取cookie
 		Cookie[] cookies = request.getCookies();
