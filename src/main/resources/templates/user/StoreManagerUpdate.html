@@ -37,8 +37,40 @@
                 <label id="citytext">所在城市:</label><br /><br />
                 <select id="city" name="city">
                     <option value="成都" th:selected="${store.city == '成都'}">成都</option>
-                    <option value="深圳" th:selected="${store.city == '深圳'}">深圳</option>
+                    <option value="澳门" th:selected="${store.city == '澳门'}">澳门</option>
                     <option value="北京" th:selected="${store.city == '北京'}">北京</option>
+                    <option value="长春" th:selected="${store.city == '长春'}">长春</option>
+                    <option value="长沙" th:selected="${store.city == '长沙'}">长沙</option>
+                    <option value="重庆" th:selected="${store.city == '重庆'}">重庆</option>
+                    <option value="福州" th:selected="${store.city == '福州'}">福州</option>
+                    <option value="广州" th:selected="${store.city == '广州'}">广州</option>
+                    <option value="贵阳" th:selected="${store.city == '贵阳'}">贵阳</option>
+                    <option value="哈尔滨" th:selected="${store.city == '哈尔滨'}">哈尔滨</option>
+                    <option value="海口" th:selected="${store.city == '海口'}">海口</option>
+                    <option value="杭州" th:selected="${store.city == '杭州'}">杭州</option>
+                    <option value="合肥" th:selected="${store.city == '合肥'}">合肥</option>
+                    <option value="呼和浩特" th:selected="${store.city == '呼和浩特'}">呼和浩特</option>
+                    <option value="济南" th:selected="${store.city == '济南'}">济南</option>
+                    <option value="昆明" th:selected="${store.city == '昆明'}">昆明</option>
+                    <option value="兰州" th:selected="${store.city == '兰州'}">兰州</option>
+                    <option value="拉萨" th:selected="${store.city == '拉萨'}">拉萨</option>
+                    <option value="南昌" th:selected="${store.city == '南昌'}">南昌</option>
+                    <option value="南京" th:selected="${store.city == '南京'}">南京</option>
+                    <option value="南宁" th:selected="${store.city == '南宁'}">南宁</option>
+                    <option value="上海" th:selected="${store.city == '上海'}">上海</option>
+                    <option value="沈阳" th:selected="${store.city == '沈阳'}">沈阳</option>
+                    <option value="深圳" th:selected="${store.city == '深圳'}">深圳</option>
+                    <option value="石家庄" th:selected="${store.city == '石家庄'}">石家庄</option>
+                    <option value="台北" th:selected="${store.city == '台北'}">台北</option>
+                    <option value="太原" th:selected="${store.city == '太原'}">太原</option>
+                    <option value="天津" th:selected="${store.city == '天津'}">天津</option>
+                    <option value="武汉" th:selected="${store.city == '武汉'}">武汉</option>
+                    <option value="乌鲁木齐" th:selected="${store.city == '乌鲁木齐'}">乌鲁木齐</option>
+                    <option value="西安" th:selected="${store.city == '西安'}">西安</option>
+                    <option value="香港" th:selected="${store.city == '香港'}">香港</option>
+                    <option value="西宁" th:selected="${store.city == '西宁'}">西宁</option>
+                    <option value="银川" th:selected="${store.city == '银川'}">银川</option>
+                    <option value="郑州" th:selected="${store.city == '郑州'}">郑州</option>
                 </select><br>
 
 
@@ -56,33 +88,14 @@
 
                 <label>经营范围:</label><br /><br />
                 <select id="business_scope" name="business_scope">
-                    <option value="国际名牌" th:selected="${store.business_scope == '国际名牌'}">国际名牌</option>
-                    <option value="电脑办公" th:selected="${store.business_scope == '电脑办公'}">电脑办公</option>
-                    <option value="运动" th:selected="${store.business_scope == '运动'}">运动</option>
-                    <option value="家电" th:selected="${store.business_scope == '家电'}">家电</option>
-                    <option value="手机" th:selected="${store.business_scope == '手机'}">手机</option>
+                    <option value="数码电子" th:selected="${store.business_scope == '数码电子'}">数码电子</option>
                     <option value="家居厨具" th:selected="${store.business_scope == '家居厨具'}">家居厨具</option>
                     <option value="医疗保健" th:selected="${store.business_scope == '医疗保健'}">医疗保健</option>
-                    <option value="内衣配饰" th:selected="${store.business_scope == '内衣配饰'}">内衣配饰</option>
+                    <option value="服装配饰" th:selected="${store.business_scope == '服装配饰'}">服装配饰</option>
                     <option value="食品酒饮" th:selected="${store.business_scope == '食品酒饮'}">食品酒饮</option>
-                    <option value="家装" th:selected="${store.business_scope == '家装'}">家装</option>
-                    <option value="宠物鲜花" th:selected="${store.business_scope == '宠物鲜花'}">宠物鲜花</option>
                     <option value="美妆护肤" th:selected="${store.business_scope == '美妆护肤'}">美妆护肤</option>
-                    <option value="母婴" th:selected="${store.business_scope == '母婴'}">母婴</option>
-                    <option value="洗护" th:selected="${store.business_scope == '洗护'}">洗护</option>
-                    <option value="男装" th:selected="${store.business_scope == '男装'}">男装</option>
-                    <option value="女装" th:selected="${store.business_scope == '女装'}">女装</option>
-                    <option value="鞋靴" th:selected="${store.business_scope == '鞋靴'}">鞋靴</option>
                     <option value="玩具乐器" th:selected="${store.business_scope == '玩具乐器'}">玩具乐器</option>
-                    <option value="计生情趣" th:selected="${store.business_scope == '计生情趣'}">计生情趣</option>
-                    <option value="生鲜" th:selected="${store.business_scope == '生鲜'}">生鲜</option>
-                    <option value="数码" th:selected="${store.business_scope == '数码'}">数码</option>
-                    <option value="车品" th:selected="${store.business_scope == '车品'}">车品</option>
-                    <option value="腕表珠宝" th:selected="${store.business_scope == '腕表珠宝'}">腕表珠宝</option>
-                    <option value="箱包" th:selected="${store.business_scope == '箱包'}">箱包</option>
                     <option value="图书文娱" th:selected="${store.business_scope == '图书文娱'}">图书文娱</option>
-                    <option value="二手商品" th:selected="${store.business_scope == '二手商品'}">二手商品</option>
-                    <option value="生活旅行" th:selected="${store.business_scope == '生活旅行'}">生活旅行</option>
                 </select><br>
 
                 <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>

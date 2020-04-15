@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
 </head>
 <body>
-    <div id="allmap" style="position:absolute;left: 14%;height: 100%;;width: 45%">
+    <div id="allmap" style="position:absolute;left: 14%;height: 50%;;width: 40%">
 
     </div>
     <div id="div1">
@@ -52,6 +52,9 @@
         <button id="back" onclick="back()">返回</button>
         <input type="hidden" th:value="${StoreList}" id="StoreInfo">
     </div>
+
+    <div id="city_differ" style="position: absolute;left:14%;height: 50%;width: 86%;top: 50%"></div>
+    <div id="age_differ" style="position: absolute;left: 54%;height: 50%;width: 46%"></div>
 </body>
 <script>
     $("#edit").click(function(){
@@ -142,6 +145,8 @@
 
     function initMap(){
         getdistrict();
+        city_differ();
+        age_differ();
         createStore();
 
     }
@@ -166,10 +171,7 @@
 
     //地区边界
     function getdistrict() {
-        getBoundary("四川省");
-        getBoundary("辽宁");
-        getBoundary("北京");
-        getBoundary("甘肃");
+        getBoundary("四川");
     }
     function getBoundary(districtname) {
         var plys = [];
@@ -219,8 +221,8 @@
         for(var i=0;i<store.length;i++){
             var lat = store[i].lat;
             var lng = store[i].lon;
-            console.log(lat);
-            console.log(lng);
+            // console.log(lat);
+            // console.log(lng);
             var name = store[i].store_name;
             var point = new BMap.Marker(pt,{icon:myIcon});
             var infoWindow = new BMap.InfoWindow(name);
@@ -245,6 +247,293 @@
             }
         }
         markerClusterer.addMarkers(makers);
+    }
+
+    function city_differ() {
+        var store = $("#StoreInfo").val();
+        store = eval(store);
+        var xAxisData = ["北京","天津","石家庄","沈阳","上海","南京","杭州","福州","济南","广州","深圳","海口","香港","澳门","台北","太原","呼和浩特","长春",
+            "哈尔滨", "合肥","南昌","郑州","武汉","长沙","南宁","成都","重庆","贵阳","昆明","拉萨","西安","兰州","西宁","银川","乌鲁木齐"];
+        var data1 = {};
+        var data2 = {};
+        var AmountData = [];
+        var SellData = [];
+        for (var i=0;i<xAxisData.length;i++){
+            data1[xAxisData[i]] = 0;
+            data2[xAxisData[i]] = 0;
+        }
+        for (var i=0;i<store.length;i++){
+            data1[store[i].city]++;
+            data2[store[i].city] = data2[store[i].city] + store[i].under_age + store[i].puber + store[i].young_man + store[i].middle_aged + store[i].aged;
+        }
+        for (var i=0;i<xAxisData.length;i++){
+            AmountData[i] = data1[xAxisData[i]];
+            SellData[i] = data2[xAxisData[i]];
+        }
+        console.log(SellData);
+        console.log(AmountData);
+        var myChart = echarts.init(document.getElementById('city_differ'));
+        var option = {
+            title: {
+                text: '不同城市之间的差异'
+            },
+            legend: {
+                data: ['销售量','电商数量'],
+                top: '6%'
+            },
+            toolbox: {
+                feature: {
+                    magicType: {
+                        type: ['stack','tiled']
+                    },
+                    dataView: {},
+                    saveAsImage: {
+                        pixelRation: 2
+                    }
+                }
+            },
+            tooltip: {},
+            xAxis: {
+                data: xAxisData,
+                splitLine: {
+                    show: false
+                }
+
+            },
+            yAxis:{
+
+            },
+            series: [{
+                name: '销售量',
+                type: 'bar',
+                data: SellData,
+                animationDelay: function (idx) {
+                    return idx * 10;
+                }
+            },{
+                name: '电商数量',
+                type: 'bar',
+                data: AmountData,
+                animationDelay: function (idx) {
+                    return idx * 10 + 100;
+                }
+            }],
+            animationEasing: 'elasticOut',
+            animationDelayUpdate: function (idx) {
+                return idx * 5;
+
+            }
+
+        };
+        myChart.setOption(option);
+    }
+
+    function age_differ() {
+        var store = $("#StoreInfo").val();
+        store = eval(store);
+        var xAxisData = ["未成年人（18岁以下）","青年人(18——28岁)","壮年人(29——40岁)","中年人(41——65岁)","老年人(66岁以上)"];
+        var data1 = {};
+        var data2 = {};
+        var data3 = {};
+        var data4 = {};
+        var data5 = {};
+        var data6 = {};
+        var data7 = {};
+        var data8 = {};
+        var Digital_electronics = [];
+        var Kitchen = [];
+        var medical_care = [];
+        var Clothing_Accessories = [];
+        var Food_drinking = [];
+        var Beauty_care = [];
+        var Toy_musical = [];
+        var Book_Entertainment = [];
+        var i = 0;
+        for(i=0;i<xAxisData.length;i++){
+            data1[xAxisData[i]] = 0;
+            data2[xAxisData[i]] = 0;
+            data3[xAxisData[i]] = 0;
+            data4[xAxisData[i]] = 0;
+            data5[xAxisData[i]] = 0;
+            data6[xAxisData[i]] = 0;
+            data7[xAxisData[i]] = 0;
+            data8[xAxisData[i]] = 0;
+        }
+        for(i=0;i<store.length;i++){
+            if (store[i].business_scope == "数码电子"){
+                data1['未成年人（18岁以下）'] = data1['未成年人（18岁以下）'] + store[i].under_age;
+                data1['青年人(18——28岁)'] = data1['青年人(18——28岁)'] + store[i].puber;
+                data1['壮年人(29——40岁)'] = data1['壮年人(29——40岁)'] + store[i].young_man;
+                data1['中年人(41——65岁)'] = data1['中年人(41——65岁)'] + store[i].middle_aged;
+                data1['老年人(66岁以上)'] = data1['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '家居厨具'){
+                data2['未成年人（18岁以下）'] = data2['未成年人（18岁以下）'] + store[i].under_age;
+                data2['青年人(18——28岁)'] = data2['青年人(18——28岁)'] + store[i].puber;
+                data2['壮年人(29——40岁)'] = data2['壮年人(29——40岁)'] + store[i].young_man;
+                data2['中年人(41——65岁)'] = data2['中年人(41——65岁)'] + store[i].middle_aged;
+                data2['老年人(66岁以上)'] = data2['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '医疗保健'){
+                data3['未成年人（18岁以下）'] = data3['未成年人（18岁以下）'] + store[i].under_age;
+                data3['青年人(18——28岁)'] = data3['青年人(18——28岁)'] + store[i].puber;
+                data3['壮年人(29——40岁)'] = data3['壮年人(29——40岁)'] + store[i].young_man;
+                data3['中年人(41——65岁)'] = data3['中年人(41——65岁)'] + store[i].middle_aged;
+                data3['老年人(66岁以上)'] = data3['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '服装配饰'){
+                data4['未成年人（18岁以下）'] = data4['未成年人（18岁以下）'] + store[i].under_age;
+                data4['青年人(18——28岁)'] = data4['青年人(18——28岁)'] + store[i].puber;
+                data4['壮年人(29——40岁)'] = data4['壮年人(29——40岁)'] + store[i].young_man;
+                data4['中年人(41——65岁)'] = data4['中年人(41——65岁)'] + store[i].middle_aged;
+                data4['老年人(66岁以上)'] = data4['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '食品酒饮'){
+                data5['未成年人（18岁以下）'] = data5['未成年人（18岁以下）'] + store[i].under_age;
+                data5['青年人(18——28岁)'] = data5['青年人(18——28岁)'] + store[i].puber;
+                data5['壮年人(29——40岁)'] = data5['壮年人(29——40岁)'] + store[i].young_man;
+                data5['中年人(41——65岁)'] = data5['中年人(41——65岁)'] + store[i].middle_aged;
+                data5['老年人(66岁以上)'] = data5['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '美妆护肤'){
+                data6['未成年人（18岁以下）'] = data6['未成年人（18岁以下）'] + store[i].under_age;
+                data6['青年人(18——28岁)'] = data6['青年人(18——28岁)'] + store[i].puber;
+                data6['壮年人(29——40岁)'] = data6['壮年人(29——40岁)'] + store[i].young_man;
+                data6['中年人(41——65岁)'] = data6['中年人(41——65岁)'] + store[i].middle_aged;
+                data6['老年人(66岁以上)'] = data6['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else if (store[i].business_scope == '玩具乐器'){
+                data7['未成年人（18岁以下）'] = data7['未成年人（18岁以下）'] + store[i].under_age;
+                data7['青年人(18——28岁)'] = data7['青年人(18——28岁)'] + store[i].puber;
+                data7['壮年人(29——40岁)'] = data7['壮年人(29——40岁)'] + store[i].young_man;
+                data7['中年人(41——65岁)'] = data7['中年人(41——65岁)'] + store[i].middle_aged;
+                data7['老年人(66岁以上)'] = data7['老年人(66岁以上)'] + store[i].aged;
+                continue;
+            }
+            else{
+                data8['未成年人（18岁以下）'] = data8['未成年人（18岁以下）'] + store[i].under_age;
+                data8['青年人(18——28岁)'] = data8['青年人(18——28岁)'] + store[i].puber;
+                data8['壮年人(29——40岁)'] = data8['壮年人(29——40岁)'] + store[i].young_man;
+                data8['中年人(41——65岁)'] = data8['中年人(41——65岁)'] + store[i].middle_aged;
+                data8['老年人(66岁以上)'] = data8['老年人(66岁以上)'] + store[i].aged;
+            }
+        }
+        for(i=0;i<xAxisData.length;i++){
+            Digital_electronics[i] = data1[xAxisData[i]];
+            Kitchen[i] = data2[xAxisData[i]]
+            medical_care[i] = data3[xAxisData[i]];
+            Clothing_Accessories[i] = data4[xAxisData[i]];
+            Food_drinking[i] = data5[xAxisData[i]];
+            Beauty_care[i] = data6[xAxisData[i]];
+            Toy_musical[i] = data7[xAxisData[i]];
+            Book_Entertainment[i] = data8[xAxisData[i]];
+        }
+        console.log(Toy_musical);
+        console.log(Book_Entertainment);
+
+        var myChart1 = echarts.init(document.getElementById('age_differ'));
+        var option1 = {
+            title: {
+                text: '不同年龄偏好'
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: function (params) {
+                    let newParams = [];
+                    let tooltipString = [];
+                    newParams = [...params];
+                    newParams.sort((a, b) => {
+                        return b.value - a.value
+                    });
+                    newParams.forEach((p) => {
+                        const cont = p.marker + ' ' + p.seriesName + ': ' + p.value + '<br/>';
+                        tooltipString.push(cont);
+                    });
+                    return tooltipString.join('');
+                }
+            },
+            legend: {
+                // data: ['数码电子', '家居厨具', '医疗保健', '服装配饰', '食品酒饮','美妆护肤','玩具乐器',"图书文娱"]
+                data: ['数码电子', '家居厨具', '医疗保健', '服装配饰', '食品酒饮','美妆护肤','玩具乐器','图书文娱'],
+                top: '6%'
+            },
+            grid: {
+                left: '3%',
+                right: '6%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ["未成年人（18岁以下）","青年人(18——28岁)","壮年人(29——40岁)","中年人(41——65岁)","老年人(66岁以上)"]
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name: '数码电子',
+                    type: 'line',
+                    stack: '总量',
+                    data: Digital_electronics
+                },
+                {
+                    name: '家居厨具',
+                    type: 'line',
+                    stack: '总量',
+                    data: Kitchen
+                },
+                {
+                    name: '医疗保健',
+                    type: 'line',
+                    stack: '总量',
+                    data: medical_care
+                },
+                {
+                    name: '服装配饰',
+                    type: 'line',
+                    stack: '总量',
+                    data: Clothing_Accessories
+                },
+                {
+                    name: '食品酒饮',
+                    type: 'line',
+                    stack: '总量',
+                    data: Food_drinking
+                },
+                {
+                    name: '美妆护肤',
+                    type: 'line',
+                    stack: '总量',
+                    data: Beauty_care
+                },
+                {
+                    name: '玩具乐器',
+                    type: 'line',
+                    stack: '总量',
+                    data: Toy_musical
+                },
+                {
+                    name: '图书文娱',
+                    type: 'line',
+                    stack: '总量',
+                    data: Book_Entertainment
+                }
+            ]
+        };
+        myChart1.setOption(option1);
     }
     initMap();
 
