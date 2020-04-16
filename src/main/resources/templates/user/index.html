@@ -169,40 +169,9 @@
     var mapstyle={style:"googlelite"};
     map.setMapStyle(mapstyle);
 
-    //地区边界
-    function getdistrict() {
-        getBoundary("四川");
-    }
-    function getBoundary(districtname) {
-        var plys = [];
-        var bdary = new BMap.Boundary();
-        var line = bdary.get(districtname, function(rs) {
-            var district = new Object();
-            var count = rs.boundaries.length;
-            //建立多边形覆盖物
-            for(var i = 0; i < count; i++) {
-                district.ply = new BMap.Polygon(rs.boundaries[i], {
-                    strokeWeight: 2,
-                    strokeOpacity: 0.8,
-                    StrokeStyle: "solid",
-                    strokeColor: "#1abc9c",
-                    fillColor: "#ffffff",
-                    fillOpacity: 0.2
-                });
-                plys.push(district.ply);
-                map.addOverlay(district.ply); //添加覆盖物
-            }
-            district.ply.disableMassClear(); //添加不可去除标签
-            return district;
-        });
-    }
-    setTimeout(function() {
-        getdistrict();
-    }, 100);
-
     //绘制电商
-    var makers = [];
-    var markerClusterer = new BMapLib.MarkerClusterer(map,{makers:makers,
+    var markers = [];
+    var markerClusterer = new BMapLib.MarkerClusterer(map, {makers: markers,
         styles : [{
             url:'../../static/img/StoreList.png',
             size: new BMap.Size(48,48),
@@ -213,16 +182,14 @@
     function createStore() {
         var store = $("#StoreInfo").val();
         store=eval(store);
-        console.log(store.length);
         map.clearOverlays();
         markerClusterer.clearMarkers();
-        var makers = [];
+        var markers = [];
         var pt = null;
-        for(var i=0;i<store.length;i++){
+        var i = 0;
+        for(;i<store.length;i++){
             var lat = store[i].lat;
             var lng = store[i].lon;
-            // console.log(lat);
-            // console.log(lng);
             var name = store[i].store_name;
             var point = new BMap.Marker(pt,{icon:myIcon});
             var infoWindow = new BMap.InfoWindow(name);
@@ -231,7 +198,7 @@
             point.addEventListener("click",function (e) {
                 this.openInfoWindow(e.target.infoWindow);
             });
-            makers.push(point);
+            markers.push(point);
             if (i==0){
                 var lat = store[i].lat;
                 var lng = store[i].lon;
@@ -243,12 +210,13 @@
                 point.addEventListener("click",function (e) {
                     this.openInfoWindow(e.target.infoWindow);
                 });
-                makers.push(point);
+                markers.push(point);
             }
         }
-        markerClusterer.addMarkers(makers);
+        markerClusterer.addMarkers(markers);
     }
 
+    //不同城市之间的差异
     function city_differ() {
         var store = $("#StoreInfo").val();
         store = eval(store);
@@ -283,17 +251,26 @@
             },
             toolbox: {
                 feature: {
-                    magicType: {
-                        type: ['stack','tiled']
-                    },
+                    // magicType: {
+                    //     type: ['stack','tiled']
+                    // },
                     dataView: {},
                     saveAsImage: {
                         pixelRation: 2
                     }
                 }
             },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
             tooltip: {},
             xAxis: {
+                "axisLabel":{     //加上这个强制显示
+                    interval: 0
+                },
                 data: xAxisData,
                 splitLine: {
                     show: false
@@ -328,6 +305,7 @@
         myChart.setOption(option);
     }
 
+    //不同年纪的偏好
     function age_differ() {
         var store = $("#StoreInfo").val();
         store = eval(store);
@@ -459,7 +437,6 @@
                 }
             },
             legend: {
-                // data: ['数码电子', '家居厨具', '医疗保健', '服装配饰', '食品酒饮','美妆护肤','玩具乐器',"图书文娱"]
                 data: ['数码电子', '家居厨具', '医疗保健', '服装配饰', '食品酒饮','美妆护肤','玩具乐器','图书文娱'],
                 top: '6%'
             },
@@ -487,54 +464,93 @@
                     name: '数码电子',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Digital_electronics
                 },
                 {
                     name: '家居厨具',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Kitchen
                 },
                 {
                     name: '医疗保健',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: medical_care
                 },
                 {
                     name: '服装配饰',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Clothing_Accessories
                 },
                 {
                     name: '食品酒饮',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Food_drinking
                 },
                 {
                     name: '美妆护肤',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Beauty_care
                 },
                 {
                     name: '玩具乐器',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Toy_musical
                 },
                 {
                     name: '图书文娱',
                     type: 'line',
                     stack: '总量',
+                    smooth: true,
                     data: Book_Entertainment
                 }
             ]
         };
         myChart1.setOption(option1);
     }
+
+    //地区边界
+    function getdistrict() {
+        getBoundary("四川");
+    }
+    function getBoundary(districtname) {
+        var plys = [];
+        var bdary = new BMap.Boundary();
+        var line = bdary.get(districtname, function(rs) {
+            var district = new Object();
+            var count = rs.boundaries.length;
+            //建立多边形覆盖物
+            for(var i = 0; i < count; i++) {
+                district.ply = new BMap.Polygon(rs.boundaries[i], {
+                    strokeWeight: 2,
+                    strokeOpacity: 0.8,
+                    StrokeStyle: "solid",
+                    strokeColor: "#1abc9c",
+                    fillColor: "#ffffff",
+                    fillOpacity: 0.2
+                });
+                plys.push(district.ply);
+                map.addOverlay(district.ply); //添加覆盖物
+            }
+            district.ply.disableMassClear(); //添加不可去除标签
+            return district;
+        });
+    }
+    setTimeout(function() {
+        getdistrict();
+    }, 100);
     initMap();
 
 
