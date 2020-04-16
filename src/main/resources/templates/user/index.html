@@ -170,8 +170,10 @@
     map.setMapStyle(mapstyle);
 
     //绘制电商
+    var poi = new BMap.Point(112.53, 37.87);
+    map.centerAndZoom(poi, 7);
     var markers = [];
-    var markerClusterer = new BMapLib.MarkerClusterer(map, {makers: markers,
+    var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers,
         styles : [{
             url:'../../static/img/StoreList.png',
             size: new BMap.Size(48,48),
@@ -182,6 +184,7 @@
     function createStore() {
         var store = $("#StoreInfo").val();
         store=eval(store);
+        store.push(store[0]);
         map.clearOverlays();
         markerClusterer.clearMarkers();
         var markers = [];
@@ -199,19 +202,19 @@
                 this.openInfoWindow(e.target.infoWindow);
             });
             markers.push(point);
-            if (i==0){
-                var lat = store[i].lat;
-                var lng = store[i].lon;
-                var name = store[i].store_name;
-                var point = new BMap.Marker(pt,{icon:myIcon});
-                var infoWindow = new BMap.InfoWindow(name);
-                point.infoWindow = infoWindow;
-                pt = new BMap.Point(lng,lat);
-                point.addEventListener("click",function (e) {
-                    this.openInfoWindow(e.target.infoWindow);
-                });
-                markers.push(point);
-            }
+            // if (i==0){
+            //     var lat = store[i].lat;
+            //     var lng = store[i].lon;
+            //     var name = store[i].store_name;
+            //     var point = new BMap.Marker(pt,{icon:myIcon});
+            //     var infoWindow = new BMap.InfoWindow(name);
+            //     point.infoWindow = infoWindow;
+            //     pt = new BMap.Point(lng,lat);
+            //     point.addEventListener("click",function (e) {
+            //         this.openInfoWindow(e.target.infoWindow);
+            //     });
+            //     markers.push(point);
+            // }
         }
         markerClusterer.addMarkers(markers);
     }
