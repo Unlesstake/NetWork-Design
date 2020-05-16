@@ -45,7 +45,7 @@ public class StoreManagerController {
 
     @RequestMapping("/StoreManager/Details/{id}")                       //查看销售记录详情
     public String Details(@PathVariable("id") int id, Model model){
-        Store store = storedao.FindById(id);
+        Store store = storedao.FindSale(id);
         model.addAttribute("store",store);
 
         Cookie[] cookies = request.getCookies();
@@ -63,7 +63,9 @@ public class StoreManagerController {
     @RequestMapping("/StoreManager/Update/{id}")                        //前往编辑页面
     public String UpdateIndex(@PathVariable("id") int id, Model model){
         Store store = storedao.FindById(id);
+        Store storeSale = storedao.FindSale(id);
         model.addAttribute("store",store);
+        model.addAttribute("storeSale",storeSale);
 
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -81,7 +83,8 @@ public class StoreManagerController {
     @ResponseBody
     public String StoreManagerUpdate(@RequestBody Store NewStore){
         int flag = storedao.UpdateStore(NewStore);
-        if(flag>0){
+        int flag2 = storedao.UpdateSale(NewStore);
+        if(flag>0&&flag2>0){
             JSONObject object = new JSONObject();
             object.put("code", 200);
             object.put("desc", "修改成功！");
@@ -97,8 +100,9 @@ public class StoreManagerController {
     @PostMapping("/StoreManagerDelete")
     @ResponseBody
     public String StoreManagerDelete(@RequestBody Store DeStore){
-        int flag = storedao.DelStore(DeStore.getStore_name());
-        if(flag>0){
+        int flag = storedao.DelStore(DeStore.getId());
+        int flag2 = storedao.DelSale(DeStore.getId());
+        if(flag>0&&flag2>0){
             JSONObject object = new JSONObject();
             object.put("code", 200);
             object.put("desc", "删除电商数据成功！");
@@ -130,7 +134,8 @@ public class StoreManagerController {
 //        Store exist = storedao.IsExist(AddStore.getStore_name());
 //        if(exist == null){
         int flag = storedao.AddStore(AddStore);
-        if(flag>0){
+        int flag2 = storedao.AddSale(AddStore);
+        if(flag>0&&flag2>0){
             JSONObject object = new JSONObject();
             object.put("code",200);
             object.put("desc","添加电商数据成功！");

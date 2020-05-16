@@ -3,25 +3,41 @@
 <mapper namespace="com.cn.dao.StoreDao">
 
     <select id="FindAll" resultType="com.cn.entity.Store">
-        select * from store_info
+        select * from store_info,sale_info where store_info.id = sale_info.id
     </select>
 
     <select id="FindById" resultType="com.cn.entity.Store" parameterType="java.lang.Integer">
         select * from store_info where id=#{id}
     </select>
 
+    <select id="FindSale" resultType="com.cn.entity.Store" parameterType="java.lang.Integer">
+        select * from sale_info where id=#{id}
+    </select>
+
     <update id="UpdateStore" parameterType="com.cn.entity.Store">
-        update store_info set store_name=#{store_name},city=#{city},lon=#{lon},lat=#{lat},phone=#{phone},business_scope=#{business_scope},
-        under_age=#{under_age},puber=#{puber},young_man=#{young_man},middle_aged=#{middle_aged},aged=#{aged} where id=#{id}
+        update store_info set store_name=#{store_name},city=#{city},lon=#{lon},lat=#{lat},phone=#{phone},business_scope=#{business_scope} where id=#{id}
     </update>
 
-    <delete id="DelStore" parameterType="java.lang.String">
-        delete from store_info where store_name=#{store_name}
+    <update id="UpdateSale" parameterType="com.cn.entity.Store">
+        update sale_info set under_age=#{under_age},puber=#{puber},young_man=#{young_man},middle_aged=#{middle_aged},aged=#{aged} where id=#{id}
+    </update>
+
+    <delete id="DelStore" parameterType="java.lang.Integer">
+        delete from store_info where id=#{id}
+    </delete>
+
+    <delete id="DelSale" parameterType="java.lang.Integer">
+        delete from sale_info where id=#{id}
     </delete>
 
     <insert id="AddStore" parameterType="com.cn.entity.Store">
-        insert into store_info(store_name,city,lon,lat,phone,business_scope,under_age,puber,young_man,middle_aged,aged) values
-        (#{store_name},#{city},#{lon},#{lat},#{phone},#{business_scope},#{under_age},#{puber},#{young_man},#{middle_aged},#{aged})
+        insert into store_info(store_name,city,lon,lat,phone,business_scope) values
+        (#{store_name},#{city},#{lon},#{lat},#{phone},#{business_scope})
+    </insert>
+
+    <insert id="AddSale" parameterType="com.cn.entity.Store">
+        insert into sale_info(under_age,puber,young_man,middle_aged,aged) values
+        (#{under_age},#{puber},#{young_man},#{middle_aged},#{aged})
     </insert>
 
     <select id="IsExist" parameterType="java.lang.String" resultType="com.cn.entity.Store">

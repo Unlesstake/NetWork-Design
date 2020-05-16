@@ -101,27 +101,27 @@
                 <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
                 <label style="position: relative;top: -333px;left: 570px">未成年人（18岁以下）:&nbsp;</label>
                 <input type="text" id="under_age" name="under_age" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.under_age}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       th:value="${storeSale.under_age}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">青年人（18——28岁）:</label>
                 <input type="text" id="puber" name="puber" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.puber}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       th:value="${storeSale.puber}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">壮年人（29——40岁）:</label>
                 <input type="text" id="young_man" name="young_man" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.young_man}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       th:value="${storeSale.young_man}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">中年人（41——65岁）:</label>
                 <input type="text" id="middle_aged" name="middle_aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.middle_aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       th:value="${storeSale.middle_aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <label style="position: relative;top: -333px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 <input type="text" id="aged" name="aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${store.aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       th:value="${storeSale.aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
                        style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
 
                 <button id="button1" type="submit">确定</button>

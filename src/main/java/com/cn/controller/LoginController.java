@@ -117,7 +117,6 @@ public class LoginController {
 
 		// 从浏览器中获取cookie
 		Cookie[] cookies = request.getCookies();
-
 		HttpSession session = request.getSession();
 
 		for (Cookie cookie : cookies) {
