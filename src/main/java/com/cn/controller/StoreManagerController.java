@@ -1,8 +1,11 @@
 package com.cn.controller;
 
 
+import com.cn.dao.RecordDao;
+import com.cn.dao.SalesDao;
 import com.cn.dao.StoreDao;
 import com.cn.entity.Admin;
+import com.cn.entity.Sales;
 import com.cn.entity.Store;
 import com.cn.entity.UserInfo;
 import net.sf.json.JSONObject;
@@ -22,6 +25,12 @@ import java.util.List;
 public class StoreManagerController {
     @Resource
     StoreDao storedao;
+
+    @Resource
+    RecordDao recorddao;
+
+    @Resource
+    SalesDao salesdao;
 
     @Autowired
     private HttpServletRequest request;
@@ -45,8 +54,8 @@ public class StoreManagerController {
 
     @RequestMapping("/StoreManager/Details/{id}")                       //查看销售记录详情
     public String Details(@PathVariable("id") int id, Model model){
-        Store store = storedao.FindSale(id);
-        model.addAttribute("store",store);
+        Sales sales = salesdao.find(id);
+        model.addAttribute("sales",sales);
 
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -63,9 +72,9 @@ public class StoreManagerController {
     @RequestMapping("/StoreManager/Update/{id}")                        //前往编辑页面
     public String UpdateIndex(@PathVariable("id") int id, Model model){
         Store store = storedao.FindById(id);
-        Store storeSale = storedao.FindSale(id);
+        Sales sales = salesdao.find(id);
         model.addAttribute("store",store);
-        model.addAttribute("storeSale",storeSale);
+        model.addAttribute("sales",sales);
 
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -83,8 +92,8 @@ public class StoreManagerController {
     @ResponseBody
     public String StoreManagerUpdate(@RequestBody Store NewStore){
         int flag = storedao.UpdateStore(NewStore);
-        int flag2 = storedao.UpdateSale(NewStore);
-        if(flag>0&&flag2>0){
+//        int flag2 = storedao.UpdateSale(NewStore);
+        if(flag>0){
             JSONObject object = new JSONObject();
             object.put("code", 200);
             object.put("desc", "修改成功！");
@@ -101,8 +110,9 @@ public class StoreManagerController {
     @ResponseBody
     public String StoreManagerDelete(@RequestBody Store DeStore){
         int flag = storedao.DelStore(DeStore.getId());
-        int flag2 = storedao.DelSale(DeStore.getId());
-        if(flag>0&&flag2>0){
+        int flag2 = salesdao.delete(DeStore.getId());
+        int flag3 = recorddao.delete(DeStore.getId());
+        if(flag>0&&flag2>0&&flag3>0){
             JSONObject object = new JSONObject();
             object.put("code", 200);
             object.put("desc", "删除电商数据成功！");
@@ -114,7 +124,7 @@ public class StoreManagerController {
         return object.toString();
     }
 
-    @RequestMapping("/StoreManager/Add")                 /*前往新增用户页面*/
+    @RequestMapping("/StoreManager/Add")                 /*前往新增电商页面*/
     public String GoAdd(Model model){
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -131,10 +141,14 @@ public class StoreManagerController {
     @PostMapping("/StoreManagerAdd")
     @ResponseBody
     public String StoreManagerAdd(@RequestBody Store AddStore){
-//        Store exist = storedao.IsExist(AddStore.getStore_name());
-//        if(exist == null){
         int flag = storedao.AddStore(AddStore);
-        int flag2 = storedao.AddSale(AddStore);
+        Sales sales = new Sales();
+        sales.setAged(0);
+        sales.setMiddle_aged(0);
+        sales.setYoung_man(0);
+        sales.setPuber(0);
+        sales.setUnder_age(0);
+        int flag2 = salesdao.add(sales);
         if(flag>0&&flag2>0){
             JSONObject object = new JSONObject();
             object.put("code",200);
@@ -147,12 +161,6 @@ public class StoreManagerController {
             object.put("desc","添加失败，请稍后重试！");
             return object.toString();
         }
-
-//        }
-//        JSONObject object = new JSONObject();
-//        object.put("code", 405);
-//        object.put("desc", "添加失败，该电商名已存在！");
-//        return object.toString();
     }
 
     @RequestMapping(path = "/QueryStore", method = RequestMethod.GET)        /*查询电商*/

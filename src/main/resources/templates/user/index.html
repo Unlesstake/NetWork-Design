@@ -32,7 +32,7 @@
                          style="font-weight: 500;border: none;background-color: #F8F5F1;width: 160px;height: 26px;font-size: 14px"><br></label><br>
 
         <label>性别：<select id="sex" th:value="${user.sex}" disabled="disabled" required="required"
-                          style="width: 160px;height: 24px;text-align: center;text-align-last: center;background-color: #F8F5F1;font-weight: 500;border: none;height: 26px;font-size: 14px" >
+                          style="width: 163px;height: 28px;text-align: center;text-align-last: center;background-color: #F8F5F1;font-weight: 500;border: none;font-size: 14px" >
             <option value="男" th:selected="${user.sex=='男'}">&nbsp&nbsp&nbsp&nbsp男</option>
             <option value="女" th:selected="${user.sex=='女'}">&nbsp&nbsp&nbsp&nbsp女</option>
         </select></label><br><br>
@@ -156,7 +156,7 @@
         minZoom:4,maxZoom:25,//缩放设置
         enableMapClick: false //关闭自带标签
     }); // 创建Map实例
-    map.centerAndZoom("成都", 7); // 初始化地图,设置中心点坐标和地图级别
+    map.centerAndZoom("北京", 6); // 初始化地图,设置中心点坐标和地图级别
     //添加地图类型控件
     map.addControl(new BMap.MapTypeControl({
         mapTypes: [
@@ -164,14 +164,14 @@
             BMAP_HYBRID_MAP
         ]
     }));
-    map.setCurrentCity("成都"); // 设置地图显示的城市 此项是必须设置的
+    map.setCurrentCity("北京"); // 设置地图显示的城市 此项是必须设置的
     map.enableScrollWheelZoom(true);
     var mapstyle={style:"googlelite"};
     map.setMapStyle(mapstyle);
 
     //绘制电商
-    var poi = new BMap.Point(112.53, 37.87);
-    map.centerAndZoom(poi, 7);
+    var poi = new BMap.Point(116.41, 39.92);
+    map.centerAndZoom(poi, 6);
     var markers = [];
     var markerClusterer = new BMapLib.MarkerClusterer(map, {markers: markers,
         styles : [{
@@ -192,22 +192,24 @@
                 }
             }
         }
-        store.push(store[0]);
+        // store.push(store[0]);
         map.clearOverlays();
         markerClusterer.clearMarkers();
         var markers = [];
         var pt = null;
         var i = 0;
-        for(;i<store.length;i++){
+        for(i=0;i<store.length;i++){
             var lat = store[i].lat;
             var lng = store[i].lon;
             var name = store[i].store_name;
-            var point = new BMap.Marker(pt,{icon:myIcon});
-            var infoWindow = new BMap.InfoWindow(name);
-            point.infoWindow = infoWindow;
+            var id = store[i].id;
             pt = new BMap.Point(lng,lat);
+            var point = new BMap.Marker(pt,{icon:myIcon});
+            var infoWindow = new BMap.InfoWindow(id);
+            point.infoWindow = infoWindow;
             point.addEventListener("click",function (e) {
-                this.openInfoWindow(e.target.infoWindow);
+                console.log(e);
+                window.location.href = "VisualizationDetail?id="+e.target.infoWindow.content;
             });
             markers.push(point);
         }
@@ -233,9 +235,9 @@
                 }
             }
         }
-        store.push(store[0]);
+        // store.push(store[0]);
         for(var i = 0;i<store.length;++i){
-            var total = store[i].under_age + store[i].puber + store[i].young_man + store[i].middle_aged + store[i].aged
+            var total = store[i].under_age + store[i].puber + store[i].young_man + store[i].middle_aged + store[i].aged;
             points.push(new newpoints(store[i].lon,store[i].lat,total))
         }
         if (!isSupportCanvas()){
@@ -247,7 +249,7 @@
         map.addOverlay(heatmapOverlay);
         heatmapOverlay.setDataSet({
             data: points,
-            max: 1000
+            max: 1500
         });
         function openHeatmap() {
             heatmapOverlay.show();

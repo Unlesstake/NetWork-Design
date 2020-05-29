@@ -98,37 +98,43 @@
                     <option value="图书文娱" th:selected="${store.business_scope == '图书文娱'}">图书文娱</option>
                 </select><br>
 
-                <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
-                <label style="position: relative;top: -333px;left: 570px">未成年人（18岁以下）:&nbsp;</label>
-                <input type="text" id="under_age" name="under_age" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${storeSale.under_age}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">青年人（18——28岁）:</label>
-                <input type="text" id="puber" name="puber" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${storeSale.puber}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">壮年人（29——40岁）:</label>
-                <input type="text" id="young_man" name="young_man" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${storeSale.young_man}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">中年人（41——65岁）:</label>
-                <input type="text" id="middle_aged" name="middle_aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${storeSale.middle_aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" id="aged" name="aged" placeholder="请输入销售数据" maxlength="7"
-                       th:value="${storeSale.aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
                 <button id="button1" type="submit">确定</button>
                 <button id="button2" type="button" onclick="window.location.href='/StoreManager'">返回</button>
+            </form>
+
+                <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
+                <label style="position: relative;top: -363px;left: 570px">未成年人（18岁以下）:&nbsp;</label>
+                <input type="text" id="under_age" name="under_age" disabled maxlength="7"
+                       th:value="${sales.under_age}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       style="position: relative;top: -363px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
+
+                <label style="position: relative;top: -363px;left: 570px">青年人（18——28岁）:</label>
+                <input type="text" id="puber" name="puber" disabled maxlength="7"
+                       th:value="${sales.puber}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       style="position: relative;top: -363px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
+
+                <label style="position: relative;top: -363px;left: 570px">壮年人（29——40岁）:</label>
+                <input type="text" id="young_man" name="young_man" disabled maxlength="7"
+                       th:value="${sales.young_man}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       style="position: relative;top: -363px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
+
+                <label style="position: relative;top: -363px;left: 570px">中年人（41——65岁）:</label>
+                <input type="text" id="middle_aged" name="middle_aged" disabled maxlength="7"
+                       th:value="${sales.middle_aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       style="position: relative;top: -363px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
+
+                <label style="position: relative;top: -363px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="text" id="aged" name="aged" disabled maxlength="7"
+                       th:value="${sales.aged}" required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
+                       style="position: relative;top: -363px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
+
                 <button id="button3" type="button"><a onclick="DeleteStore()" style="cursor: pointer">删除电商数据</a></button>
 
-            </form>
+            <label style="position:absolute;top: 30px;left:390px">请输入导入文件的路径：</label>
+            <input id="filepath" style="position: absolute;top: 25px;left: 570px;width: 250px;height: 25px;">
+            <button id="import" onclick="importFile()">确定导入</button>
+            <button id="GoDetails" type="button"><a onclick="GoRecord()" style="cursor: pointer">查看销售记录</a></button>
+
         </div>
 
     </div>
@@ -186,6 +192,34 @@
             return false;
         }
     };
+
+    function importFile(){
+        var filepath = $("#filepath").val();
+        var id = $("#id").val();
+        var data = {"filepath":filepath,"id":id};
+        console.log(data);
+        $.ajax({
+            url: '/import',
+            type: 'post',
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify(data),
+            success:function (res) {
+                if (res.code == 200){
+                    alert(res.desc);
+                    window.location.reload();
+                }else{
+                    alert(res.desc);
+                }
+            }
+        });
+    }
+
+    function GoRecord() {
+        var store_id = $("#id").val();
+        window.location.href = "/StoreManager/RecordDetails?store_id="+store_id;
+    }
+
 </script>
 </body>
 </html>

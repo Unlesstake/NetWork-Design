@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <script src="https://cdn.bootcss.com/d3/3.5.14/d3.js"></script>
+    <link rel="stylesheet" href="../../static/css/VisIndex.css">
+    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=COCfvS8ZjqUa3ZoaN7CIX4rzrP0Z1Oid"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+    <script th:src="@{/static/js/MarkerClusterer_min.js}"></script>
+    <script th:src="@{/static/js/TextIconOverlay_min.js}"></script>
+    <script th:src="@{/static/js/GeoUtils.js}"></script>
+
+    <script th:src="@{/static/js/d3.v3.js}"></script>
+    <script th:src="@{/static/js/d3tip.js}"></script>
+    <title>电商</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
+</head>
+<body>
+    <div id="StoreInfo" style="position: absolute;height: 45%;width: 40%">
+        <input th:value="${store.getStore_name()}" id="store_name" disabled
+        style="border: none;background-color: white"><br><br>
+        <input th:value="${store.getCity()}" id="city" disabled><br><br>
+        <input th:value="${store.getLat()}" id="lat" disabled><br><br>
+        <input th:value="${store.getLon()}" id="lon" disabled><br><br>
+        <input th:value="${store.getPhone()}" id="phone" disabled><br><br>
+        <input th:value="${store.getBusiness_scope()}" id="business_scope" disabled>
+
+    </div>
+    <div id="age_differ" style="position: absolute;height: 54%;width: 40%;top: 45%"></div>
+    <input type="hidden" th:value="${sales.getUnder_age()}" id="under_age">
+    <input type="hidden" th:value="${sales.getPuber()}" id="puber">
+    <input type="hidden" th:value="${sales.getYoung_man()}" id="young_man">
+    <input type="hidden" th:value="${sales.getMiddle_aged()}" id="middle_aged">
+    <input type="hidden" th:value="${sales.getAged()}" id="aged">
+
+    <div id="money_differ" style="position: absolute;height:95%;width: 60%;left: 40%;top: 4%">
+        <input type="hidden" th:value="${record}" id="record">
+    </div>
+</body>
+<script>
+    function inint() {
+        age_differ();
+        money();
+
+    }
+
+
+    function age_differ() {
+        var under_age = $("#under_age").val();
+        var puber = $("#puber").val();
+        var young_man = $("#young_man").val();
+        var middle_age = $("#middle_aged").val();
+        var aged = $("#aged").val();
+        var myChart = echarts.init(document.getElementById('age_differ'));
+        var option = {
+            title: {
+                text: '不同年龄段销量统计',
+                // subtext: '纯属虚构',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'item',
+                formatter: '{a} <br/>{b} : {c} ({d}%)'
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['未成年人（18岁以下）', '青年人（18——28岁）', '壮年人（29——40岁）', '中年人（41——65岁）', '老年人（66岁以上）']
+            },
+            toolbox: {
+                show: true,
+                feature: {
+                    mark: {show: true},
+                    dataView: {show: true, readOnly: false},
+                    magicType: {
+                        show: true,
+                        type: ['pie', 'funnel']
+                    },
+                    restore: {show: true},
+                    saveAsImage: {show: true}
+                }
+            },
+            series:
+                {
+                    name: '销售量',
+                    type: 'pie',
+                    radius: [30, 110],
+                    center: ['50%', '60%'],
+                    roseType: 'area',
+                    data: [
+                        {value: under_age, name: '未成年人（18岁以下）'},
+                        {value: puber, name: '青年人（18——28岁）'},
+                        {value: young_man, name: '壮年人（29——40岁）'},
+                        {value: middle_age, name: '中年人（41——65岁）'},
+                        {value: aged, name: '老年人（66岁以上）'}
+                    ]
+                }
+        };
+        myChart.setOption(option);
+    }
+
+    function money() {
+        var RecordList = $("#record").val();
+        RecordList = eval(RecordList);
+        console.log(RecordList);
+        var year=["2015","2016","2017","2018","2019","2020"]
+        var data1 = {};
+        var data2 = {};
+        var data3 = {};
+        var data4 = {};
+        var data5 = {};
+        var under_age = [];
+        var puber = [];
+        var young_man = [];
+        var middler_aged = [];
+        var aged = [];
+        var i=0;
+        for(i=0;i<year.length;i++){
+            data1[year[i]] = 0;
+            data2[year[i]] = 0;
+            data3[year[i]] = 0;
+            data4[year[i]] = 0;
+            data5[year[i]] = 0;
+        }
+        for(i=0;i<RecordList.length;i++){
+            var rel = RecordList[i].dealTime.substr(0,4);
+            var age = RecordList[i].buyerAge;
+            var totalPrice= RecordList[i].totalPrice;
+            if(age<18){
+                if(rel == "2015"){
+                    data1['2015'] = data1['2015'] + totalPrice;
+                }else if(rel == "2016"){
+                    data1['2016'] = data1['2016'] + totalPrice
+                }else if(rel == "2017"){
+                    data1['2017'] = data1['2017'] + totalPrice
+                }else if(rel == "2018"){
+                    data1['2018'] = data1['2018'] + totalPrice
+                }else if(rel == "2019"){
+                    data1['2019'] = data1['2019'] + totalPrice
+                }else{
+                    data1['2020'] = data1['2020'] + totalPrice
+                }
+            }else if(age>=18&&age<=28){
+                if(rel == "2015"){
+                    data2['2015'] = data2['2015'] + totalPrice;
+                }else if(rel == "2016"){
+                    data2['2016'] = data2['2016'] + totalPrice
+                }else if(rel == "2017"){
+                    data2['2017'] = data2['2017'] + totalPrice
+                }else if(rel == "2018"){
+                    data2['2018'] = data2['2018'] + totalPrice
+                }else if(rel == "2019"){
+                    data2['2019'] = data2['2019'] + totalPrice
+                }else{
+                    data2['2020'] = data2['2020'] + totalPrice
+                }
+            }else if (age>=29&&age<=40){
+                if(rel == "2015"){
+                    data3['2015'] = data3['2015'] + totalPrice;
+                }else if(rel == "2016"){
+                    data3['2016'] = data3['2016'] + totalPrice
+                }else if(rel == "2017"){
+                    data3['2017'] = data3['2017'] + totalPrice
+                }else if(rel == "2018"){
+                    data3['2018'] = data3['2018'] + totalPrice
+                }else if(rel == "2019"){
+                    data3['2019'] = data3['2019'] + totalPrice
+                }else{
+                    data3['2020'] = data3['2020'] + totalPrice
+                }
+            }else if(age>=41&&age<=65){
+                if(rel == "2015"){
+                    data4['2015'] = data4['2015'] + totalPrice;
+                }else if(rel == "2016"){
+                    data4['2016'] = data4['2016'] + totalPrice
+                }else if(rel == "2017"){
+                    data4['2017'] = data4['2017'] + totalPrice
+                }else if(rel == "2018"){
+                    data4['2018'] = data4['2018'] + totalPrice
+                }else if(rel == "2019"){
+                    data4['2019'] = data4['2019'] + totalPrice
+                }else{
+                    data4['2020'] = data4['2020'] + totalPrice
+                }
+            }else{
+                if(rel == "2015"){
+                    data5['2015'] = data5['2015'] + totalPrice;
+                }else if(rel == "2016"){
+                    data5['2016'] = data5['2016'] + totalPrice
+                }else if(rel == "2017"){
+                    data5['2017'] = data5['2017'] + totalPrice
+                }else if(rel == "2018"){
+                    data5['2018'] = data5['2018'] + totalPrice
+                }else if(rel == "2019"){
+                    data5['2019'] = data5['2019'] + totalPrice
+                }else{
+                    data5['2020'] = data5['2020'] + totalPrice
+                }
+            }
+        }
+        for(i=0;i<year.length;i++){
+            under_age[i] = data1[year[i]];
+            puber[i] = data2[year[i]];
+            young_man[i] = data3[year[i]];
+            middler_aged[i] = data4[year[i]];
+            aged[i] = data5[year[i]];
+        }
+        var myChart1 = echarts.init(document.getElementById('money_differ'));
+
+        setTimeout(function () {
+            var option1 = {
+                title: {
+                    text: '不同年龄段销售金额统计',
+                    top:'48%',
+                    left: 'center'
+                },
+                legend: {},
+                tooltip: {
+                    trigger: 'axis',
+                    showContent: false,
+                    formatter: function (params) {
+                        let newParams = [];
+                        let tooltipString = [];
+                        newParams = [...params];
+                        newParams.sort((a, b) => {
+                            return b.value - a.value
+                        });
+                        newParams.forEach((p) => {
+                            const cont = p.marker + ' ' + p.seriesName + ': ' + p.value + '<br/>';
+                            tooltipString.push(cont);
+                        });
+                        return tooltipString.join('');
+                    }
+                },
+                dataset: {
+                    source: [
+                        ['product', '2015', '2016', '2017', '2018', '2019', '2020'],
+                        ['未成年人（18岁以下）', under_age[0], under_age[1], under_age[2], under_age[3], under_age[4], under_age[5]],
+                        ['青年人（18——28岁）', puber[0], puber[1], puber[2], puber[3], puber[4], puber[5]],
+                        ['壮年人（29——40岁）', young_man[0],young_man[1], young_man[2], young_man[3], young_man[4], young_man[5]],
+                        ['中年人（41——65岁）', middler_aged[0], middler_aged[1], middler_aged[2], middler_aged[3], middler_aged[4], middler_aged[5]],
+                        ['老年人（66岁以上）',aged[0],aged[1],aged[2],aged[2],aged[3],aged[4],aged[5]],
+                    ]
+                },
+                xAxis: {type: 'category'},
+                yAxis: {gridIndex: 0},
+                grid: {top: '55%'},
+                series: [
+
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {type: 'line', smooth: true, seriesLayoutBy: 'row'},
+                    {
+                        type: 'pie',
+                        id: 'pie',
+                        radius: '30%',
+                        center: ['50%', '25%'],
+                        label: {
+                            formatter: '{b}: {@2015} ({d}%)'
+                        },
+                        encode: {
+                            itemName: 'product',
+                            value: '2015',
+                            tooltip: '2015'
+                        }
+                    }
+                ]
+            };
+
+            myChart1.on('updateAxisPointer', function (event) {
+                var xAxisInfo = event.axesInfo[0];
+                if (xAxisInfo) {
+                    var dimension = xAxisInfo.value + 1;
+                    myChart1.setOption({
+                        series: {
+                            id: 'pie',
+                            label: {
+                                formatter: '{b}: {@[' + dimension + ']} ({d}%)'
+                            },
+                            encode: {
+                                value: dimension,
+                                tooltip: dimension
+                            }
+                        }
+                    });
+                }
+            });
+
+            myChart1.setOption(option1);
+        });
+    }
+
+    inint();
+</script>
+</html>

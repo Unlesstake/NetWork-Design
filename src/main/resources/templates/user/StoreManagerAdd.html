@@ -76,6 +76,7 @@
                 <input type="text" id="lon" name="lon" placeholder="请输入电商位置经度"
                        required autocomplete="off" maxlength="10" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
 
+
                 <label id="lattext">纬度:</label><br /><br />
                 <input type="text" id="lat" name="lat" placeholder="请输入电商位置纬度"
                        required autocomplete="off" maxlength="10" onkeyup="value=value.replace(/[^\d^\.]+/g,'').replace('.','$#$').replace(/\./g,'').replace('$#$','.')"><br />
@@ -96,43 +97,46 @@
                     <option value="图书文娱">图书文娱</option>
                 </select><br>
 
-                <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>
-                <label style="position: relative;top: -333px;left: 570px">未成年人（18岁以下）:&nbsp;</label>
-                <input type="text" id="under_age" name="under_age" placeholder="请输入销售数据" maxlength="7"
-                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">青年人（18——28岁）:</label>
-                <input type="text" id="puber" name="puber" placeholder="请输入销售数据" maxlength="7"
-                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">壮年人（29——40岁）:</label>
-                <input type="text" id="young_man" name="young_man" placeholder="请输入销售数据" maxlength="7"
-                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">中年人（41——65岁）:</label>
-                <input type="text" id="middle_aged" name="middle_aged" placeholder="请输入销售数据" maxlength="7"
-                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
-                <label style="position: relative;top: -333px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" id="aged" name="aged" placeholder="请输入销售数据" maxlength="7"
-                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"
-                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />
-
                 <button id="button1" type="submit">确定</button>
                 <button id="button2" type="button" onclick="window.location.href='/StoreManager'">返回</button>
-
-                <form enctype="multipart/form-data" id="batchUpload" action="user/upload" method="post" class="form-horizontal">    
-                    <button class="btn btn-success btn-xs" id="uploadEventBtn" style="height:26px;" type="button">选择文件</button>  
-                    <input type="file" name="file" style="width:0px;height:0px;" id="uploadEventFile">  
-                    <input id="uploadEventPath" disabled="disabled" type="text" placeholder="请选择excel表" style="border: 1px solid #e6e6e6; height: 26px;width: 200px;">                                           
-                </form>  
-                <button type="button" class="btn btn-success btn-sm" οnclick="user.uploadBtn()">上传</button>  
-
             </form>
+            <div style="position: absolute;width: 45%;height: 80%;left: 50%;top: 24%">
+                <span style="color: #888888;font-size: 13pt">电商名称是店铺关键性信息，可允许重复</span><br>
+                <span style="position:absolute;color: #888888;font-size: 13pt;top: 80px">所在城市就是电商所在省份的省会城市</span><br>
+                <span style="position:absolute;color: #888888;font-size: 13pt;top: 150px">谨慎填写，涉及地图可视化，经度信息请尽量精确到小数点后六位</span><br>
+                <span style="position:absolute;color: #888888;font-size: 13pt;top: 230px">谨慎填写，涉及地图可视化，维度信息请尽量精确到小数点后六位</span><br>
+                <span style="position:absolute;color: #888888;font-size: 13pt;top: 320px">客服热线可用于联系电商，进行信息维护</span><br>
+                <span style="position:absolute;color: #888888;font-size: 13pt;top: 400px">目前只支持八个经营范围，下拉进行选择</span><br>
+
+            </div>
+
+<!--                <span style="position: absolute;font-size: 13pt;top: 130px;left: 700px">销售情况</span>-->
+<!--                <label style="position: relative;top: -333px;left: 570px">未成年人（18岁以下）:&nbsp;</label>-->
+<!--                <input type="text" id="under_age" name="under_age" placeholder="请输入销售数据" maxlength="7"-->
+<!--                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"-->
+<!--                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />-->
+
+<!--                <label style="position: relative;top: -333px;left: 570px">青年人（18——28岁）:</label>-->
+<!--                <input type="text" id="puber" name="puber" placeholder="请输入销售数据" maxlength="7"-->
+<!--                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"-->
+<!--                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />-->
+
+<!--                <label style="position: relative;top: -333px;left: 570px">壮年人（29——40岁）:</label>-->
+<!--                <input type="text" id="young_man" name="young_man" placeholder="请输入销售数据" maxlength="7"-->
+<!--                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"-->
+<!--                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />-->
+
+<!--                <label style="position: relative;top: -333px;left: 570px">中年人（41——65岁）:</label>-->
+<!--                <input type="text" id="middle_aged" name="middle_aged" placeholder="请输入销售数据" maxlength="7"-->
+<!--                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"-->
+<!--                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />-->
+
+<!--                <label style="position: relative;top: -333px;left: 570px">老年人（66岁以上）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>-->
+<!--                <input type="text" id="aged" name="aged" placeholder="请输入销售数据" maxlength="7"-->
+<!--                       required autocomplete="off" oninput="value=value.replace(/[^\d]+/g,'')"-->
+<!--                       style="position: relative;top: -333px;left: 570px;width: 200px;height: 30px"><br /><br /><br />-->
+
+
         </div>
 
     </div>

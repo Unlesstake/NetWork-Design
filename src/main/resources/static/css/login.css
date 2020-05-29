@@ -55,9 +55,9 @@ input:hover {
 	border: solid 1px #8B959C;
 	background-color: #E8EAEB;
 }
-
+/*#78C9CF*/
 input:focus {
-	border: solid 1px #78C9CF;
+	border: solid 1px red;
 	background-color: #E4F4F6;
 }
 

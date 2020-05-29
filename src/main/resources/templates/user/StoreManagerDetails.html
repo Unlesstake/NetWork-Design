@@ -30,23 +30,23 @@
                 <span style="position: absolute;left: 50px;top: 70px;color: #C8C8C8">单位：条</span>
 
                 <label id="usernametext">未成年人（18岁以下人群）:&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="text" id="username5" th:value="${store.under_age}" disabled><br><br><br><br>
+                <input type="text" id="username5" th:value="${sales.under_age}" disabled><br><br><br><br>
                 <span style="position:absolute;left: 550px;top: 127px;color:#888888;font-size: 16px">包含童年（0——6岁）和少年（7——17岁）阶段的人群</span>
 
                 <label id="agetext">青年人（18——28岁的人群）:</label>
-                <input type="text" id="age" th:value="${store.puber}" disabled><br><br><br><br>
+                <input type="text" id="age" th:value="${sales.puber}" disabled><br><br><br><br>
                 <span style="position:absolute;left: 550px;top: 225px;color:#888888;font-size: 16px">主要人群处于青春期，大多数为在校人员</span>
 
                 <label id="sextext">壮年人（29——40岁的人群）:</label>
-                <input type="text" th:value="${store.young_man}" disabled><br><br><br><br>
+                <input type="text" th:value="${sales.young_man}" disabled><br><br><br><br>
                 <span style="position:absolute;left: 550px;top: 323px;color:#888888;font-size: 16px">主要人群为成熟期，大多数人处于初入社会或事业上升阶段</span>
 
                 <label id="phonetext">中年人（41——65岁的人群）:</label>
-                <input type="text" id="phone" th:value="${store.middle_aged}" disabled><br><br><br><br>
+                <input type="text" id="phone" th:value="${sales.middle_aged}" disabled><br><br><br><br>
                 <span style="position:absolute;left: 550px;top: 415px;color:#888888;font-size: 16px">包含壮实期（41——48岁）、稳健期（49——55岁）和调整期（56——65岁）三个小阶段</span>
 
                 <label id="emailtext">老年人（66岁以上人群）:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </label>
-                <input type="text" id="email" th:value="${store.aged}" disabled><br><br><br><br>
+                <input type="text" id="email" th:value="${sales.aged}" disabled><br><br><br><br>
                 <span style="position:absolute;left: 550px;top: 520px;color:#888888;font-size: 16px">大多数为退休人员，居家安享晚年</span>
             </form>
             <button id="button" type="button" onclick="window.location.href = '/StoreManager'">返回</button>

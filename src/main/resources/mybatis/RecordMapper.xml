@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.dao.RecordDao">
+    <insert id="add" parameterType="ArrayList">
+        insert into sales_record(StoreId,StoreName,GoodsName,Price,Unit,Number,TotalPrice,BuyerAge,DealTime)
+        values
+        <foreach collection="list" item="obj" index="index" separator=",">
+            (#{obj.StoreId},#{obj.StoreName},#{obj.GoodsName},#{obj.Price},#{obj.Unit},#{obj.Number},#{obj.TotalPrice},${obj.BuyerAge},#{obj.DealTime})
+        </foreach>
+    </insert>
+
+    <select id="find" parameterType="java.lang.Integer" resultType="com.cn.entity.SalesRecord">
+        select * from sales_record where StoreId = #{id}
+    </select>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        delete from sales_record where StoreId = #{id}
+    </delete>
+
+    <select id="findAll" resultType="com.cn.entity.SalesRecord">
+        select * from sales_record
+    </select>
+    
+    <delete id="deleteById" parameterType="java.util.List">
+        delete  from sales_record where Id in
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+    <select id="Query" parameterType="com.cn.entity.SalesRecord" resultType="com.cn.entity.SalesRecord">
+        select * from sales_record
+        <where>
+            <if test="store_id != null and store_id != ''">
+                and StoreId = #{store_id}
+            </if>
+            <if test="goods_name != null and goods_name != ''">
+                and GoodsName like "%"#{goods_name}"%"
+            </if>
+            <if test="sale_number != null and sale_number != ''">
+                and Number = #{sale_number}
+            </if>
+            <if test="deal_time != null and deal_time != ''">
+                and DealTime like #{deal_time}"%"
+            </if>
+        </where>
+
+    </select>
+</mapper>

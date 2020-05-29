@@ -178,7 +178,7 @@ input:focus{
 #button1{
     position: relative;
     left: 300px;
-    top:-330px;
+    top:50px;
     height: 40px;
     width: 90px;
     background-color: #0075A8;
@@ -200,7 +200,7 @@ input:focus{
 #button2{
     position: relative;
     left: 500px;
-    top:-330px;
+    top:50px;
     height: 40px;
     width: 90px;
     border: none;
@@ -227,6 +227,33 @@ input:focus{
     background-color: white;
 }
 #button3:focus{
+    outline: none;
+}
+
+#import{
+    position: absolute;
+    top: 25px;
+    left: 880px;
+    width: 90px;
+    height: 30px;
+    border: none;
+    outline: none;
+    border-radius: 25px;
+    cursor: pointer;
+}
+#import:hover{
+    background-color: #C6C6C6;
+}
+
+#GoDetails{
+    position: absolute;
+    left: 99%;
+    top: 30px;
+    font-size: 14px;
+    border: none;
+    background-color: white;
+}
+#GoDetails:focus{
     outline: none;
 }
 

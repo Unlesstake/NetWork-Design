@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../static/css/RecordDetails.css">
+    <!--    <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>-->
+    <script th:src="@{/static/js/jquery.min.js}"></script>
+    <title>电商管理</title>
+    <link rel="shortcut icon" href="../../static/img/favicon.icon" type="image/x-icon">
+</head>
+<body>
+<div id="div1">
+    <img src="../../static/img/adminPic.jfif" />
+    <label id="username" th:text="${UserName}"></label>
+    <div id="managerPer">
+        <a id="managerPerA" href="/AdminInfo">个人信息</a><br><br><br>
+    </div>
+    <div id="managerUser">
+        <a id="managerUserA" href="/UserManager">用户管理</a><br><br><br>
+    </div>
+    <div id="managerStore">
+        <a id="managerStoreA" href="/StoreManager">电商管理</a><br><br><br>
+    </div>
+</div>
+<div id="div2">
+    <div id="div3">
+        <div>
+<!--            <input type="hidden" th:value="${id}">-->
+            <a style="color: #1890FF;text-decoration: none;position: absolute;top: 15px;left: 15px;cursor: pointer" th:href="@{'/StoreManager/Update/'+${id}}"
+            >返回</a>
+            <label id="QueryGoodsName">商品名称：<input id="QueryGoodsNameText" placeholder="全部" th:value="${goods_name}"></label>
+            <label id="QueryNumber">销售数量：<input id="QueryNumberText" placeholder="全部" th:value="${sale_number}"></label>
+            <label id="QueryDealTime">交易时间：<input id="QueryDealTimeText" placeholder="全部" th:value="${deal_time}"></label>
+
+            <button id="QueryButton" onclick="Query()">查询</button>
+            <button id="DeleteButton">删除数据</button>
+        </div>
+        <div>
+            <table id="Thead">
+                <thead style="font-size: 14pt">
+                <tr bgcolor="#FAFAFA" style="color: #252525">
+                    <th>选择<input style="width: 15px;height: 15px" type="checkbox" id="cheooseBox" th:value="${RecordList[0].storeId}" onclick="changeStatus()" size="7" /></th>
+                    <th>电商名称</th>
+                    <th>商品名称</th>
+                    <th>单价</th>
+<!--                    <th>单位</th>-->
+                    <th>销售数量</th>
+                    <th>总价</th>
+                    <th>买家年龄</th>
+                    <th>交易时间</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+        <div style="position:absolute;overflow-y: scroll;width: 100%;height: 71%;top: 173px">
+            <table id="Tbody">
+                <tbody>
+                <tr th:each="record:${RecordList}"
+                    onmouseover="this.style.backgroundColor='#E6F7FF'" onmouseout="this.style.backgroundColor='#FFFFFF'">
+                    <td align="center"><input style="width: 15px;height: 15px" th:value="${record.id}" type="checkbox"/></td>
+                    <td align="center" th:text="${record.storeName}">SongYangSongYang</td>
+                    <td align="center" th:text="${record.goodsName}"></td>
+                    <td align="center" th:text="${record.price}">男</td>
+<!--                    <td align="center" th:text="${record.unit}">11012345679</td>-->
+                    <td align="center" th:text="${record.number}">747566474@qq.com</td>
+                    <td align="center" th:text="${record.totalPrice}">就恢诡谲怪</td>
+                    <td align="center" th:text="${record.buyerAge}">就恢诡谲怪</td>
+                    <td align="center" th:text="${record.dealTime}">就恢诡谲怪</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+<script>
+    const id=$('#cheooseBox').val();
+    if(id==-1){
+        $('#Tbody').hide();
+    }
+
+    function Query() {
+        const store_id = $('#cheooseBox').val();
+        const goods_name = $('#QueryGoodsNameText').val()
+        const sale_number = $('#QueryNumberText').val();
+        const deal_time = $('#QueryDealTimeText').val();
+        window.location.href = "/StoreManage/QueryRecord?store_id="+store_id+'&goods_name='+goods_name+'&sale_number='+sale_number+'&deal_time='+deal_time;
+
+    }
+
+    function changeStatus(){
+        var flag = $("#cheooseBox").is(":checked");
+        console.log(flag);
+        $("input").prop("checked",flag);
+    }
+
+    $(function(){
+        //给提交的button绑定点击事件
+        $("#DeleteButton").click(function(){
+            if(confirm("确定删除所选项？")){
+                var recordIds = new Array();
+                if (!$("#cheooseBox").is(":checked")) {
+                    recordIds.push($("#cheooseBox").val())
+                }
+                $("input:checked").each(function(){
+                    //将标签的值放入数组中
+                    recordIds.push($(this).val());//此处添加不能使用add  add不是一个function
+
+                });
+                console.log(recordIds);
+                $.ajax({
+                    type:"post",
+                    url:"/RecordDelete",
+                    data:{"recordIds":recordIds},
+                    dataType:"json",
+                    success:function(res){
+                        if(res.code == 200){
+                            if(confirm(res.desc)){
+                                window.location.reload();
+                            }
+                        }
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

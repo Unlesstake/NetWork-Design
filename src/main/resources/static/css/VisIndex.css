@@ -1,0 +1,20 @@
+
+body{
+    margin: 0;
+    padding: 0;
+}
+input{
+    position: relative;
+    left: 150px;
+    /*top: 18px;*/
+    height: 34px;
+    width: 400px;
+    font-size: 12pt;
+    letter-spacing:1px;
+    color: #34495E;
+    text-indent: 7px;
+    border: solid 1px #DDE4E6;
+    background-color: #FBFCFC;
+    border-radius: 20px;
+    text-align: center;
+}

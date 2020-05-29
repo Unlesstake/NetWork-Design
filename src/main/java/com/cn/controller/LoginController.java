@@ -2,6 +2,7 @@ package com.cn.controller;
 
 
 import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,21 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.alibaba.fastjson.JSON;
-import com.cn.dao.AdminDao;
-import com.cn.dao.StoreDao;
-import com.cn.entity.Admin;
-import com.cn.entity.CommonUser;
-import com.cn.entity.Store;
+import com.cn.dao.*;
+import com.cn.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.cn.dao.UserDao;
-import com.cn.entity.UserInfo;
+import org.springframework.web.bind.annotation.*;
 
 import net.sf.json.JSONObject;
 
@@ -41,6 +33,12 @@ public class LoginController {
 
 	@Resource
 	StoreDao storedao;
+
+	@Resource
+	SalesDao salesdao;
+
+	@Resource
+	RecordDao recorddao;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -112,7 +110,8 @@ public class LoginController {
 	@RequestMapping("/UserInfo")
 	public String getUserInfo(Model model) {
 
-		List<Store> StoreList = storedao.FindAll();
+//		List<Store> StoreList = storedao.FindAll();
+		List<StoreAndSales> StoreList = storedao.StoreAndSales();
 		model.addAttribute("StoreList", JSON.toJSONString(StoreList));
 
 		// 从浏览器中获取cookie
@@ -165,5 +164,18 @@ public class LoginController {
 		}
 		return "public/false";
 	}
+
+	@RequestMapping(path = "/VisualizationDetail", method = RequestMethod.GET)
+	public String VisualizationDetail(@RequestParam("id") Integer id,Model model){
+		Sales sales = salesdao.find(id);
+		Store store = storedao.FindById(id);
+		List<SalesRecord> RecordList = recorddao.find(id);
+		model.addAttribute("sales",sales);
+		model.addAttribute("store",store);
+		model.addAttribute("record",JSON.toJSONString(RecordList));
+		return "user/VisIndex";
+	}
+
+
 
 }

@@ -4,7 +4,6 @@ body{
     overflow: scroll;
     overflow-y: hidden;
 }
-
 #div1{
     /*background-color: #4A7BF7;*/
     position: absolute;
@@ -92,130 +91,136 @@ img {
     text-decoration: none;
 }
 
-#update {
-    width: 70%;
-    height: 80%;
-    top: 45%;
-    left: 50%;
+
+#Thead th{
+    height: 50px;
+    border: 0px;
+    font-size: 13pt;
+}
+#Tbody td{
+    height: 55px;
+    border: 0px;
+    font-size: 13pt;
+    color: #505659;
+}
+table,tr{
+    border: 1px solid #E8E8E8;
+}
+#Thead{
     position: absolute;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    /*box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.8)*/
-    /*页面四周阴影*/
+    width: 1407px;
+    top: 120px ;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-#updatetext{
-    position: relative;
-    left: 50px;
-    top:16px;
-    font-size: 18pt
+#Tbody{
+    position: absolute;
+    width: 100%;
+    top: 0px ;
+    border-collapse: collapse;
+    table-layout: fixed;
 }
-label{
-    position: relative;
+
+#QueryGoodsName{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
     left: 50px;
-    top:30px;
-    font-size: 12pt;
-    color: black;
 }
-input{
-    position: relative;
-    left: 50px;
-    top: 18px;
-    height: 34px;
-    width: 400px;
-    font-size: 12pt;
-    letter-spacing:1px;
-    color: #34495E;
-    text-indent: 7px;
+#QueryGoodsNameText {
+    border-radius: 5px;
     border: solid 1px #DDE4E6;
-    background-color: #FBFCFC;
-    border-radius: 20px;
+    height: 25px;
+    width: 200px;
+    font-size: 12pt;
+    text-indent: 7px;
 }
-input:focus{
+#QueryGoodsNameText:focus{
     outline:none;
-    border-radius: 20px;
+    border-radius: 5px;
     border: solid 1px dodgerblue;
 }
 
-#city{
-    position: relative;
-    left: 50px;
-    top: 18px;
-    height: 37px;
-    width: 400px;
-    font-size: 12pt;
-    letter-spacing:1px;
-    color: #34495E;
-    text-indent: 7px;
-    border: solid 1px #DDE4E6;
-    background-color: #FBFCFC;
-    border-radius: 20px;
+#QueryNumber{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 390px;
 }
-#city:focus{
+#QueryNumberText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 30px;
+    width: 200px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryNumberText:focus{
     outline:none;
-    border-radius: 20px;
+    border-radius: 5px;
     border: solid 1px dodgerblue;
 }
 
-#business_scope{
-    position: relative;
-    left: 50px;
-    top: 18px;
-    height: 37px;
-    width: 400px;
-    font-size: 12pt;
-    letter-spacing:1px;
-    color: #34495E;
-    text-indent: 7px;
-    border: solid 1px #DDE4E6;
-    background-color: #FBFCFC;
-    border-radius: 20px;
+#QueryDealTime{
+    position: absolute;
+    top: 60px;
+    font-size: 13pt;
+    left: 720px;
 }
-#business_scope:focus{
+#QueryDealTimeText{
+    border-radius: 5px;
+    border: solid 1px #DDE4E6;
+    height: 30px;
+    width: 180px;
+    font-size: 12pt;
+    text-indent: 7px;
+}
+#QueryDealTimeText:focus{
     outline:none;
-    border-radius: 20px;
+    border-radius: 5px;
     border: solid 1px dodgerblue;
 }
 
-#button1{
-    position: relative;
-    left: 300px;
-    top:50px;
-    height: 40px;
+#QueryButton{
+    position: absolute;
+    top: 60px;
     width: 90px;
-    background-color: #0075A8;
+    height: 35px;
+    left: 1100px;
+    border-radius: 25px;
     border: none;
-    font-size: 12pt;
+    font-size: 11pt;
     color: white;
-    border-radius: 20px;
+    background-color: #1890FF;
     cursor: pointer;
 }
-#button1:hover{
-    background-color: #005175;
+#QueryButton:hover{
+    background-color: #40A9FF;
 }
-#button1:focus{
+#QueryButton:focus{
     outline:none;
-    border-radius: 20px;
-    border: solid 1px #4A7BF7;
+    border-radius: 25px;
+    border: solid 1px dodgerblue;
 }
 
-#button2{
-    position: relative;
-    left: 500px;
-    top:50px;
-    height: 40px;
-    width: 90px;
+#DeleteButton{
+    position: absolute;
     border: none;
-    font-size: 12pt;
-    color: #0075A8;
+    left: 1270px;
+    top: 60px;
+    width: 100px;
+    height: 35px;
+    font-size: 11pt;
     border-radius: 20px;
+    color: white;
+    background-color: #1890FF;
     cursor: pointer;
 }
-#button2:hover{
-    background-color: #C6C6C6;
+#DeleteButton:hover{
+    background-color: #317EF3;
 }
-#button2:focus{
+#DeleteButton:focus{
     outline:none;
-    border-radius: 20px;
+    border-radius: 25px;
+    border: solid 1px dodgerblue;
 }
-
-
