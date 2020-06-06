@@ -118,6 +118,10 @@
                 </tbody>
             </table>
         </div>
+        <span style="position: absolute;top: 95%;left: 42%">第<label th:text="${page}"></label>页</span>
+        <span style="position: absolute;top: 95%;left: 47%">跳转至
+            <input id="index" style="width: 50px;text-align: center" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"> 页</span>
+        <button onclick="Paging()" style="position: absolute;top: 95%;left: 58%" id="PageButton">跳转</button>
     </div>
 </div>
 <script>
@@ -126,8 +130,20 @@
         const city = $('#QueryCityText').val();
         const scope = $('#QueryScopeText').val();
         const phone = $('#QueryPhoneText').val();
-        window.location.href = "QueryStore?store_name="+store_name+'&city='+city+'&business_scope='+scope+'&phone='+phone;
+        window.location.href = "/StoreManager/QueryStore?store_name="+store_name+'&city='+city+'&business_scope='+scope+'&phone='+phone;
+    }
 
+    function Paging() {
+        const index = $('#index').val();
+        const store_name = $('#QueryStoreNameText').val();
+        const city = $('#QueryCityText').val();
+        const scope = $('#QueryScopeText').val();
+        const phone = $('#QueryPhoneText').val();
+        if (index==""){
+            window.location.href = "/StoreManager/Paging?page="+1+'&store_name='+store_name+'&city='+city+'&business_scope='+scope+'&phone='+phone;
+        }else{
+            window.location.href = "/StoreManager/Paging?page="+index+'&store_name='+store_name+'&city='+city+'&business_scope='+scope+'&phone='+phone;
+        }
     }
 </script>
 </body>

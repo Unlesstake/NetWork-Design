@@ -19,7 +19,9 @@ import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class StoreManagerController {
@@ -37,8 +39,12 @@ public class StoreManagerController {
 
     @RequestMapping("/StoreManager")                    //主页面
     public String StoreManager(Model model){
-        List<Store> StoreList = storedao.FindAll();
+        Map<String,Integer> map = new HashMap<String, Integer>();
+        map.put("startIndex",0);
+        map.put("pageSize",50);
+        List<Store> StoreList = storedao.FindAll(map);
         model.addAttribute("StoreList", StoreList);
+        model.addAttribute("page",1);
 
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -112,7 +118,7 @@ public class StoreManagerController {
         int flag = storedao.DelStore(DeStore.getId());
         int flag2 = salesdao.delete(DeStore.getId());
         int flag3 = recorddao.delete(DeStore.getId());
-        if(flag>0&&flag2>0&&flag3>0){
+        if(flag>0&&flag2>0){
             JSONObject object = new JSONObject();
             object.put("code", 200);
             object.put("desc", "删除电商数据成功！");
@@ -163,7 +169,7 @@ public class StoreManagerController {
         }
     }
 
-    @RequestMapping(path = "/QueryStore", method = RequestMethod.GET)        /*查询电商*/
+    @RequestMapping(path = "/StoreManager/QueryStore", method = RequestMethod.GET)        /*查询电商*/
     public ModelAndView Query(@RequestParam("store_name") String store_name, @RequestParam("city") String city, @RequestParam("business_scope") String business_scope, @RequestParam("phone") String phone){
         ModelAndView NewView = new ModelAndView("user/StoreManager");
         Cookie[] cookies = request.getCookies();
@@ -175,11 +181,35 @@ public class StoreManagerController {
                 break;
             }
         }
-        NewView.addObject("StoreList", storedao.Query(store_name,city,business_scope,phone));
+        int startIndex = 0;
+        NewView.addObject("StoreList", storedao.Query(store_name,city,business_scope,phone,startIndex));
         NewView.addObject("store_name", store_name);
         NewView.addObject("city",city);
         NewView.addObject("business_scope",business_scope);
         NewView.addObject("phone", phone);
+        NewView.addObject("page",1);
+        return NewView;
+    }
+
+    @RequestMapping(path = "/StoreManager/Paging", method = RequestMethod.GET)
+    public ModelAndView Paging(@RequestParam("page") Integer index,@RequestParam("store_name") String store_name, @RequestParam("city") String city, @RequestParam("business_scope") String business_scope, @RequestParam("phone") String phone){
+        ModelAndView NewView = new ModelAndView("user/StoreManager");
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        for (Cookie cookie : cookies) {
+            if ("token_admin".equals(cookie.getName())) {
+                Admin user = (Admin) session.getAttribute(cookie.getValue());
+                NewView.addObject("UserName", user.getUsername());
+                break;
+            }
+        }
+        int startIndex = (index-1)*50;
+        NewView.addObject("StoreList", storedao.Query(store_name,city,business_scope,phone,startIndex));
+        NewView.addObject("store_name",store_name);
+        NewView.addObject("city",city);
+        NewView.addObject("business_scope",business_scope);
+        NewView.addObject("phone",phone);
+        NewView.addObject("page",index);
         return NewView;
     }
 }

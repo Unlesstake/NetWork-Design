@@ -79,6 +79,10 @@
                 </tbody>
             </table>
         </div>
+        <span style="position: absolute;top: 95%;left: 42%">第<label th:text="${page}"></label>页</span>
+        <span style="position: absolute;top: 95%;left: 47%">跳转至
+            <input id="index" style="width: 50px;text-align: center" oninput="value=value.replace(/^(0+)|[^\d]+/g,'')"> 页</span>
+        <button onclick="Paging()" style="position: absolute;top: 95%;left: 58%" id="PageButton">跳转</button>
     </div>
 </div>
 <script>
@@ -94,8 +98,20 @@
         const age = $('#QueryAgeText').val();
         const sex = $('#QuerySexText').val();
         const phone = $('#QueryPhoneText').val();
-        window.location.href = "Query?username="+username+'&age='+age+'&sex='+sex+'&phone='+phone;
+        window.location.href = "/UserManager/Query?username="+username+'&age='+age+'&sex='+sex+'&phone='+phone;
+    }
 
+    function Paging() {
+        const index = $('#index').val();
+        const username = $('#QueryUserNameText').val();
+        const age = $('#QueryAgeText').val();
+        const sex = $('#QuerySexText').val();
+        const phone = $('#QueryPhoneText').val();
+        if (index==""){
+            window.location.href = "/UserManager/Paging?page="+1+'&username='+username+'&age='+age+'&sex='+sex+'&phone='+phone;
+        }else{
+            window.location.href = "/UserManager/Paging?page="+index+'&username='+username+'&age='+age+'&sex='+sex+'&phone='+phone;
+        }
     }
 </script>
 </body>

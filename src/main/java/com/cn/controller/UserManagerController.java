@@ -29,9 +29,11 @@ public class UserManagerController {
 
     @RequestMapping("/UserManager")             /*主页面跳转*/
     public String manager(Model model){
-        List<UserInfo> UserList = userdao.findall();
+        int startIndex = 0;
+        List<UserInfo> UserList = userdao.findall(startIndex);
         model.addAttribute("UserList",UserList);
         model.addAttribute("UserNumber", UserList.size());
+        model.addAttribute("page",1);
 
         Cookie[] cookies = request.getCookies();
         HttpSession session = request.getSession();
@@ -135,7 +137,7 @@ public class UserManagerController {
         return object.toString();
     }
 
-    @RequestMapping(path = "/Query", method = RequestMethod.GET)        /*查询用户*/
+    @RequestMapping(path = "/UserManager/Query", method = RequestMethod.GET)        /*查询用户*/
     public ModelAndView Query(@RequestParam("username") String username,@RequestParam("age") Integer age,@RequestParam("sex") String sex,@RequestParam("phone") String phone){
         ModelAndView NewView = new ModelAndView("user/UserManager");
         Cookie[] cookies = request.getCookies();
@@ -147,12 +149,37 @@ public class UserManagerController {
                 break;
             }
         }
-        NewView.addObject("UserList", userdao.Query(username,age,sex,phone));
+        int startIndex = 0;
+        NewView.addObject("UserList", userdao.Query(username,age,sex,phone,startIndex));
         NewView.addObject("username", username);
         NewView.addObject("age",age);
         NewView.addObject("sex",sex);
         NewView.addObject("phone", phone);
-        NewView.addObject("UserNumber",userdao.Query(username,age,sex,phone).size());
+        NewView.addObject("page",1);
+        NewView.addObject("UserNumber",userdao.Query(username,age,sex,phone,startIndex).size());
+        return NewView;
+    }
+
+    @RequestMapping(path = "/UserManager/Paging", method = RequestMethod.GET)        /*查询用户*/
+    public ModelAndView Query(@RequestParam("page") Integer index,@RequestParam("username") String username,@RequestParam("age") Integer age,@RequestParam("sex") String sex,@RequestParam("phone") String phone){
+        ModelAndView NewView = new ModelAndView("user/UserManager");
+        Cookie[] cookies = request.getCookies();
+        HttpSession session = request.getSession();
+        for (Cookie cookie : cookies) {
+            if ("token_admin".equals(cookie.getName())) {
+                Admin user = (Admin) session.getAttribute(cookie.getValue());
+                NewView.addObject("UserName", user.getUsername());
+                break;
+            }
+        }
+        int startIndex = (index-1)*50;
+        NewView.addObject("UserList", userdao.Query(username,age,sex,phone,startIndex));
+        NewView.addObject("username", username);
+        NewView.addObject("age",age);
+        NewView.addObject("sex",sex);
+        NewView.addObject("phone", phone);
+        NewView.addObject("page",index);
+        NewView.addObject("UserNumber",userdao.Query(username,age,sex,phone,startIndex).size());
         return NewView;
     }
 }

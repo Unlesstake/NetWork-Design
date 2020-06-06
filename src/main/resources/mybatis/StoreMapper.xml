@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.cn.dao.StoreDao">
 
-    <select id="FindAll" resultType="com.cn.entity.Store">
-        select * from store_info
+    <select id="FindAll" resultType="com.cn.entity.Store" parameterType="Map">
+        select * from store_info limit #{startIndex},#{pageSize};
     </select>
 
     <select id="StoreAndSales" resultType="com.cn.entity.StoreAndSales">
@@ -35,8 +35,8 @@
     <select id="IsExist" parameterType="java.lang.String" resultType="com.cn.entity.Store">
         select * from store_info where store_name = #{store_name}
     </select>
-
-    <select id="Query" parameterType="com.cn.entity.Store" resultType="com.cn.entity.Store">
+<!--    parameterType="com.cn.entity.Store"-->
+    <select id="Query"  resultType="com.cn.entity.Store">
         select * from store_info
         <where>
             <if test="store_name != null and store_name != ''">
@@ -52,6 +52,7 @@
                 and phone like #{phone}"%"
             </if>
         </where>
+        limit #{startIndex},50;
     </select>
 
 </mapper>

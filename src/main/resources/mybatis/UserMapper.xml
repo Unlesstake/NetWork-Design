@@ -7,7 +7,7 @@
     </select>
 
   <select id="findall" resultType="com.cn.entity.UserInfo">
-      select * from userinfo
+      select * from userinfo limit #{startIndex},50;
   </select>
 
     <insert id="adduser"  parameterType="com.cn.entity.UserInfo">
@@ -34,7 +34,7 @@
       SELECT  * FROM userinfo where username = #{username}
     </select>
     
-    <select id="Query" parameterType="com.cn.entity.UserInfo" resultType="com.cn.entity.UserInfo">
+    <select id="Query" resultType="com.cn.entity.UserInfo">
         select * from userinfo
         <where>
             <if test="username != null and username != ''">
@@ -50,6 +50,7 @@
                 and phone like #{phone}"%"
             </if>
         </where>
+        limit #{startIndex},50;
     </select>
 
 </mapper>
